@@ -53,3 +53,4 @@ dkms.conf
 
 minishell
 .build_mode
+memcheck.log

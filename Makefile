@@ -36,7 +36,9 @@ BUILD_MODE_FILE := .build_mode
 DEBUG			?= 0
 VALGRIND		?= 0
 VALGRIND_FLAGS	:= -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
-		--track-origins=yes --trace-children=yes --track-fds=yes
+		--track-origins=yes --trace-children=yes --track-fds=yes \
+		--gen-suppressions=all --suppressions=valgrind.supp \
+		--log-file=memcheck.log
 
 ifeq ($(DEBUG),1)
 	CFLAGS += -g3 -fsanitize=address
@@ -160,8 +162,8 @@ debug:
 	fi
 	@echo "DEBUG=1" > $(BUILD_MODE_FILE)
 	@$(MAKE) DEBUG=1 -s
-	@echo " -> $(BW)[Debug]:\t\t$(BB)Debug mode enabled\t🟦$(NC)"
-	-@if [ ! -z "$(ARGS)" ]; then ./$(NAME) $(ARGS); fi
+	@echo " -> $(BW)[Debug]:\t\t$(BB)Debug mode enabled\t🟦$(NC)\n"
+	-@./$(NAME) $(ARGS)
 
 # Rule to compile with valgrind debug flags
 valgrind:
@@ -170,10 +172,8 @@ valgrind:
 	fi
 	@echo "VALGRIND=1" > $(BUILD_MODE_FILE)
 	@$(MAKE) VALGRIND=1 -s
-	@echo " -> $(BW)[Valgrind]:\t\t$(BB)Valgrind mode enabled\t🟦$(NC)"
-	-@if [ ! -z "$(ARGS)" ]; then \
-		valgrind $(VALGRIND_FLAGS) ./$(NAME) $(ARGS); \
-	fi
+	@echo " -> $(BW)[Valgrind]:\t\t$(BB)Valgrind mode enabled\t🟦$(NC)\n"
+	-@valgrind $(VALGRIND_FLAGS) ./$(NAME) $(ARGS)
 
 # **************************************************************************** #
 # ADDITIONAL RULES

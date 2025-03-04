@@ -1,0 +1,48 @@
+{
+   fd_leak_dev_ptmx
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/dev/ptmx
+}
+
+{
+    readline_all_1
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.2
+}
+
+{
+    readline_all_2
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:readline
+}
+
+{
+    readline_history
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:add_history
+}
+
+{
+    readline_internal_alloc
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:xmalloc
+    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.2
+}
+
+{
+    readline_history_entry
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:alloc_history_entry
+}
