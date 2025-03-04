@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/02 23:40:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:01:59 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@ int	main(void)
 {
 	char	*line;
 
-	line = readline("Minishell > ");
-	printf("%s\n", line);
+	while (1)
+	{
+		line = readline("Minishell > ");
+		if (!line)
+			break ;
+		printf("%s\n", line);
+		free(line);
+	}
 	return (0);
 }
