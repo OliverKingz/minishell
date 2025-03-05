@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/04 19:45:07 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:55:09 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,46 @@ tputs: Outputs a terminal string with padding.
 */
 
 /* ************************************************************************** */
+
+//#➵⤐──╌╌➣⋆➣╌╌──⤏➵•➵⤐──╌╌➣⋆➣╌╌──Macros  :──╌╌➣⋆➣╌╌──⤏➵•➵⤐──╌╌➣⋆➣╌╌➔#
+
+//Extremos de los pipes
+# define READ_END 0
+# define WRITE_END 1
+
+//	**ERROR MESSAGES: MINISHELL**
+# define SYNTAX_ERR "❌ syntax error\n"
+
+//	**ERROR MESSAGES: SHELL**
+//	syntax error near unexpected token	-> bash: syntax error near unexpected token `newline', `|',  `>', etc
+# define BASH_ERR "bash: syntax error near unexpected token"
+
+//Comando inexistente	-> command: command not found
+# define ERR_COMMAND ": command not found\n"
+
+//Error de sintaxis	-> syntax error near unexpected token 'X'
+//add ERR_MSG "bash: syntax error near unexpected token "
+
+//Variable inválida en export	-> export: 'var': not a valid identifier
+# define ERR_IDENTIF "not a valid identifier"
+
+//Permiso denegado	-> filename: Permission denied
+//add ERR_MSG ": permission denied"
+
+//cd a directorio inexistente	-> cd: folder: No such file or directory
+# define ERR_F_OR_D	": no such file or directory"		//cd y cat en archivo inexistente
+
+//cat en archivo inexistente	-> cat: file: No such file or directory
+# define ERR_F_OR_D	": no such file or directory"		//cd y cat en archivo inexistente
+
+//Redirección sin archivo	-> bash: syntax error near unexpected token 'newline'
+//add ERR_MSG
+
+//Archivo no ejecutable	-> file: Exec format error
+//add ERR_MSG
+
+//#➵⤐─╌➣⋆➣╌─⤏➵•➵⤐─╌➣⋆➣╌╌──Global Variables :──╌╌➣⋆➣╌─⤏➵•➵⤐──╌╌➣⋆➣╌╌➔#
+
+extern int g_sign;
 
 #endif
