@@ -64,8 +64,8 @@
 - [ ] Implement `exit` to terminate the shell.
 
 ## 10. Custom
-- Elemento 1
-  - Sub-elemento 1.1
+- [ ] Elemento 1
+  - [ ] Sub-elemento 1.1
 
 ---
 
