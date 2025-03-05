@@ -1,0 +1,180 @@
+
+//REVISAR
+// 1 - no quiotes
+// 2 - yes quiotes cerradas solo
+// 3 - special_operator solo sin quites cerradas o abiertas
+// 4 - quiotes + special_operator
+// 5 - yes quotes - abiertas -  free y break en minishell_pool
+
+int check_command_line(const char *line)
+{
+	bool quiotes_present = false;
+	bool special_operator_present = false;
+
+	if (quotes_is_open(line) == true)
+		return (5);
+	
+	if (is_quiotes_present (line))
+		quiotes_present = true;
+	
+	if (is_special_operator_present(line))
+		special_operator_present = true;
+	
+	if (quiotes_present == true && special_operator_present == true)
+		return (4);	
+	 
+}
+
+char *add_space(const char *old_line, char *new_line, str add)
+{
+
+
+	free(old_line);
+	return (new_line);
+}
+
+//true - ok
+//false - free y break en minishell_loop
+
+bool ft_tokeniser(const char *line, char **token)
+{
+	revisar estos casos antes de ver comillas abiertas, metacacar prihibidos y car_especiales prohibidos:
+
+	'|											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	"|											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+
+
+	"|"											SHELL_ERROR -> |: command not found
+	!|											SHELL_ERROR -> --bash: !: event not found
+	&|											SHELL_ERROR -> -bash: syntax error near unexpected token `&'
+	<|											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+
+
+	token en si y va ejecucion y se lleva su error:
+	|'											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+	|"											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+	|											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+	|!											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+	|&											SHELL_ERROR -> -bash: syntax error near unexpected token `|&' -> 2: command not found
+	|>											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+	<|											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 2: command not found
+
+	|$											SHELL_ERROR -> -bash: syntax error near unexpected token `|' -> 130: command not found
+
+
+	token en si y va ejecucion y se lleva su error:						
+	<											SHELL_ERROR -> -bash: syntax error near unexpected token `newline'
+	<!											SHELL_ERROR -> -bash: !: No such file or directory
+	<&											SHELL_ERROR -> -bash: syntax error near unexpected token `newline'
+	<>											SHELL_ERROR -> -bash: syntax error near unexpected token `newline'
+	<$											SHELL_ERROR -> -bash: $: No such file or directory
+	<+											SHELL_ERROR -> -bash: +: No such file or directory
+
+	wc -l '<' testeo.txt						SHELL_ERROR -> (REVISAR ESTE CASO, DA SHELL_ERROR Y RESULTADO)
+	wc -l "<" testeo.txt						SHELL_ERROR -> (REVISAR ESTE CASO, DA SHELL_ERROR Y RESULTADO)
+
+	<'											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	<"											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	'$											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	$'											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	"$											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+	"$											SINTAXIS_ERROR (COMO EN COMILLAS ABIERTAS)
+
+
+	
+	
+
+	if (not_allow_spec_metacharacter(line) == false)
+		return (false);
+
+	if (not_allow_spec_operators(line) == false)
+		return (false);
+
+	if (not_allow_bracket(line) == false)
+		return (false);
+
+
+
+	ver casos exec y cerrado de exec
+	
+		
+	//Expansiones ($(cmd), ${var}, $((exp)))
+
+
+	//metacharacters revisar otra verz caso \ DENTRO Y FUERA DE COMILLAS
+	
+
+	//revisar caso ':' con variables
+
+
+
+	revisar entes de split o tokenize_with_quotes
+	ls "|" wc -ls								SHELL_ERROR -> ls: cannot access '|': No such file or directory + ls: cannot access 'wc': No such file or directory
+	ls '|' wc -ls								SHELL_ERROR -> ls: cannot access '|': No such file or directory + ls: cannot access 'wc': No such file or directory
+	ls"|"wc -ls									SHELL_ERROR -> ls|wc: command not found
+
+
+	//expancion de variables antes de tokenizar
+
+	//check linea de comandos para decidir como tokenizar:
+	check_command_line(line);
+
+
+//tokenizar a **token con split() o tokenize_with_quotes()-----------------------------
+
+
+
+	quitar tabulaciones shell tokeniza tabulaciones y ft_split no. ***ver ejemplos
+	echo \t													output: \
+	echo \\t												output: \\t
+	echo "\t hola" 											output: \t hola
+	echo "\\t hola" 										output: \\t hola
+	echo '\t hola' 											output: \t hola
+	echo '\t hola' 											output: \\t hola
+	echo "hola	mundo	unicornio	loco	"  				output: hola    mundo   unicornio       loco
+	echo hola    mundo   unicornio       loco 				output: hola mundo unicornio loco
+
+
+	cat 			testeo.txt								output: Hello
+	
+		if '\t' dentro de ' o " se mantiene
+		else if -> se quita ver examr02
+
+	//expancion de variables en tokenizacion
+
+	//tokens con comillas en caso echo 'Hello | World'
+	if ((is_quotes_present(line) == true) && (is_even_quotes(line) == true))
+		token = tokenize_with_quotes(line);
+			if (is_comment(token[i]) == true)
+					(ALGO);
+	//operadores especiales separados o no con espacios
+	else if ()
+		//separado con espacio
+		if (is_spec_operador (line) == false  VER F() )
+		tokenizar con "" o '' para que de SHELL_ERROR --< por ft_split con comillas
+		//ls "|" wc -ls								SHELL_ERROR -> ls: cannot access '|': No such file or directory + ls: cannot access 'wc': No such file or directory
+		//ls '|' wc -ls								SHELL_ERROR -> ls: cannot access '|': No such file or directory + ls: cannot access 'wc': No such file or directory
+		//ls"|"wc -ls  								SHELL_ERROR ->  ls|wc: command not found
+			
+			token = ft_split(new_line, ' ');
+				if (is_comment(token[i]) == true)
+					 (ALGO);
+
+		//si el operador espacial no esta separado con espacio && no es parte de str: echo 'Hello | World' &&  no es un operados prohibido o parte de operador prohibido (ver chekeos anteriores).
+		else if ()
+			//char *new_line;
+			if ((char_is_metacharacter(line) == true) && (not_allow_metacharacter(line) == false) && (es << o >> sin encomillar)) //metacaracter permitido sin espacios -> añadir espacios para ser token sin comillas
+				new_line = add_space(char *old_line, *char new_line, str add) para añadir espacios al metacaracter espacial (|, <, >, >>, <<) y que split se ocupe ver examen hay un ejerc de eso:
+			token = ft_split(new_line, ' ');
+
+
+
+//fin tokenizar --------------------------------------------------------------------
+
+	return (true);
+
+}
+
+
+
+

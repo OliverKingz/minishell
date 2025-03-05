@@ -1,0 +1,47 @@
+// unsigned short int num = 65535; 2 bytes.
+// unsigned int num = 4294967295;
+
+/*revisar si se usa o no
+typedef struct s_program
+{
+	unsigned short int token_num;						//contador de tokens para hacer la lista enlazada, revisar esta parte se pede usar funciones como list_size o count_tokens () o ft_count_words revisar esta parte
+	//unsigned short int pipe_cont;						//numero de pipes para crear procesos hijos y saber si necesitamos crear procesos hijos
+	//unsigned short int child_proces_cont;				//numero de procesos hijo
+	
+	unsigned short int command_cont;					//contador de comandos
+	//unsigned short int arguments_cont;					//contador de argumentos
+	//unsigned short int redirection_operator_cont; 		//contador de redirection_operators
+	//unsigned short int file_for_redirection_cont; 		//contador de files_for_redirection
+
+	//bool redirect_proc;									//hay o no redireccion para paso 5
+	//bool quoting_proc;								//hay o no que hacer quoting en el paso 4
+	//bool expansion_proc;								//hay que gestionar expanciones o no
+	//bool flag_shell_error;
+							
+
+}	t_program;
+
+*/
+
+/*
+void print_program_struct(const t_program *prog)
+{
+    if (prog == NULL)
+    {
+        printf("Estructura t_program es NULL\n");
+        return;
+    }
+
+    printf("\n---------------Estructura t_program:---------------\n");
+    printf("Token Count: %hu\n", prog->token_num);
+    printf("Pipe Count: %hu\n", prog->pipe_cont);
+    printf("Child Process Count: %hu\n", prog->child_proces_cont);
+    printf("Command Count: %hu\n", prog->command_cont);
+    printf("Arguments Count: %hu\n", prog->arguments_cont);
+    printf("Redirection Operator Count: %hu\n", prog->redirection_operator_cont);
+    printf("Files for Redirection Count: %hu\n", prog->file_for_redirection_cont);
+    printf("Redirect Processing: %s\n", prog->redirect_proc ? "Yes" : "No");
+    printf("Quoting Processing: %s\n", prog->quoting_proc ? "Yes" : "No");
+    printf("⋆⋆⋆──✦•✦⋆⋆⋆──✶⋆ ⋆⋆⋆✦•✦⋆⋆⋆ ⋆⋆⋆✦•✦⋆⋆⋆⋆✶──⋆⋆⋆✦•✦⋆⋆⋆\n\n");
+}
+*/

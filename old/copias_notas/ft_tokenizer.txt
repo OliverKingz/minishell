@@ -1,0 +1,200 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_tokenizer.txt                                   :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mzolotar <mzolotar@student.42madrid.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/12 13:17:12 by mzolotar          #+#    #+#              #
+#    Updated: 2025/02/21 07:01:48 by mzolotar         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#include "minishell.h"
+
+/**
+* @brief 
+*
+* @param 
+* @return 
+*/
+
+char **ft_tokeniser(const char *line)
+{
+	char **token=NULL;
+	t_metachars *meta;
+	
+	if (line == NULL)
+	{
+		printf("\033[1;31m🛑 ERROR: en ft_tokeniser: (line == NULL)\n\033[0m"); //null quitar
+        return (NULL);
+	}
+	
+    meta = init_meta_struct(); // Inicializa la estructura t_metachars
+    if (!meta)
+    {
+        printf("\033[0;34m ⚠️Error: No se pudo inicializar la estructura\033[0m\n");  //quitar esta linea
+        return (NULL);
+    }
+
+//test meta: ------------------------------------------------------------
+
+	//printf ("\n-----META TEST: -----\n");
+	//print_metachars(meta);
+	//printf ("-----------------\n\n");
+	
+//fin test meta: ------------------------------------------------------------
+
+	
+	
+//check_sintax_error-------------------------------------------------------
+
+	if (check_sintax_error(line, meta) == true)
+	{
+		printf("\033[0;34m ⚠️ INFO: estamos en: check_sintax_error(line, meta).\033[0m\n");
+		free_meta_struct(meta);
+		return (NULL);
+	}
+	
+//fin check_sintax_error-------------------------------------------------------
+
+	//expancion de variables antesy despues de tokenizartokenize_with_quotes(line);
+	
+	//REVISAR F DE COMILLAS ANTES DE ENTRAR EN 
+	if (is_even_quotes(line) == true && !(quotes_is_open(line))) // comillas cerradas y pares.
+	{
+		//si hay '\t' fuera de comillas reemplazar por ' ' antes de entrar en tokenize_with_quotes(line);
+		//si hay < < o > > da error de bash -bash: syntax error near unexpected token `>'
+		
+		token = tokenize_with_quotes(line);
+		
+	}
+	else if ((is_even_quotes(line) == false) && !(quotes_is_open(line))) // comillas abiertas, impares y despues de | < << > >>
+	{
+		//si hay < < o > > da error de bash -bash: syntax error near unexpected token `>'
+		
+		printf("\033[0;34m ⚠️ INFO: estamos en comillas abiertas despues de | < << > >>.\033[0m\n");
+		return (NULL);
+
+	}
+	else if ((is_quotes_present(line) == false)) // sin comillas
+	{
+		//si hay tabulaciones sin comillas en line se deberian sustituir por ' '
+
+		//si hay < < o > > da error de bash -bash: syntax error near unexpected token `>'
+		
+		//if (check_metacharacter (line, meta->allow_metachar) == true && allow_metachar_without_space(line) == true)
+			//añadir espacios a los | < >  para tokenizar con split:-> add_space_allow_char()
+		//else if (is_allow_operator(line) == true  && allow_oper_without_space(line))
+			//añadir espacios a los << >>  para tokenizar con split:-> add_space_allow_str()
+			
+		token = ft_split(line, ' ');
+
+	}
+	return (token);
+	
+}
+
+
+/**
+* @brief 
+*
+* @param 
+* @return 
+*/
+
+void minishell_loop(char **envp)
+{
+   (void)envp;
+   char **token;
+   t_tokens *tokens;
+   
+   int i;
+   tokens = NULL;
+   //token = NULL;
+
+   while (1) 
+   {
+	   int fd;
+	   char *line;
+
+	   line = get_line();
+	   if (!line) 
+	   {
+		   printf("Error: get_line returned NULL\n");
+		   break;
+	   }
+
+	   fd = open_fd("bash_history.txt", O_RDWR | O_CREAT | O_APPEND, 0777);
+	   ft_putstr_fd (line, fd);
+	   ft_putstr_fd ("\n", fd);
+
+	   if (is_comment(line) == true)		//revisar este caso ponemos break o sintax_error
+	   {
+		   close (fd);
+		   free (line);
+		   printf (SYNTAX_ERR);
+		   break;
+	   }
+	   
+	   // TOKENIZACION ver 3.
+//aqui va la funcion: ft_tokeniser()-------------------------------------------------------------------
+
+	   //init structura metachars
+
+	   token = ft_tokeniser(line);
+	   if (!token)
+	   {
+		   close (fd);
+		   free (line);
+		   printf (SYNTAX_ERR);
+		   break;
+	   }
+//fin de la funcion: ft_tokeniser()-------------------------------------------------------------------
+
+	   //void init_program (t_program *program);		
+
+	   init_list (&tokens, token);  //v1
+
+	   if (ft_strncmp(line, "exit", 4) == 0) // ojo aqui exit es un token no un *str, los espacios en shell se quitan (ft_split)
+	   {
+		   close (fd);
+		   free (line);
+		   free_split_strs(token);
+		   free_tokens_list(&tokens);
+		   break;
+	   }
+	   
+//TEST_TOKENIZACION ver 2.
+//print split:-------------------------------------------------------------------------
+	   printf ("\n-----before list: -----\n");
+	   i = 0;
+	   while (token[i] != NULL)
+	   {
+		   printf ("token[%i]: \033[0;31m%s\033[0m\n", i, token[i]);
+			   if (token[i] == NULL)
+				   break;
+		   i++;
+	   }
+	   printf ("-----------------\n\n");
+	   
+//ptint_program_structure------------------------------------------------------------------------
+	   
+	   //void print_program(const t_program *prog)
+
+//print linked_list------------------------------------------------------------------------------
+	   printf ("\n-----list: -----\n");		
+	   print_list(tokens, fd);
+	   printf ("-----------------\n\n");
+	   
+//fin test----------------------------------------------------------------------------------------
+
+	   
+	   //FREE------------------------------------------------------------------------
+	   close (fd);
+	   free (line);
+	   free_split_strs(token);						//SPLIT
+	   free_tokens_list(&tokens);					//LISTA ENLAZADA== TOKENS
+   }
+}
+
