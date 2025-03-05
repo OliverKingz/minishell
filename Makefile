@@ -15,11 +15,15 @@ LIBFT		:= $(LIBFT_DIR)libft.a
 
 # **************************************************************************** #
 # FILES
-SRC_FILES	:= main
-INC_FILES	:= minishell
+# SRC_FILES	:= main shell parser utils
+SRC_FILES	:= $(wildcard $(SRC_DIR)*.c)
+INC_FILES	:= minishell.h
 
 # GENERAL FILES
-SRCS	:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+#SRCS	:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+# OBJS	:= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+# DEPS	:= $(OBJS:.o=.d)
+SRCS	:= $(wildcard $(SRC_DIR)*.c)
 OBJS	:= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 DEPS	:= $(OBJS:.o=.d)
 

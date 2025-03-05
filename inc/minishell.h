@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/05 17:37:09 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:51:43 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef enum
 	command,
 	option,
 	argument,
-	pipe,
+	op_pipe,
 	var,
 	redir_in,
 	redir_out,
@@ -101,15 +101,20 @@ typedef struct s_cmd
 	char			**env;
 }					t_cmd;
 
-typedef struct s_shell
+typedef struct s_input
 {
+	char			*read_line;
 	t_token			*token_lst;
 	int				cmd_count;
 	int				hdoc_count;
 	int				*heredocs;
 	pid_t			*pid;
 	int				last_exit_status;
-}					t_shell;
+}					t_input;
 
 /* ************************************************************************** */
+
+t_input				*init_input(t_input *in_line);
+void				free_input(t_input *in_line);
+
 #endif
