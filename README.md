@@ -126,10 +126,14 @@ For bonus features, use the bonus rule in the Makefile:
 
 ---
 
-## Author  
+## Authors  
 - **Name**: Oliver King Zamora
 - **GitHub**: [oliverkingz](https://github.com/oliverkingz)
 - **42 Login**: ozamora-
+
+- **Name**: Raúl José Pérez Medina
+- **GitHub**: [RaulPerezDEV](https://github.com/RaulPerezDEV)
+- **42 Login**: raperez-
 
 ---
 

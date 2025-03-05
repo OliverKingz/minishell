@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/05 15:19:10 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:20:20 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,14 @@
 # define READ_END 0
 # define WRITE_END 1
 
-# define SYNTAX_ERR "❌ syntax error\n"
+# define ERR_SYNTAX		"bash: syntax error near unexpected token\n" //bash: syntax error near unexpected token `newline'/`|'/`>'
+# define ERR_COMMAND	": command not found\n" //command: command not found
+# define ERR_PERMISSION ": permission denied\n" //filename: Permission denied
+# define ERR_FILE_DIR	": no such file or directory\n" //cd/cat: folder: No such file or directory
 
-# define ERR_SYNTAX "bash: syntax error near unexpected token" //	syntax error near unexpected token	-> bash: syntax error near unexpected token `newline', `|',  `>', etc
-# define ERR_COMMAND ": command not found\n" //Comando inexistente	-> command: command not found
-# define ERR_IDENTIF "not a valid identifier" //Variable inválida en export	-> export: 'var': not a valid identifier
-# define ERR_PERMISSION ": permission denied" //Permiso denegado	-> filename: Permission denied
-# define ERR_F_OR_D	": no such file or directory" //cd/cat: folder: No such file or directory
-
-//Redirección sin archivo	-> bash: syntax error near unexpected token 'newline'
-//add ERR_MSG
-
-//Archivo no ejecutable	-> file: Exec format error
-//add ERR_MSG
+// Errores que no puedo forzar que salgan. Necesario añadir?
+// file: Exec format error
+// export: 'var': not a valid identifier
 
 /* ************************************************************************** */
 
