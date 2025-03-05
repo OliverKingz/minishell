@@ -5,7 +5,7 @@
 
 //#➵⤐──╌╌➣⋆➣╌╌──⤏➵•➵⤐──╌╌➣⋆➣╌╌──Includes:──╌╌➣⋆➣╌╌──⤏➵•➵⤐──╌╌➣⋆➣╌╌➔#
 
-# include "libft/libft.h"
+//# include "libft/libft.h"
 
 # include <stdlib.h>      // malloc, free, getenv
 # include <stdio.h>       // printf
