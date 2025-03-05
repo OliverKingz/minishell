@@ -63,6 +63,8 @@
 - [ ] Implement `env` to print the environment.
 - [ ] Implement `exit` to terminate the shell.
 
+## 10. Custom
+
 ---
 
 ## Bonus Features (Optional)
