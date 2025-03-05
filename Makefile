@@ -37,8 +37,8 @@ DEBUG			?= 0
 VALGRIND		?= 0
 VALGRIND_FLAGS	:= -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
 		--track-origins=yes --trace-children=yes --track-fds=yes \
-		--gen-suppressions=all --suppressions=valgrind.supp \
-		--log-file=memcheck.log
+		--gen-suppressions=all --suppressions=doc/valgrind.supp \
+		--log-file=doc/memcheck.log
 
 ifeq ($(DEBUG),1)
 	CFLAGS += -g3 -fsanitize=address
@@ -190,18 +190,9 @@ help:
 	@echo "  $(BB)show$(NC)      - Show compilation and linking commands"
 	@echo "  $(BB)info$(NC)      - Show all variables being used"
 
-# Rule to show compilation and linking commands
-show:
-	@echo "$(BY)Compilation command:$(NC)\t"\
-		"$(CC) $(CFLAGS) $(IFLAGS) -c $(SRC_DIR)$(NAME).c -o $(OBJ_DIR)$(NAME).o"
-	@echo "$(BY)Linking command:$(NC)\t"\
-		"$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) -o $(NAME) $(LDFLAGS)"
-	@echo "$(BY)Cleaning command:$(NC)\t rm -rf $(NAME) $(BONUS_NAME)"\
-		"$(OBJ_DIR)*.o $(OBJ_DIR)*.d $(OBJ_DIR) $(BUILD_MODE_FILE)"
-
 # Rule to show all variables being used
 info:
-	@echo "$(BY)\nozamora's Project:$(NC)"
+	@echo "$(BY)\Minishell Project:$(NC)"
 	@echo "$(BB)NAME: $(NC)$(NAME)"
 	@echo "$(BB)LIBFT: $(NC)$(LIBFT)"
 	@echo "$(BB)BONUS_NAME: $(NC)$(BONUS_NAME)"
@@ -233,5 +224,5 @@ info:
 	@echo "$(BB)DEPS_BONUS: $(NC)$(DEPS_BONUS)"
 	@echo "$(BB)IFLAGS_BONUS: $(NC)$(IFLAGS_BONUS)"
 
-.PHONY: all clean fclean re bonus norm debug valgrind help show info
+.PHONY: all clean fclean re bonus norm debug valgrind help info
 .DEFAULT_GOAL := all
