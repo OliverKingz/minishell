@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/06 15:15:54 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:05:16 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,20 @@ typedef struct s_input
 	pid_t			*pid;
 }					t_input;
 
-typedef struct shell
+typedef struct s_shell
 {
-	t_input			in_line;
+	t_input			*input;
 	char			**env;
 	int				last_exit_status;
 }					t_shell;
 
 /* ************************************************************************** */
 
-t_input				*init_input(t_input *in_line);
-void				free_input(t_input *in_line);
+t_input				*init_input(t_shell *mini_sh, char *read_line);
+void				free_input(t_shell *mini_sh);
+
+void				create_shell(t_shell *mini_sh);
+t_shell				*init_shell(t_shell *mini_sh);
+void				free_shell(t_shell *mini_sh);
 
 #endif
