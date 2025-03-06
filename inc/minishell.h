@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/05 20:51:43 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:15:54 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,6 @@
 // filename: Permission denied
 // cd/cat: folder: No such file or directory
 
-// Errores que no puedo forzar que salgan. Necesario añadir?
-// file: Exec format error
-// export: 'var': not a valid identifier
-
 /* ************************************************************************** */
 
 extern int			g_sign;
@@ -70,17 +66,16 @@ extern int			g_sign;
 
 typedef enum
 {
-	temp,
-	command,
-	option,
-	argument,
-	op_pipe,
-	var,
-	redir_in,
-	redir_out,
-	redir_append,
-	redir_heredoc,
-	limiter
+	WORD,
+	COMMAND,
+	ARG,
+	OP_PIPE,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APP,
+	REDIR_HD,
+	FILE_PATH,
+	LIMITER
 }					t_type;
 
 typedef struct s_token
@@ -96,9 +91,8 @@ typedef struct s_cmd
 	int				in_fd;
 	int				out_fd;
 	int				close_fd[2];
-	char			*route;
-	char			**args;
-	char			**env;
+	char			*cmd_path;
+	char			**cmd_args;
 }					t_cmd;
 
 typedef struct s_input
@@ -109,8 +103,14 @@ typedef struct s_input
 	int				hdoc_count;
 	int				*heredocs;
 	pid_t			*pid;
-	int				last_exit_status;
 }					t_input;
+
+typedef struct shell
+{
+	t_input			in_line;
+	char			**env;
+	int				last_exit_status;
+}					t_shell;
 
 /* ************************************************************************** */
 
