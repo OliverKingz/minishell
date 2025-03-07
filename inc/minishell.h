@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 13:01:07 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:19:22 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 
 /* ************************************************************************** */
 
-extern int			g_sign;
+extern int				g_sign;
 
 /* ************************************************************************** */
 
@@ -76,60 +76,62 @@ typedef enum
 	REDIR_HD,
 	FILE_PATH,
 	LIMITER
-}					t_type;
+}						t_type;
 
 typedef struct s_token
 {
-	char			*content;
-	t_type			type;
-	int				index;
-	struct s_token	*next;
-}					t_token;
+	char				*content;
+	t_type				type;
+	int					index;
+	struct s_token		*next;
+}						t_token;
 
 typedef struct s_cmd
 {
-	int				in_fd;
-	int				out_fd;
-	int				close_fd[2];
-	char			*cmd_path;
-	char			**cmd_args;
-}					t_cmd;
+	int					in_fd;
+	int					out_fd;
+	int					close_fd[2];
+	char				*cmd_path;
+	char				**cmd_args;
+}						t_cmd;
 
 typedef struct s_input
 {
-	char			*read_line;
-	t_token			*token_lst;
-	int				cmd_count;
-	int				hdoc_count;
-	int				*heredocs;
-	pid_t			*pid;
-}					t_input;
+	char				*read_line;
+	t_token				*token_lst;
+	int					cmd_count;
+	int					hdoc_count;
+	int					*heredocs;
+	pid_t				*pid;
+}						t_input;
 
 typedef struct s_shell
 {
-	t_input			*input;
-	char			**env;
-	int				last_exit_status;
-}					t_shell;
+	t_input				*input;
+	char				**env;
+	int					last_exit_status;
+}						t_shell;
 
 typedef struct s_envnode
 {
 	char				*name;
 	char				*value;
 	struct s_envnode	*next;
-}	t_envnode;
+}						t_envnode;
 
 /* ************************************************************************** */
 
-t_input				*init_input(t_shell *mini_sh, char *read_line);
-void				free_input(t_shell *mini_sh);
+t_input					*init_input(t_shell *mini_sh, char **read_line);
+void					free_input(t_shell *mini_sh);
 
-void				create_shell(t_shell *mini_sh);
-t_shell				*init_shell(t_shell *mini_sh);
-void				free_shell(t_shell *mini_sh);
+void					create_shell(t_shell *mini_sh, char **env);
+void					loop_shell(t_shell *mini_sh);
+void					free_shell(t_shell *mini_sh);
 
-t_envnode	*create_envnode(char *name, char *value);
-void		addback_envnode(t_envnode **start, t_envnode *node);
-void		init_envlist(char **env, t_envnode **start);
+t_envnode				*create_envnode(char *name, char *value);
+void					addback_envnode(t_envnode **start, t_envnode *node);
+void					init_envlist(char **env, t_envnode **start);
+
+void					my_perr(const char *msg, bool should_exit);
 
 #endif
