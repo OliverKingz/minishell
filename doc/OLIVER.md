@@ -66,4 +66,14 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
   - Si es pipe, si es redirección doble, redirección simple.
   - Luego comando/argumento al mismo nivel (si ya he puesto un comando antes, este será argumento).
 
+
+## Historial
+- Revisar que no hay fugas acumulados, cuando esta lleno. Da leaks. Usar fsanitize. 
+
+## Leaks
+- Mirar cuando el comando da error, y cortas con señales, hay que liberar tambien. 
+
+## Señales
+- Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
+
 ---
