@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/06 16:05:16 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:01:07 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,13 @@ typedef struct s_shell
 	int				last_exit_status;
 }					t_shell;
 
+typedef struct s_envnode
+{
+	char				*name;
+	char				*value;
+	struct s_envnode	*next;
+}	t_envnode;
+
 /* ************************************************************************** */
 
 t_input				*init_input(t_shell *mini_sh, char *read_line);
@@ -120,5 +127,9 @@ void				free_input(t_shell *mini_sh);
 void				create_shell(t_shell *mini_sh);
 t_shell				*init_shell(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
+
+t_envnode	*create_envnode(char *name, char *value);
+void		addback_envnode(t_envnode **start, t_envnode *node);
+void		init_envlist(char **env, t_envnode **start);
 
 #endif
