@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 17:20:36 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:28:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ void					addback_envnode(t_envnode **start, t_envnode *node);
 void					init_envlist(char **env, t_envnode **start);
 
 void					my_perr(const char *msg, bool should_exit);
+
+t_token					tokenize(t_shell *mini_sh, char *read_line);
+void					print_tokens(t_token *token_lst);
 
 #endif
