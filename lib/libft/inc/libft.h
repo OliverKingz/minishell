@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:28:46 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/02/12 21:32:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:30:52 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
  * - ft_putnbr: Outputs an integer to the standard output.
  * - ft_putnbr_unsigned: Outputs an unsigned integer to the standard output.
  * - ft_putnbr_base: Outputs a number in a specific base (hexadecimal, etc.).
+ * Added extra:
+ * - ft_puterr: Outputs a string to the standard error output fd (stderr)
  */
 
 void	ft_putchar_fd(char c, int fd);
@@ -180,6 +182,8 @@ size_t	ft_putptr(void *ptr);
 size_t	ft_putnbr(int nbr);
 size_t	ft_putnbr_unsigned(unsigned int nbr);
 size_t	ft_putnbr_base(unsigned long number, char *base);
+
+void	ft_puterr(char *s);
 
 /*
  * Linked List Functions:

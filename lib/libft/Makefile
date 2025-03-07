@@ -6,7 +6,7 @@
 #    By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/25 16:53:17 by ozamora-          #+#    #+#              #
-#    Updated: 2025/02/12 21:38:50 by ozamora-         ###   ########.fr        #
+#    Updated: 2025/03/07 14:45:36 by ozamora-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ MEM_FILES	:=	ft_memset ft_memcpy ft_memmove ft_memchr ft_memcmp \
 				ft_calloc ft_bzero
 PUT_FILES	:=	ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd \
 				ft_printf ft_putchar ft_putstr ft_putptr \
-				ft_putnbr ft_putnbr_base ft_putnbr_unsigned
+				ft_putnbr ft_putnbr_base ft_putnbr_unsigned \
+				ft_puterr
 STR_FILES	:=	ft_strlen ft_strlcpy ft_strlcat ft_strchr ft_strrchr \
 				ft_strncmp ft_strnstr ft_strdup ft_substr ft_strjoin \
 				ft_strtrim ft_split ft_strmapi ft_striteri \
