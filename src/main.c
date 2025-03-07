@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 15:21:14 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:14:12 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_shell	mini_sh;
+	t_shell	*mini_sh;
+	int		exit_status;
 
 	(void)argv;
 	if (argc != 1)
 		(ft_puterr("Usage: ./minishell"), exit(EXIT_FAILURE));
-	create_shell(&mini_sh, env);
-	loop_shell(&mini_sh);
-	free_shell(&mini_sh);
-	return(mini_sh.last_exit_status);
+	mini_sh = create_shell(env);
+	if (!mini_sh)
+		return (EXIT_FAILURE);
+	exit_status = loop_shell(mini_sh);
+	return(exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:39:05 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/02/25 18:57:32 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:45:01 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,12 @@ size_t	ft_putstr(char *str)
 {
 	size_t	str_len;
 
-	str_len = 0;
 	if (str == NULL)
 	{
-		str_len += ft_putstr("(null)");
-		return (str_len);
+		write(STDOUT_FILENO, "(null)", 6);
+		return (6);
 	}
-	while (str[str_len] != '\0')
-		str_len += ft_putchar(str[str_len]);
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	return (ft_strlen(str));
+	str_len = ft_strlen(str);
+	write(STDOUT_FILENO, str, str_len);
+	return (str_len);
 }

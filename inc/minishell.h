@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 15:19:22 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:20:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ typedef struct s_envnode
 
 /* ************************************************************************** */
 
-t_input					*init_input(t_shell *mini_sh, char **read_line);
+t_input					*init_input(t_shell *mini_sh, char *read_line);
 void					free_input(t_shell *mini_sh);
 
-void					create_shell(t_shell *mini_sh, char **env);
-void					loop_shell(t_shell *mini_sh);
+t_shell					*create_shell(char **env);
+int						loop_shell(t_shell *mini_sh);
 void					free_shell(t_shell *mini_sh);
 
 t_envnode				*create_envnode(char *name, char *value);
