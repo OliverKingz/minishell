@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:13:59 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:51:04 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,10 @@ void					my_perr(const char *msg, bool should_exit);
 
 bool					validate_rline_syntax(char *read_line);
 
-void	handle_redir(t_shell *mini_sh, char *current, int *start, int *i);
-void	handle_others(t_shell *mini_sh, char *current, int *start, int *i);
 void	handle_quotes(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
+void	handle_redir(t_shell *mini_sh, char *current, int *start, int *i);
+void	handle_pipe_space(t_shell *mini_sh, char *current, int *start, int *i);
+void	handle_others(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
 void					tokenize(t_shell *mini_sh);
 
 t_token					*create_token(char *content, t_type token_type);
