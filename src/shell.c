@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:20:13 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:40:50 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_shell	*create_shell(char **env)
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
 		my_perr("Failed to malloc mini_sh", true);
-	mini_sh->env = env;
+	mini_sh->env = env; //cambiar por el init_envlist
 	mini_sh->last_exit_status = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);

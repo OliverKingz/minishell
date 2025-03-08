@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 15:24:21 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:38:02 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,19 +107,19 @@ typedef struct s_input
 	pid_t				*pid;
 }						t_input;
 
-typedef struct s_shell
-{
-	t_input				*input;
-	char				**env;
-	int					last_exit_status;
-}						t_shell;
-
 typedef struct s_envnode
 {
 	char				*name;
 	char				*value;
 	struct s_envnode	*next;
 }						t_envnode;
+
+typedef struct s_shell
+{
+	t_input				*input;
+	t_envnode			*env;
+	int					last_exit_status;
+}						t_shell;
 
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ bool					validate_rline_syntax(char *read_line);
 void	handle_quotes(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
 void	handle_redir(t_shell *mini_sh, char *current, int *start, int *i);
 void	handle_pipe_space(t_shell *mini_sh, char *current, int *start, int *i);
+void	handle_var_expansion(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
 void	handle_others(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
 void					tokenize(t_shell *mini_sh);
 
