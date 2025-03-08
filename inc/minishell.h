@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 18:18:46 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:41:51 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include <sys/stat.h>  // stat, lstat, fstat
 # include <sys/wait.h>  // wait, waitpid, wait3, wait4
 # include <termios.h>   // tcsetattr, tcgetattr
-# include <errno.h>		// to use errno
+# include <errno.h>     // to use errno
 
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 
 /* ************************************************************************** */
 
-extern int				g_sign;
+extern int			g_sign;
 
 /* ************************************************************************** */
 
@@ -83,73 +83,71 @@ typedef enum
 	LIMITER,
 	S_QUOTE,
 	D_QUOTE
-}						t_type;
+}					t_type;
 
 typedef struct s_token
 {
-	char				*content;
-	t_type				type;
-	int					index;
-	struct s_token		*next;
-}						t_token;
+	char			*content;
+	t_type			type;
+	int				index;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct s_cmd
 {
-	int					in_fd;
-	int					out_fd;
-	int					close_fd[2];
-	char				*cmd_path;
-	char				**cmd_args;
-}						t_cmd;
+	int				in_fd;
+	int				out_fd;
+	int				close_fd[2];
+	char			*cmd_path;
+	char			**cmd_args;
+}					t_cmd;
 
 typedef struct s_input
 {
-	char				*read_line;
-	t_token				*token_lst;
-	int					cmd_count;
-	int					hdoc_count;
-	int					*heredocs;
-	pid_t				*pid;
-}						t_input;
+	char			*read_line;
+	t_token			*token_lst;
+	int				cmd_count;
+	int				hdoc_count;
+	int				*heredocs;
+	pid_t			*pid;
+}					t_input;
 
 typedef struct s_env
 {
-	char				*name;
-	char				*value;
+	char			*name;
+	char			*value;
 	struct s_env	*next;
-}						t_env;
+}					t_env;
 
 typedef struct s_shell
 {
-	t_input				*input;
+	t_input			*input;
 	t_env			*env;
-	int					last_exit_status;
-}						t_shell;
+	int				last_exit_status;
+}					t_shell;
 
 /* ************************************************************************** */
 
-t_input					*init_input(t_shell *mini_sh, char *read_line);
-void					free_input(t_shell *mini_sh);
+t_input				*init_input(t_shell *mini_sh, char *read_line);
+void				free_input(t_shell *mini_sh);
 
-t_shell					*create_shell(char **env);
-int						loop_shell(t_shell *mini_sh);
-void					free_shell(t_shell *mini_sh);
+t_shell				*create_shell(char **env);
+int					loop_shell(t_shell *mini_sh);
+void				free_shell(t_shell *mini_sh);
 
-t_env					*create_envnode(char *name, char *value);
-void					addback_envnode(t_env **start, t_env *node);
-t_env					*init_envlist(char **env);
-char					*my_getenv(t_env *start, char *name);
-void					print_envlist(t_env *start);
-void					clear_envnode(t_env	*node);
-void					clear_envlist(t_env **start);
+t_env				*create_envnode(char *name, char *value);
+void				addback_envnode(t_env **start, t_env *node);
+t_env				*init_envlist(char **env);
+char				*my_getenv(t_env *start, char *name);
+void				print_envlist(t_env *start);
+void				clear_envnode(t_env *node);
+void				clear_envlist(t_env **start);
 
-int						ft_strchr_pos(const char *s, char c); // Meter en utils
-void					print_envlist(t_env *env_lst); // Falta crearla
+void				my_perr(const char *msg, bool should_exit, int exit_status);
+void				my_free(void **mem);
+int					my_strchr_pos(const char *s, char c);
 
-void					my_perr(const char *msg, bool should_exit, int exit_status);
-void					my_free(void **mem);
-
-bool					validate_rline_syntax(char *read_line);
+bool				validate_rline_syntax(char *read_line);
 
 void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state); // Falta hacer
 void	handle_redir(t_shell *mini_sh, char *current, int i[2], int *state);
@@ -158,10 +156,13 @@ void	handle_var_expansion(t_shell *mini_sh, char *current, int i[2], int *state)
 void	handle_others(t_shell *mini_sh, char *current, int i[2], int *state); // Falta hacer
 void					tokenize(t_shell *mini_sh);
 
-t_token					*create_token(char *content, t_type token_type);
-void					addback_token(t_shell *mini_sh, char *content, t_type token_type);
-t_token					*init_tokenlist(t_shell *mini_sh);
-void					print_tokenslist(t_token *token_lst);
-void					clear_tokenlist(t_token **token_lst);
+t_token				*create_token(char *content, t_type token_type);
+void				addback_token(t_shell *mini_sh, char *content,
+						t_type token_type);
+t_token				*init_tokenlist(t_shell *mini_sh);
+void				print_tokenslist(t_token *token_lst);
+void print_tokenslist_short(t_token *token_lst);
+void NewFunction(t_token *current);
+void				clear_tokenlist(t_token **token_lst);
 
 #endif

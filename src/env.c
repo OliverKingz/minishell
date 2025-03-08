@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:43:01 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:23:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,6 @@ void	addback_envnode(t_env **start, t_env *node)
 	temp->next = node;
 }
 
-int	ft_strchr_pos(const char *s, char c)
-{
-	int	i;
-
-	if (!s)
-		return (-1);
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 t_env	*init_envlist(char **env)
 {
 	t_env	*start;
@@ -71,7 +55,7 @@ t_env	*init_envlist(char **env)
 	start = NULL;
 	while (*env)
 	{
-		i = ft_strchr_pos(*env, '=');
+		i = my_strchr_pos(*env, '=');
 		name = ft_substr(*env, 0, i);
 		value = ft_substr(*env, i + 1, -1);
 		node = create_envnode(name, value);

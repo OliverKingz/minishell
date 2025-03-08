@@ -75,6 +75,34 @@ void	print_tokenslist(t_token *token_lst)
 	}
 }
 
+//USA FUNCION PROHIBIDA PRINTF!
+void	print_tokenslist_short(t_token *token_lst)
+{
+	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
+			"REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "FILE_PATH",
+			"LIMITER"};
+	t_token		*current;
+
+	current = token_lst;
+	while (current != NULL)
+	{
+		printf("%-9s", current->content);
+		if (current->next != NULL)
+			printf(" -> ");
+		current = current->next;
+	}
+	printf("\n");
+	current = token_lst;
+	while (current != NULL)
+	{
+		printf("%-9s", type_strings[current->type]);
+		if (current->next != NULL)
+			printf(" -> ");
+		current = current->next;
+	}
+	printf("\n─────────────────────────────────────────────────────\n");
+}
+
 void	clear_tokenlist(t_token **token_lst)
 {
 	t_token *current;

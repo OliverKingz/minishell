@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 18:03:16 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:44:10 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	loop_shell(t_shell *mini_sh)
 	while (read_line)
 	{
 		if (ft_strncmp(read_line, "", -1) != 0)
-			add_history(read_line);
+			add_history(read_line); // No funciona si hago prints antes
 		if (!validate_rline_syntax(read_line))
 		{
 			free(read_line);
@@ -44,7 +44,7 @@ int	loop_shell(t_shell *mini_sh)
 		if (!mini_sh->input)
 			return (ft_puterr("init_input failed\n"), free_shell(mini_sh), EXIT_FAILURE);
 		//ft_printf("%s\n", mini_sh->input->read_line);
-		//print_tokenslist(mini_sh->input->token_lst);
+		//print_tokenslist_short(mini_sh->input->token_lst);
 		//print_envlist(mini_sh->env);
 		(free(read_line), free_input(mini_sh), mini_sh->input = NULL);
 		read_line = readline(PROMPT);
