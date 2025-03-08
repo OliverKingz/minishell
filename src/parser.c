@@ -6,53 +6,67 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 18:22:00 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:13:01 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_input	*init_input(t_shell *mini_sh, char *read_line)
+void	handle_redir(t_shell *mini_sh, char *current, int *start, int *i)
 {
-	//(void)(read_line);
-	if (mini_sh && !mini_sh->input)
+	if (current[*i] == '>' && current[*i + 1] == '>')
 	{
-		mini_sh->input = (t_input *)ft_calloc(1, sizeof(t_input));
-		if (!mini_sh->input)
-			return (ft_puterr("input"), NULL);
-		mini_sh->input->read_line = NULL;
-		mini_sh->input->token_lst = NULL;
-		mini_sh->input->pid = NULL;
-		mini_sh->input->heredocs = NULL;
-		mini_sh->input->cmd_count = 0;
-		mini_sh->input->hdoc_count = 0;
-		mini_sh->input->read_line = ft_strdup(read_line);
-		mini_sh->input->token_lst = (t_token *)ft_calloc(1, sizeof(t_token));
-		if (!mini_sh->input->token_lst)
-			return (ft_puterr("token_lst"), free_input(mini_sh), NULL);
-		// mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count, sizeof(pid_t));
-		// if (!mini_sh->input->pid && mini_sh->input->cmd_count != 0)
-		// 	return (ft_puterr("pid"), free_input(mini_sh), NULL);
-		// mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count, sizeof(int));
-		// if (!mini_sh->input->heredocs && mini_sh->input->hdoc_count != 0)
-		// 	return (ft_puterr("heredocs"), free_input(mini_sh), NULL);
-		return (mini_sh->input);
+		addback_token(mini_sh, ft_strdup(">>"), REDIR_APP);
+		*start = *i + 2;
+		(*i)++;
 	}
-	else
-		return (NULL);
+	else if (current[*i] == '<' && current[*i + 1] == '<')
+	{
+		addback_token(mini_sh, ft_strdup("<<"), REDIR_HD);
+		*start = *i + 2;
+		(*i)++;
+	}
+	else if (current[*i] == '>')
+	{
+		addback_token(mini_sh, ft_strdup(">"), REDIR_OUT);
+		*start = *i + 1;
+	}
+	else if (current[*i] == '<')
+	{
+		addback_token(mini_sh, ft_strdup("<"), REDIR_IN);
+		*start = *i + 1;
+	}
 }
 
-void	free_input(t_shell *mini_sh)
+void	handle_others(t_shell *mini_sh, char *current, int *start, int *i)
 {
-	if (!mini_sh->input)
-		return ;
-	if (mini_sh->input->read_line)
-		(free(mini_sh->input->read_line), mini_sh->input->read_line = NULL);
-	if (mini_sh->input->token_lst)
-		(free(mini_sh->input->token_lst), mini_sh->input->token_lst = NULL);
-	if (mini_sh->input->pid)
-		(free(mini_sh->input->pid), mini_sh->input->pid = NULL);
-	if (mini_sh->input->heredocs)
-		(free(mini_sh->input->heredocs), mini_sh->input->heredocs = NULL);
-	(free(mini_sh->input), mini_sh->input = NULL);
+	if (current[*i] == '|')
+	{
+		addback_token(mini_sh, ft_strdup("|"), OP_PIPE);
+		*start = *i + 1;
+	}
+	else if (current[*i] == ' ' || current[*i] == '\t' || current[*i] == '\n')
+	{
+		if (*i > *start)
+			addback_token(mini_sh, ft_substr(current, *start, *i - *start), WORD);
+		*start = *i + 1;
+	}
+}
+
+void	tokenize(t_shell *mini_sh)
+{
+	int		i;
+	int		start;
+	char	*current;
+
+	current = mini_sh->input->read_line;
+	start = 0;
+	i = 0;
+	while (current[i] != '\0')
+	{
+		handle_redir(mini_sh, current, &start, &i);
+		handle_others(mini_sh, current, &start, &i);
+		i++;
+	}
+	addback_token(mini_sh, ft_substr(current, start, i - start), WORD);
 }

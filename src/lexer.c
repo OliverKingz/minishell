@@ -6,50 +6,36 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/07 19:36:17 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:23:45 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**tokenize(t_shell *mini_sh, char *read_line)
+bool	validate_rline_syntax(char *read_line)
 {
-/* 	int		i;
 	char	*current;
-	char	**tokens;
+	int		s_quote_count;
+	int		d_quote_count;
+	int		i;
 
 	current = read_line;
+	s_quote_count = 0;
+	d_quote_count = 0;
 	i = -1;
-	while (current && current[i++])
+	while (current[++i] != '\0')
 	{
-		if (current[i+1])
-		{
-			if (current[i+1] == '>' && current[i] == '>')
-				//create a new substring token containing ">>"
-			if (current[i+1] == '>' && current[i] == '>')
-				//create a new substring token containung "<<"
-		}
-		if (current[i] == '<')
-			//create a new substring token containing "<"
-		if (current[i] == '>')
-			//create a new substring token containing ">"
-		if (current[i] == '|')
-			//create a new substring token containing "|"
-		//creates a substrfrom the the initial char until it finds a " "
+		if (current[i] == '|' && current[i + 1] == '|') // Consultar Raul
+			return (ft_puterr(ERR_SYNTAX), false);
+		if (current[i] == '\'')
+			s_quote_count++;
+		if (current[i] == '\"')
+			d_quote_count++;
 	}
-	return(tokens);
- */
-	return (ft_split(read_line, ' '));
+	i--;
+	if (current[i] == '|' || current[i] == '>' || current[i] == '<')
+		return (ft_puterr(ERR_SYNTAX_NL), false);
+	if ((s_quote_count % 2) == 1 || (d_quote_count % 2) == 1)
+		return (ft_puterr(ERR_SYNTAX), false);
+	return (true);
 }
-
-// void print_tokens(t_token *token_lst)
-// {
-// 	t_token *current = token_lst;
-// 	while (current != NULL)
-// 	{
-// 		printf("Token Content: %s\n", current->content);
-// 		printf("Token Type: %d\n", current->type);
-// 		printf("Token Index: %d\n", current->index);
-// 		current = current->next;
-// 	}
-// }
