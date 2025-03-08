@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:51:04 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:24:21 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ void					free_shell(t_shell *mini_sh);
 t_envnode				*create_envnode(char *name, char *value);
 void					addback_envnode(t_envnode **start, t_envnode *node);
 void					init_envlist(char **env, t_envnode **start);
+char					*my_getenv(t_envnode *start, char *name);
+void					clear_envnode(t_envnode	*node);
+void					clear_envlist(t_envnode **start);
 
 int						ft_strchr_pos(const char *s, char c); // Meter en utils
 void					print_envlist(t_envnode *env_lst); // Falta crearla
