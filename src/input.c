@@ -51,8 +51,7 @@ void	free_input(t_shell *mini_sh)
 		return ;
 	if (mini_sh->input->read_line)
 		(free(mini_sh->input->read_line), mini_sh->input->read_line = NULL);
-	if (mini_sh->input->token_lst)
-		clear_tokenlist(&(mini_sh->input->token_lst));
+	clear_tokenlist(&(mini_sh->input->token_lst));
 	if (mini_sh->input->pid)
 		(free(mini_sh->input->pid), mini_sh->input->pid = NULL);
 	if (mini_sh->input->heredocs)

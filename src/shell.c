@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 16:40:50 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:03:16 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_shell	*create_shell(char **env)
 
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
-		my_perr("Failed to malloc mini_sh", true);
-	mini_sh->env = env; //cambiar por el init_envlist
+		my_perr("Failed to malloc mini_sh", true, errno);
+	mini_sh->env = init_envlist(env); //Mirar env de emergencia y PATH de emergencia
 	mini_sh->last_exit_status = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);
@@ -30,11 +30,11 @@ int	loop_shell(t_shell *mini_sh)
 	char	*read_line;
 	int		exit_status;
 
-	while (1)
+	read_line = readline(PROMPT);
+	while (read_line)
 	{
-		read_line = readline("\033[1;32mMinishell > \033[0m");
-		if (!read_line)
-			return (ft_puterr("readline returned NULL\n"), EXIT_FAILURE); //Deberia hacer exit(2)?
+		if (ft_strncmp(read_line, "", -1) != 0)
+			add_history(read_line);
 		if (!validate_rline_syntax(read_line))
 		{
 			free(read_line);
@@ -44,9 +44,10 @@ int	loop_shell(t_shell *mini_sh)
 		if (!mini_sh->input)
 			return (ft_puterr("init_input failed\n"), free_shell(mini_sh), EXIT_FAILURE);
 		//ft_printf("%s\n", mini_sh->input->read_line);
-		print_tokenslist(mini_sh->input->token_lst);
-		(free(read_line), free_input(mini_sh));
-		mini_sh->input = NULL;
+		//print_tokenslist(mini_sh->input->token_lst);
+		//print_envlist(mini_sh->env);
+		(free(read_line), free_input(mini_sh), mini_sh->input = NULL);
+		read_line = readline(PROMPT);
 	}
 	exit_status = mini_sh->last_exit_status;
 	free_shell(mini_sh);
@@ -59,5 +60,6 @@ void	free_shell(t_shell *mini_sh)
 		return ;
 	if (mini_sh->input)
 		free_input(mini_sh);
+	clear_envlist(&(mini_sh->env));
 	(free(mini_sh), mini_sh = NULL);
 }

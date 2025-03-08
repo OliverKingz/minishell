@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 18:18:04 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:18:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@
 # include <sys/stat.h>  // stat, lstat, fstat
 # include <sys/wait.h>  // wait, waitpid, wait3, wait4
 # include <termios.h>   // tcsetattr, tcgetattr
+# include <errno.h>		// to use errno
 
 /* ************************************************************************** */
+
+# define PROMPT "\001\033[1;32m\002Minishell > \001\033[0m\002"
 
 # define READ_END 0
 # define WRITE_END 1
@@ -109,17 +112,17 @@ typedef struct s_input
 	pid_t				*pid;
 }						t_input;
 
-typedef struct s_envnode
+typedef struct s_env
 {
 	char				*name;
 	char				*value;
-	struct s_envnode	*next;
-}						t_envnode;
+	struct s_env	*next;
+}						t_env;
 
 typedef struct s_shell
 {
 	t_input				*input;
-	t_envnode			*env;
+	t_env			*env;
 	int					last_exit_status;
 }						t_shell;
 
@@ -132,17 +135,19 @@ t_shell					*create_shell(char **env);
 int						loop_shell(t_shell *mini_sh);
 void					free_shell(t_shell *mini_sh);
 
-t_envnode				*create_envnode(char *name, char *value);
-void					addback_envnode(t_envnode **start, t_envnode *node);
-void					init_envlist(char **env, t_envnode **start);
-char					*my_getenv(t_envnode *start, char *name);
-void					clear_envnode(t_envnode	*node);
-void					clear_envlist(t_envnode **start);
+t_env					*create_envnode(char *name, char *value);
+void					addback_envnode(t_env **start, t_env *node);
+t_env					*init_envlist(char **env);
+char					*my_getenv(t_env *start, char *name);
+void					print_envlist(t_env *start);
+void					clear_envnode(t_env	*node);
+void					clear_envlist(t_env **start);
 
 int						ft_strchr_pos(const char *s, char c); // Meter en utils
-void					print_envlist(t_envnode *env_lst); // Falta crearla
+void					print_envlist(t_env *env_lst); // Falta crearla
 
-void					my_perr(const char *msg, bool should_exit);
+void					my_perr(const char *msg, bool should_exit, int exit_status);
+void					my_free(void **mem);
 
 bool					validate_rline_syntax(char *read_line);
 

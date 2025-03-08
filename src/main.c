@@ -6,25 +6,12 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 16:44:21 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:40:11 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* int	main(int argc, char **argv, char **env)
-{
-	t_envnode *start = NULL;
-
-	(void)argc;
-	(void)argv;	
-	init_envlist(env, &start);
-
-	printf("%s\n", my_getenv(start, "USER"));
-	clear_envlist(&start);
-	return (0);
-}
- */
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	*mini_sh;
@@ -37,5 +24,6 @@ int	main(int argc, char **argv, char **env)
 	if (!mini_sh)
 		return (EXIT_FAILURE);
 	exit_status = loop_shell(mini_sh);
+	ft_putendl_fd("exit", 1);
 	return(exit_status);
 }
