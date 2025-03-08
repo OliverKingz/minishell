@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 16:38:02 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:18:04 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ typedef enum
 	REDIR_APP,
 	REDIR_HD,
 	FILE_PATH,
-	LIMITER
+	LIMITER,
+	S_QUOTE,
+	D_QUOTE
 }						t_type;
 
 typedef struct s_token
@@ -144,11 +146,11 @@ void					my_perr(const char *msg, bool should_exit);
 
 bool					validate_rline_syntax(char *read_line);
 
-void	handle_quotes(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
-void	handle_redir(t_shell *mini_sh, char *current, int *start, int *i);
-void	handle_pipe_space(t_shell *mini_sh, char *current, int *start, int *i);
-void	handle_var_expansion(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
-void	handle_others(t_shell *mini_sh, char *current, int *start, int *i); // Falta hacer
+void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state); // Falta hacer
+void	handle_redir(t_shell *mini_sh, char *current, int i[2], int *state);
+void	handle_pipe_space(t_shell *mini_sh, char *current, int i[2], int *state);
+void	handle_var_expansion(t_shell *mini_sh, char *current, int i[2], int *state); // Falta hacer
+void	handle_others(t_shell *mini_sh, char *current, int i[2], int *state); // Falta hacer
 void					tokenize(t_shell *mini_sh);
 
 t_token					*create_token(char *content, t_type token_type);
