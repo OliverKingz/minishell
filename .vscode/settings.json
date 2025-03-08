@@ -8,7 +8,8 @@
 		"stdlib.h": "c",
 		"unistd.h": "c",
 		"signal.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"ioctl.h": "c"
 	},
 	"files.exclude": {
 		"**/old": true
