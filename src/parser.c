@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:53:19 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/08 01:59:00 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	tokenize(t_shell *mini_sh)
 		handle_redir(mini_sh, current, &start, &i);
 		handle_pipe_space(mini_sh, current, &start, &i);
 		//handle_others(mini_sh, current, &start, &i); //Mirar prev para etiquetar arg, file, limiter, command
+		//En others, leer la lista y taggear files los van despues de redir
+		//Taggear como command si head, o despues de pipe
+		//Taggear como arg todos los words despues de command, saltandose las Redir y Files
 		i++;
 	}
 	addback_token(mini_sh, ft_substr(current, start, i - start), WORD);
