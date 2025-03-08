@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:17:40 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:02:01 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # include <errno.h>		// to use errno
 
 /* ************************************************************************** */
+
+# define PROMPT "\001\033[1;32m\002Minishell > \001\033[0m\002"
 
 # define READ_END 0
 # define WRITE_END 1
@@ -131,11 +133,11 @@ t_shell					*create_shell(char **env);
 int						loop_shell(t_shell *mini_sh);
 void					free_shell(t_shell *mini_sh);
 
-t_env				*create_envnode(char *name, char *value);
+t_env					*create_envnode(char *name, char *value);
 void					addback_envnode(t_env **start, t_env *node);
-t_env				*init_envlist(char **env);
+t_env					*init_envlist(char **env);
 char					*my_getenv(t_env *start, char *name);
-void					print_env(t_env *start);
+void					print_envlist(t_env *start);
 void					clear_envnode(t_env	*node);
 void					clear_envlist(t_env **start);
 

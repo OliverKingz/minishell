@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:14:31 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:43:01 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	clear_envlist(t_env **start)
 	*start = NULL;
 }
 
-void	print_env(t_env *start)
+void	print_envlist(t_env *start)
 {
 	while (start)
 	{

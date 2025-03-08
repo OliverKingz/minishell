@@ -80,6 +80,8 @@ void	clear_tokenlist(t_token **token_lst)
 	t_token *current;
 	t_token *next;
 
+	if (!token_lst)
+		return ;
 	current = *token_lst;
 	while (current != NULL)
 	{
