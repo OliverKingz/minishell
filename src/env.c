@@ -6,17 +6,17 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/08 15:21:44 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:14:31 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_envnode	*create_envnode(char *name, char *value)
+t_env	*create_envnode(char *name, char *value)
 {
-	t_envnode	*node;
+	t_env	*node;
 
-	node = ft_calloc(1, sizeof(t_envnode));
+	node = ft_calloc(1, sizeof(t_env));
 	if (!node)
 		return (NULL);
 	node->name = name;
@@ -25,9 +25,9 @@ t_envnode	*create_envnode(char *name, char *value)
 	return (node);
 }
 
-void	addback_envnode(t_envnode **start, t_envnode *node)
+void	addback_envnode(t_env **start, t_env *node)
 {
-	t_envnode	*temp;
+	t_env	*temp;
 
 	if (!start)
 		return ;
@@ -58,30 +58,30 @@ int	ft_strchr_pos(const char *s, char c)
 	return (-1);
 }
 
-void	init_envlist(char **env, t_envnode **start)
+t_env	*init_envlist(char **env)
 {
-	t_envnode	*node;
+	t_env	*start;
+	t_env	*node;
 	int			i;
 	char		*name;
 	char		*value;
 
-	if (!start)
-		return ;
 	if (!env)
-		*start = NULL;
-	node = *start;
+		return (NULL);
+	start = NULL;
 	while (*env)
 	{
 		i = ft_strchr_pos(*env, '=');
 		name = ft_substr(*env, 0, i);
 		value = ft_substr(*env, i + 1, -1);
 		node = create_envnode(name, value);
-		addback_envnode(start, node);
+		addback_envnode(&start, node);
 		env++;
 	}
+	return (start);
 }
 
-char	*my_getenv(t_envnode *start, char *name)
+char	*my_getenv(t_env *start, char *name)
 {
 	if (!name)
 		return (NULL);
@@ -94,7 +94,7 @@ char	*my_getenv(t_envnode *start, char *name)
 	return (NULL);
 }
 
-void	clear_envnode(t_envnode	*node)
+void	clear_envnode(t_env	*node)
 {
 	if (!node)
 		return ;
@@ -102,10 +102,10 @@ void	clear_envnode(t_envnode	*node)
 	free(node->value);
 }
 
-void	clear_envlist(t_envnode **start)
+void	clear_envlist(t_env **start)
 {
-	t_envnode	*node;
-	t_envnode	*next_node;
+	t_env	*node;
+	t_env	*next_node;
 
 	if (!start)
 		return ;
@@ -118,4 +118,15 @@ void	clear_envlist(t_envnode **start)
 		node = next_node;
 	}
 	*start = NULL;
+}
+
+void	print_env(t_env *start)
+{
+	while (start)
+	{
+		ft_putstr_fd(start->name, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(start->value, 1);
+		start = start->next;
+	}	
 }
