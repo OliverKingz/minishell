@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:23:45 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 01:31:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ bool	validate_rline_syntax(char *read_line)
 		if (current[i] == '\"')
 			d_quote_count++;
 	}
-	i--;
-	if (current[i] == '|' || current[i] == '>' || current[i] == '<')
+	if (current[i - 1] == '|' || current[i - 1] == '>' || current[i - 1] == '<')
 		return (ft_puterr(ERR_SYNTAX_NL), false);
 	if ((s_quote_count % 2) == 1 || (d_quote_count % 2) == 1)
 		return (ft_puterr(ERR_SYNTAX), false);

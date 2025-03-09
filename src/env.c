@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/09 01:16:34 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 01:41:58 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*create_envnode(char *name, char *value)
 
 	node = ft_calloc(1, sizeof(t_env));
 	if (!node)
-		my_perr("Failed to malloc env_node", true, errno);
+		return (my_perr("Failed to malloc env_node", false, errno), NULL);
 	node->name = name;
 	node->value = value;
 	node->next = NULL;
@@ -59,6 +59,8 @@ t_env	*init_envlist(char **env)
 		name = ft_substr(*env, 0, i);
 		value = ft_substr(*env, i + 1, -1);
 		node = create_envnode(name, value);
+		if (!node)
+			return (my_perr("Failed to malloc input", false, errno), NULL);
 		addback_envnode(&start, node);
 		env++;
 	}

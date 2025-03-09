@@ -19,7 +19,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	{
 		mini_sh->input = (t_input *)ft_calloc(1, sizeof(t_input));
 		if (!mini_sh->input)
-			my_perr("Failed to malloc input", true, errno);
+			free_shell(mini_sh), my_perr("Failed to malloc input", true, errno);
 		mini_sh->input->read_line = NULL;
 		mini_sh->input->token_lst = NULL;
 		mini_sh->input->pid = NULL;
@@ -28,11 +28,8 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 		mini_sh->input->hdoc_count = 0;
 		mini_sh->input->read_line = ft_strdup(read_line);
 		if (!mini_sh->input->read_line)
-			return (ft_puterr("read_line"), free_input(mini_sh), NULL);
+			free_shell(mini_sh), my_perr("Failed strdup readline", true, errno);
 		mini_sh->input->token_lst = init_tokenlist(mini_sh);
-		// mini_sh->input->token_lst = (t_token *)ft_calloc(1, sizeof(t_token));
-		// if (!mini_sh->input->token_lst)
-		// 	return (ft_puterr("token_lst"), free_input(mini_sh), NULL);
 		// mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count, sizeof(pid_t));
 		// if (!mini_sh->input->pid && mini_sh->input->cmd_count != 0)
 		// 	return (ft_puterr("pid"), free_input(mini_sh), NULL);
@@ -42,7 +39,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 		return (mini_sh->input);
 	}
 	else
-		return (NULL);
+		return (free_shell(mini_sh), exit(EXIT_FAILURE), NULL);
 }
 
 void	free_input(t_shell *mini_sh)
