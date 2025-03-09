@@ -86,18 +86,18 @@ void	print_tokenslist_short(t_token *token_lst)
 	current = token_lst;
 	while (current != NULL)
 	{
-		printf("%-9s", current->content);
+		printf("[%-9s]", current->content);
 		if (current->next != NULL)
-			printf(" -> ");
+			printf("→");
 		current = current->next;
 	}
 	printf("\n");
 	current = token_lst;
 	while (current != NULL)
 	{
-		printf("%-9s", type_strings[current->type]);
+		printf("[%-9s]", type_strings[current->type]);
 		if (current->next != NULL)
-			printf(" -> ");
+			printf("→");
 		current = current->next;
 	}
 	printf("\n─────────────────────────────────────────────────────\n");
