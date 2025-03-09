@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 01:05:34 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 02:39:24 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	classify_word_token(t_shell *mini_sh)
 }
 
 void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
-{
+{ //Preguntar caso <<1<<2<<3
 	if (current->type == WORD)
 	{
 		if (*last_type == REDIR_IN || *last_type == REDIR_OUT

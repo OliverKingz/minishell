@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 01:04:45 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 02:15:52 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ void				my_perr(const char *msg, bool should_exit, int exit_status);
 void				my_free(void **mem);
 int					my_strchr_pos(const char *s, char c);
 
-bool				validate_rline_syntax(char *read_line);
+bool	validate_rline_syntax(char *read_line);
+void	count_cmds_heredocs(t_shell **mini_sh);
 
 void	tokenize(t_shell *mini_sh);
 void	classify_word_token(t_shell *mini_sh);
