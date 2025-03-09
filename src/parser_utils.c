@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 12:37:11 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 12:49:59 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,24 @@ void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state)
 
 void	handle_redir(t_shell *mini_sh, char *current, int i[2], int *state)
 {
-	if (current[i[1]] == '>' && current[i[1] + 1] == '>' && *state == WORD)
+	if ((*state == WORD) && (current[i[1]] == '>' || current[i[1]] == '<'))
 	{
 		if (i[1] > i[0])
 			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-		addback_token(mini_sh, ft_strdup(">>"), REDIR_APP);
-		i[0] = i[1] + 2;
-		i[1]++;
-	}
-	else if (current[i[1]] == '<' && current[i[1] + 1] == '<' && *state == WORD)
-	{
-		if (i[1] > i[0])
-			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-		addback_token(mini_sh, ft_strdup("<<"), REDIR_HD);
-		i[0] = i[1] + 2;
-		i[1]++;
-	}
-	else if (current[i[1]] == '>' && *state == WORD)
-	{
-		if (i[1] > i[0])
-			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-		addback_token(mini_sh, ft_strdup(">"), REDIR_OUT);
-		i[0] = i[1] + 1;
-	}
-	else if (current[i[1]] == '<' && *state == WORD)
-	{
-		if (i[1] > i[0])
-			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-		addback_token(mini_sh, ft_strdup("<"), REDIR_IN);
-		i[0] = i[1] + 1;
+		if (current[i[1]] == '>' && current[i[1] + 1] == '>')
+		{
+			addback_token(mini_sh, ft_strdup(">>"), REDIR_APP), i[0] = i[1] + 2;
+			i[1]++;
+		}
+		else if (current[i[1]] == '<' && current[i[1] + 1] == '<')
+		{
+			addback_token(mini_sh, ft_strdup("<<"), REDIR_HD), i[0] = i[1] + 2;
+			i[1]++;
+		}
+		else if (current[i[1]] == '>')
+			addback_token(mini_sh, ft_strdup(">"), REDIR_OUT), i[0] = i[1] + 1;
+		else if (current[i[1]] == '<')
+			addback_token(mini_sh, ft_strdup("<"), REDIR_IN), i[0] = i[1] + 1;
 	}
 }
 
