@@ -19,7 +19,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	{
 		mini_sh->input = (t_input *)ft_calloc(1, sizeof(t_input));
 		if (!mini_sh->input)
-			return (ft_puterr("input"), NULL);
+			my_perr("Failed to malloc input", true, errno);
 		mini_sh->input->read_line = NULL;
 		mini_sh->input->token_lst = NULL;
 		mini_sh->input->pid = NULL;
