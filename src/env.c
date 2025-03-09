@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/09 11:27:15 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:17:41 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void	print_envlist(t_env *start)
 {
 	while (start)
 	{
-		ft_putstr_fd(start->name, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(start->value, 1);
+		ft_putstr_fd(start->name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putendl_fd(start->value, STDOUT_FILENO);
 		start = start->next;
 	}	
 }
