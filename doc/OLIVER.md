@@ -8,12 +8,12 @@
 
 ### Input Line
 ```
-cat < in | grep "Hola    Mundo" | grep 'M' > out | cat >> final_out -e
+cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e
 ```
 
 ### Tokenizer Result
 ```
-"cat" "<" "in" "|" "grep" ""Hola    Mundo"" "|" "grep" "'M'" ">" "out" "|" "cat" ">>" "final_out" "-e"
+"cat" "<" "in" "|" "grep" ""Hi bye"" "|" "grep" "'M'" ">" "out" "|" "cat" ">>" "final_out" "-e"
 ```
 
 ### Token Classification
@@ -22,7 +22,7 @@ cat < in | grep "Hola    Mundo" | grep 'M' > out | cat >> final_out -e
 - `"in"`: file_path
 - `"|"`: op_pipe
 - `"grep"`: command
-- `""Hola    Mundo""`: argument
+- `""Hi bye""`: argument
 - `"|"`: op_pipe
 - `"grep"`: command
 - `"'M'"`: argument
@@ -33,6 +33,12 @@ cat < in | grep "Hola    Mundo" | grep 'M' > out | cat >> final_out -e
 - `">>"`: redir_append
 - `"final_out"`: file_path
 - `"-e"`: argument
+
+## Multiple Examples for Input Line
+```
+echo hola | <<EOF cat -e
+find . -type f -name "*.c" | xargs grep "main" > results.txt
+```
 
 ## Example Expansion
 ```
