@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 02:02:43 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/09 11:30:11 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_shell	*create_shell(char **env)
 
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
-		return (my_perr("Failed to malloc shell", false, errno), NULL);
+		return (my_perr("create mini_sh", false, errno), NULL);
 	mini_sh->env = init_envlist(env); //Mirar env de emergencia y PATH de emergencia
 	// Mirar que pasa cuando init devuelve NULL
 	mini_sh->last_exit_status = 0;
