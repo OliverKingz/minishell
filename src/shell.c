@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:08:46 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/11 00:05:35 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ int	loop_shell(t_shell *mini_sh)
 			continue ;
 		}
 		mini_sh->input = init_input(mini_sh, read_line);
+		if (!mini_sh->input)
+		{
+			free(read_line), read_line = NULL;
+			continue ;
+		}
 		print_tokenslist_short(mini_sh->input->token_lst);
 		// print_envlist(mini_sh->env);
-		(free(read_line), free_input(mini_sh), mini_sh->input = NULL);
+		(free(read_line), free_input(&mini_sh));
 	}
 	exit_status = mini_sh->last_exit_status;
 	return (free_shell(mini_sh), exit_status);
@@ -60,7 +65,7 @@ void	free_shell(t_shell *mini_sh)
 	if (!mini_sh)
 		return ;
 	if (mini_sh->input)
-		free_input(mini_sh);
+		free_input(&mini_sh);
 	clear_envlist(&(mini_sh->env));
-	(free(mini_sh), mini_sh = NULL);
+	free(mini_sh);
 }

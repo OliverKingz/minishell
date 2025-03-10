@@ -54,6 +54,8 @@ t_token	*init_tokenlist(t_shell *mini_sh)
 {
 	mini_sh->input->token_lst = NULL;
 	tokenize(mini_sh);
+	if (!validate_tokens_syntax(mini_sh))
+		return (NULL);
 	return (mini_sh->input->token_lst);
 }
 
@@ -114,8 +116,9 @@ void	clear_tokenlist(t_token **token_lst)
 	while (current != NULL)
 	{
 		next = current->next;
-		free(current->content);
-		free(current);
+		if (current->content)
+			free(current->content), current->content = NULL;
+		free(current), current = NULL;
 		current = next;
 	}
 	*token_lst = NULL;

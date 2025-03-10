@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:07:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/10 23:53:26 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef enum
 	OP_PIPE,
 	REDIR_IN,
 	REDIR_OUT,
-	REDIR_APP,
 	REDIR_HD,
+	REDIR_APP,
 	FILE_PATH,
 	LIMITER,
 	S_QUOTE,
@@ -132,7 +132,7 @@ void				free_shell(t_shell *mini_sh);
 // input.c
 
 t_input				*init_input(t_shell *mini_sh, char *read_line);
-void				free_input(t_shell *mini_sh);
+void				free_input(t_shell **mini_sh);
 
 // lexer.c
 
@@ -140,6 +140,7 @@ bool				validate_rline_syntax(char *read_line);
 bool				check_syntax_quotes(char *current, int i, int *sq_count,
 						int *dq_count);
 void				count_cmds_heredocs(t_shell *mini_sh);
+bool				validate_tokens_syntax(t_shell *mini_sh);
 
 // parser.c
 

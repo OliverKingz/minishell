@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 18:01:36 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/11 00:10:48 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,24 @@ void	count_cmds_heredocs(t_shell *mini_sh)
 	}
 	mini_sh->input->cmd_count = cmd_counter;
 	mini_sh->input->hdoc_count = heredoc_counter;
+}
+
+bool	validate_tokens_syntax(t_shell *mini_sh)
+{
+	t_token	*current;
+
+	current = mini_sh->input->token_lst;
+	while (current != NULL)
+	{
+		if ((current->type == OP_PIPE && (!current->next || current->next->type == OP_PIPE))
+			|| (current->type == REDIR_IN && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
+			|| (current->type == REDIR_OUT && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
+			|| (current->type == REDIR_HD && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
+			|| (current->type == REDIR_APP && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP))))
+		{
+			return (ft_puterr(ERR_SYNTAX), false);
+		}
+		current = current->next;
+	}
+	return (true);
 }
