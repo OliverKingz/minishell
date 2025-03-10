@@ -16,9 +16,9 @@ t_token	*create_token(char *content, t_type token_type)
 {
 	t_token	*node;
 
-	node = malloc(sizeof(t_token));
+	node = ft_calloc(1, sizeof(t_token));
 	if (!node)
-		return (NULL);
+		return (my_perr("create_tokennode", false, errno), NULL);
 	node->content = content;
 	node->type = token_type;
 	node->index = 0;
@@ -34,7 +34,12 @@ void	addback_token(t_shell *mini_sh, char *content, t_type token_type)
 
 	index = 0;
 	node = create_token(content, token_type);
-	if (!mini_sh->input->token_lst)
+	if (!node)
+	{
+		free_shell(mini_sh), exit(errno);
+		return ;
+	}
+	if(!mini_sh->input->token_lst)
 	{
 		node->index = index;
 		mini_sh->input->token_lst = node;
@@ -55,14 +60,14 @@ t_token	*init_tokenlist(t_shell *mini_sh)
 	mini_sh->input->token_lst = NULL;
 	tokenize(mini_sh);
 	if (!validate_tokens_syntax(mini_sh))
-		return (NULL);
+		return (clear_tokenlist(&(mini_sh->input->token_lst)), NULL);
 	return (mini_sh->input->token_lst);
 }
 
 void	print_tokenslist(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
-			"REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "FILE_PATH",
+			"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
 			"LIMITER"};
 	t_token		*current;
 
@@ -81,7 +86,7 @@ void	print_tokenslist(t_token *token_lst)
 void	print_tokenslist_short(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
-			"REDIR_IN", "REDIR_OUT", "REDIR_APP", "REDIR_HD", "FILE_PATH",
+			"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
 			"LIMITER"};
 	t_token		*current;
 
