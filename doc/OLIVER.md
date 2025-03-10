@@ -83,10 +83,10 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 - Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
 
 ## Casos donde falla
-- echo "hola '  "✅
 - echo "$USER" '$USER' "'$USER" '$USER"'
 - cat | | cat (make validate_tokens_syntax)
 - cat <g<<<g<<<<<<g<g<g<g<g
+- <>ls Lo acepta y crea ls. ><ls sale syntax error near unexpected token `<'
 
 # FINISHED
 - Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
@@ -96,6 +96,8 @@ echo '$USER'
 $USER✅
 echo "'$USER'"
 'raperez-'✅
+
+- echo "hola '  "✅
 
 ## TO DO INMEDIATO OLIVER
 
