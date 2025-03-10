@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 11:30:11 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/10 13:04:39 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	loop_shell(t_shell *mini_sh)
 			continue ;
 		}
 		mini_sh->input = init_input(mini_sh, read_line);
-		//print_tokenslist_short(mini_sh->input->token_lst);
+		print_tokenslist_short(mini_sh->input->token_lst);
 		//print_envlist(mini_sh->env);
 		(free(read_line), free_input(mini_sh), mini_sh->input = NULL);
 	}

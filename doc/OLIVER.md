@@ -74,12 +74,33 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 
 
 ## Historial
-- Revisar que no hay fugas acumulados, cuando esta lleno. Da leaks. Usar fsanitize. 
+- Revisar que no hay fugas acumulados, cuando está lleno. Da leaks. Usar fsanitize. 
 
 ## Leaks
-- Mirar cuando el comando da error, y cortas con señales, hay que liberar tambien. 
+- Mirar cuando el comando da error, y cortas con señales, hay que liberar también. 
 
 ## Señales
 - Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
 
+## Casos donde falla
+- echo "hola '  "
+
+## TODO
+- Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. 
+- Current_type añadir a mini_sh
+- Investiga var exp para ""y '''
+- Solo importa la comillas exteriores
+raperez-@c1r16s2:~/Desktop/minishelloza$ echo '$USER'
+$USER
+raperez-@c1r16s2:~/Desktop/minishelloza$ echo "'$USER'"
+'raperez-'
+- Dentro de los tokens, quitar las comillas exteriores. Investigar más. 
+"echo"     
+
+c1r16s2% echo
+
+c1r16s2% "'echo'"
+zsh: command not found: 'echo'
+- Organizar var_expansions
+- Cambiar mi libft para poner ft_calloc bien. 
 ---

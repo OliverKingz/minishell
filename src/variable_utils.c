@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/09 23:12:31 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:48:13 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ char	*my_replace(char *og, char *target, char *rep)
 	return (s);
 }
 
-size_t	my_strlen_chr(char *s, char c)
+size_t	my_strlen_word(char *s)
 {
 	size_t i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && ft_isalnum(s[i]))
 		i++;
 	return(i);
 }
@@ -90,10 +90,10 @@ char	*extract_first_var(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] != '\0' && !ft_isspace(s[i + 1]))
+		if (s[i] == '$' && s[i + 1] != '\0' && ft_isalnum(s[i + 1]))
 		{
-			size = my_strlen_chr(&s[i], ' ');
-			var = ft_substr(&s[i], 0, size);
+			size = my_strlen_word(&s[i + 1]);
+			var = ft_substr(&s[i], 0, size + 1);
 			return(var);
 		}
 		i++;
@@ -126,19 +126,17 @@ char	*expand_vars(char *og, t_env *node)
 	return (str);
 }
 
-/*
-int	main(int argc, char **args, char **env)
-{
-	char	*s;
-	t_env	*node;
+// int	main(int argc, char **args, char **env)
+// {
+// 	char	*s;
+// 	t_env	*node;
 
-	(void)argc;
-	(void)args;
-	node = init_envlist(env);
-	s = expand_vars("echo $USER $ hola $PWD :) \n", node);
-	ft_putstr_fd(s, STDOUT_FILENO);
-	free(s);
-	clear_envlist(&node);
-	return (0);
-}
-*/
+// 	(void)argc;
+// 	(void)args;
+// 	node = init_envlist(env);
+// 	s = expand_vars("hola '$USER'$USER :) \n", node);
+// 	ft_putstr_fd(s, STDOUT_FILENO);
+// 	free(s);
+// 	clear_envlist(&node);
+// 	return (0);
+// }

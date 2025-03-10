@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 02:15:52 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:51:28 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,7 @@ void				addback_token(t_shell *mini_sh, char *content, t_type token_type);
 void				print_tokenslist(t_token *token_lst);
 void				print_tokenslist_short(t_token *token_lst);
 void				clear_tokenlist(t_token **token_lst);
+
+char	*expand_vars(char *og, t_env *node);
 
 #endif
