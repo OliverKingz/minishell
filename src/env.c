@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/09 16:17:41 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:00:35 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_env	*init_envlist(char **env)
 {
 	t_env	*start;
 	t_env	*node;
-	int			i;
-	char		*name;
-	char		*value;
+	int		i;
+	char	*name;
+	char	*value;
 
 	if (!env)
 		return (NULL);
@@ -71,16 +71,16 @@ char	*my_getenv(t_env *start, char *name)
 {
 	if (!name)
 		return (NULL);
-	while(start)
+	while (start)
 	{
 		if (ft_strncmp(start->name, name, -1) == 0)
-			return(start->value);
+			return (start->value);
 		start = start->next;
 	}
 	return (NULL);
 }
 
-void	clear_envnode(t_env	*node)
+void	clear_envnode(t_env *node)
 {
 	if (!node)
 		return ;
@@ -114,5 +114,5 @@ void	print_envlist(t_env *start)
 		ft_putchar_fd('=', STDOUT_FILENO);
 		ft_putendl_fd(start->value, STDOUT_FILENO);
 		start = start->next;
-	}	
+	}
 }

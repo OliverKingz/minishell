@@ -9,7 +9,9 @@
 		"unistd.h": "c",
 		"signal.h": "c",
 		"string.h": "c",
-		"ioctl.h": "c"
+		"ioctl.h": "c",
+		"termios.h": "c",
+		"errno.h": "c"
 	},
 	"files.exclude": {
 		"**/old": true

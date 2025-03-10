@@ -75,7 +75,7 @@ void	print_tokenslist(t_token *token_lst)
 	}
 }
 
-//USA FUNCION PROHIBIDA PRINTF!
+// USA FUNCION PROHIBIDA PRINTF!
 void	print_tokenslist_short(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",

@@ -83,17 +83,22 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 - Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
 
 ## Casos donde falla
-- echo "hola '  "
+- echo "hola '  "✅
+- echo "$USER" '$USER' "'$USER" '$USER"'
+- cat | | cat (make validate_tokens_syntax)
+- cat <g<<<g<<<<<<g<g<g<g<g
 
-## TODO
+# FINISHED
 - Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
-- Current_type añadir a mini_sh
-- Investiga var exp para ""y '''
+
 - Solo importa la comillas exteriores ✅
-raperez-@c1r16s2:~/Desktop/minishelloza$ echo '$USER'
-$USER
-raperez-@c1r16s2:~/Desktop/minishelloza$ echo "'$USER'"
-'raperez-'
+echo '$USER'
+$USER✅
+echo "'$USER'"
+'raperez-'✅
+
+## TO DO INMEDIATO OLIVER
+
 - Dentro de los tokens, quitar las comillas exteriores. Investigar más. 
 "echo"     
 
@@ -107,6 +112,14 @@ zsh: command not found: 'echo'
 "ec"ho funciona el comando
 - Quitar los "" y '' despues de tokenizar. 
 
+## TO DO LEJANO OLIVER
+- Minishell tiene que detectar en que minishell está para poder matar a la buenna. Tenerlo dentro de estructura
+Incluso si lo mato en otra ventana
+
+## TO DO/PREGUNTAR/DECIR A RAUL
+- Mirar env de emergencia y PATH de emergencia.
+- Mirar que pasa cuando init devuelve NULL
+- En los init con muchos calloc, siempre checkeo. ¿Que opinas de juntarlos todos en 1?
 ---
 
 ## Legend:

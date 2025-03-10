@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:48:04 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:06:21 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ char	*my_replace(char *og, char *target, char *rep)
 
 size_t	my_strlen_word(char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] && ft_isalnum(s[i]))
 		i++;
-	return(i);
+	return (i);
 }
 
 void	my_skip(char **s, char c)
@@ -97,7 +97,7 @@ char	*extract_first_var(char *s)
 	bool	is_double_quote;
 
 	if (!s)
-		return(NULL);
+		return (NULL);
 	is_double_quote = false;
 	while (*s)
 	{
@@ -110,7 +110,7 @@ char	*extract_first_var(char *s)
 		{
 			size = my_strlen_word(&s[1]);
 			var = ft_substr(s, 0, size + 1);
-			return(var);
+			return (var);
 		}
 		else if (*s == '\"')
 			is_double_quote = !is_double_quote;
@@ -131,7 +131,7 @@ char	*expand_vars(char *og, t_env *node)
 	{
 		var = extract_first_var(str);
 		if (!var)
-			break;
+			break ;
 		value = my_getenv(node, &var[1]);
 		temp = str;
 		if (value)

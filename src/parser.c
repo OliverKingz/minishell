@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 02:39:24 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:03:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	tokenize(t_shell *mini_sh)
 	while (current[i[1]] != '\0')
 	{
 		handle_quotes(mini_sh, current, i, &state);
-		//handle_var_expansion(mini_sh, current, i, &state);
 		handle_redir(mini_sh, current, i, &state);
 		handle_pipe_space(mini_sh, current, i, &state);
 		i[1]++;
@@ -52,7 +51,7 @@ void	classify_word_token(t_shell *mini_sh)
 }
 
 void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
-{ //Preguntar caso <<1<<2<<3
+{
 	if (current->type == WORD)
 	{
 		if (*last_type == REDIR_IN || *last_type == REDIR_OUT
@@ -60,13 +59,13 @@ void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
 			current->type = FILE_PATH;
 		else if (*last_type == REDIR_HD)
 			current->type = LIMITER;
-		else if ((*last_type == OP_PIPE || *last_type == FILE_PATH 
-			|| *last_type == LIMITER || current->index == 0)
+		else if ((*last_type == OP_PIPE || *last_type == FILE_PATH
+				|| *last_type == LIMITER || current->index == 0)
 			&& *single_cmd == false)
 			current->type = COMMAND, *single_cmd = true;
 		else if ((*last_type == COMMAND || *last_type == FILE_PATH
 				|| *last_type == LIMITER || *last_type == ARG)
-				&& *single_cmd == true)
+			&& *single_cmd == true)
 			current->type = ARG;
 	}
 	else if (current->type == OP_PIPE)
