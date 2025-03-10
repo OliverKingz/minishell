@@ -1,22 +1,22 @@
 # ENUM TYPES
 
 - Hemos quitado `option`, ya que es un argumento, y `Var`, ya que expandimos todos los `$` antes de tokenizar.
-- Si el `|` está entre comillas, considerarlo como argumento.
-- Si `|`, `<`, `<<`, `>`, `>>` están entre comillas, no tomarlos como caracteres especiales.
+- Si el `|` está entre comillas, considerarlo como argumento. ✅
+- Si `|`, `<`, `<<`, `>`, `>>` están entre comillas, no tomarlos como caracteres especiales.✅
 
 ## Example
 
-### Input Line
+### Input Line✅
 ```
 cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e
 ```
 
-### Tokenizer Result
+### Tokenizer Result✅
 ```
 "cat" "<" "in" "|" "grep" ""Hi bye"" "|" "grep" "'M'" ">" "out" "|" "cat" ">>" "final_out" "-e"
 ```
 
-### Token Classification
+### Token Classification✅
 - `"cat"`: command
 - `"<"`: redir_in
 - `"in"`: file_path
@@ -36,8 +36,8 @@ cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e
 
 ## Multiple Examples for Input Line
 ```
-echo hola | <<EOF cat -e
-find . -type f -name "*.c" | xargs grep "main" > results.txt
+echo hola | <<EOF cat -e✅
+find . -type f -name "*.c" | xargs grep "main" > results.txt✅
 ```
 
 ## Example Expansion
@@ -49,23 +49,19 @@ export VAR1="echo hola mundo |          cat -e"
 char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 ```
 
-## Example: Terminar con `>`, `>>`, `<`, `<<` y `|`
+## Example: Terminar con `>`, `>>`, `<`, `<<` y `|`✅
 ```
 ls |
 ```
 Todos son errores de sintaxis, mirar explicación Slack/DM.
 
 ## Additional Notes
-- `echo 'Hello/nWorld' | \\\n`
-- Pipes entre `""` y `''` los toma como texto.
-- Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`.
-
-- `echo 'Hello/nWorld' | \\\n`
-- Pipes entre `""` y `''` los toma como texto.
-- Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`.
+- `echo 'Hello/nWorld' | \\\n` (???)
+- Pipes entre `""` y `''` los toma como texto. ✅
+- Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`.✅
 
 - Para `;`, `\`, mejor ni siquiera mirarlo al principio (incluido `#`, `=`, `)`).
-- `||` tratarlo.
+- `||` tratarlo.✅
 - `""` y `''` tratarlo como syntax error si no está cerrado.
 
 - Taggear: Orden de prioridad (en el orden de mirar ifs al tagear):
@@ -83,21 +79,55 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 - Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
 
 ## Casos donde falla
-- echo "$USER" '$USER' "'$USER" '$USER"'
-- cat | | cat (make validate_tokens_syntax)
+- ><ls sale syntax error near unexpected token `<' (<>ls Lo acepta y crea ls. )
+
 - cat <g<<<g<<<<<<g<g<g<g<g
-- <>ls Lo acepta y crea ls. ><ls sale syntax error near unexpected token `<'
 
 # FINISHED
 - Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
 
 - Solo importa la comillas exteriores ✅
-echo '$USER'
-$USER✅
-echo "'$USER'"
-'raperez-'✅
+echo '$USER'✅
+$USER
+echo "'$USER'"✅
+'raperez-'
 
 - echo "hola '  "✅
+
+- echo "$USER" '$USER' "'$USER" '$USER"' $USER ✅
+
+- cat | | cat (make validate_tokens_syntax)✅
+Tras research, casos a mirar:
+
+Comandos Inválidos✅
+echo hola | | cat -e
+echo hola > | cat -e
+echo hola > > cat -e
+echo hola > < cat -e
+echo hola > << cat -e
+echo hola < | cat -e
+echo hola < > cat -e
+echo hola < < cat -e
+echo hola < << cat -e
+echo hola >> | cat -e
+echo hola >> > cat -e
+echo hola >> < cat -e
+echo hola >> << cat -e
+echo hola << | cat -e
+echo hola << < cat -e
+echo hola << << cat -e
+echo hola > >> cat -e
+echo hola < >> cat -e
+echo hola < << cat -e
+echo hola >> >> cat -e
+echo hola >> << cat -e
+echo hola << > cat -e
+
+Comandos Válidos✅
+echo hola | > cat -e
+echo hola | < cat -e
+echo hola | >> cat -e
+echo hola | << cat -e
 
 ## TO DO INMEDIATO OLIVER
 
@@ -108,20 +138,28 @@ c1r16s2% echo
 
 c1r16s2% "'echo'"
 zsh: command not found: 'echo'
+
 - Organizar var_expansions
+
 - Cambiar mi libft para poner ft_calloc bien. 
+
 - No separar los ""
 "ec"ho funciona el comando
+
 - Quitar los "" y '' despues de tokenizar. 
 
 ## TO DO LEJANO OLIVER
 - Minishell tiene que detectar en que minishell está para poder matar a la buenna. Tenerlo dentro de estructura
 Incluso si lo mato en otra ventana
 
+- Poner loop en un fork???
+
 ## TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar env de emergencia y PATH de emergencia.
 - Mirar que pasa cuando init devuelve NULL
 - En los init con muchos calloc, siempre checkeo. ¿Que opinas de juntarlos todos en 1?
+- Revisar validate_tokens_syntax, muchos casos.
+
 ---
 
 ## Legend:

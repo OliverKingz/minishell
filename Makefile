@@ -41,8 +41,7 @@ DEBUG			?= 0
 VALGRIND		?= 0
 VALGRIND_FLAGS	:= -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
 		--track-origins=yes --trace-children=yes --track-fds=yes \
-		--gen-suppressions=all --suppressions=doc/valgrind.supp \
-		--log-file=doc/memcheck.log
+		--suppressions=doc/valgrind.supp --log-file=doc/memcheck.log #--gen-suppressions=all
 
 ifeq ($(DEBUG),1)
 	CFLAGS += -g3 -fsanitize=address
