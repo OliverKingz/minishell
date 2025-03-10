@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:02:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:49:05 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:49:26 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,35 @@
  */
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*array;
-	size_t	total_size;
+	void	*ptr;
 
-	total_size = nmemb * size;
-	if (nmemb == 0 || size == 0)
-	{
-		array = malloc(1);
-		if (!array)
-			return (NULL);
-		return (array);
-	}
-	else if (size != 0 && total_size / size != nmemb)
+	ptr = malloc(nmemb * size);
+	if (!ptr)
 		return (NULL);
-	array = malloc(total_size);
-	if (!array)
-		return (NULL);
-	ft_bzero(array, total_size);
-	return (array);
+	ft_memset(ptr, 0, nmemb * size);
+	return (ptr);
 }
+
+// int	main()
+// {
+// 	char	*ft;
+// 	char	*og;
+// 	char	*au;
+
+// 	ft = ft_calloc(0, sizeof(char *));
+// 	og = calloc(0, sizeof(char *));
+// 	au = malloc(0);
+// 	printf("ft: %p\t%s\t%lu\n", ft, ft, sizeof(ft));
+// 	printf("og: %p\t%s\t%lu\n", og, og, sizeof(og));
+// 	printf("au: %p\t%s\t%lu\n", au, au, sizeof(au));
+// 	if (!og)
+// 		perror("og"), exit(EXIT_FAILURE);
+// 	if (!ft)
+// 		perror("ft"), exit(EXIT_FAILURE);
+// 	if (!au)
+// 		perror("au"), exit(EXIT_FAILURE);
+// 	free(og);
+// 	free(ft);
+// 	free(au);
+// 	return 0;
+// }
