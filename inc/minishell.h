@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 11:51:28 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:47:07 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,11 @@ void				print_tokenslist(t_token *token_lst);
 void				print_tokenslist_short(t_token *token_lst);
 void				clear_tokenlist(t_token **token_lst);
 
+int		my_strnstr_pos(const char *big, const char *little, size_t len);
+char	*my_replace_first(char *og, char *target, char *rep);
+size_t	my_strlen_word(char *s);
+void	my_skip(char **s, char c);
+char	*extract_first_var(char *s);
 char	*expand_vars(char *og, t_env *node);
 
 #endif

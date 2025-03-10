@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/10 11:48:13 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:48:04 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*my_replace_first(char *og, char *target, char *rep)
 	return (s);
 }
 
+/*
+En memoria de esta fncion que solo causó bugs
 char	*my_replace(char *og, char *target, char *rep)
 {
 	char	*s;
@@ -68,6 +70,7 @@ char	*my_replace(char *og, char *target, char *rep)
 	}
 	return (s);
 }
+*/
 
 size_t	my_strlen_word(char *s)
 {
@@ -79,24 +82,39 @@ size_t	my_strlen_word(char *s)
 	return(i);
 }
 
+void	my_skip(char **s, char c)
+{
+	if (!s || !*s)
+		return ;
+	while (**s && **s != c)
+		(*s)++;
+}
+
 char	*extract_first_var(char *s)
 {
-	int		i;
 	size_t	size;
 	char	*var;
+	bool	is_double_quote;
 
 	if (!s)
 		return(NULL);
-	i = 0;
-	while (s[i])
+	is_double_quote = false;
+	while (*s)
 	{
-		if (s[i] == '$' && s[i + 1] != '\0' && ft_isalnum(s[i + 1]))
+		if (*s == '\'' && !is_double_quote)
 		{
-			size = my_strlen_word(&s[i + 1]);
-			var = ft_substr(&s[i], 0, size + 1);
+			s++;
+			my_skip(&s, '\'');
+		}
+		else if (*s == '$' && s[1] != '\0' && ft_isalnum(s[1]))
+		{
+			size = my_strlen_word(&s[1]);
+			var = ft_substr(s, 0, size + 1);
 			return(var);
 		}
-		i++;
+		else if (*s == '\"')
+			is_double_quote = !is_double_quote;
+		s++;
 	}
 	return (NULL);
 }
@@ -117,9 +135,9 @@ char	*expand_vars(char *og, t_env *node)
 		value = my_getenv(node, &var[1]);
 		temp = str;
 		if (value)
-			str = my_replace(temp, var, value);
+			str = my_replace_first(temp, var, value);
 		else
-			str = my_replace(temp, var, "");
+			str = my_replace_first(temp, var, "");
 		free(temp);
 		free(var);
 	}
