@@ -23,7 +23,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 		if (!mini_sh->input->read_line)
 			return (free_shell(mini_sh), my_perr("strdup readline", true, errno), NULL);
 		mini_sh->input->token_lst = init_tokenlist(mini_sh);
-		count_cmds_heredocs(&mini_sh);
+		count_cmds_heredocs(mini_sh);
 		// mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count + 1, sizeof(pid_t));
 		// mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count, sizeof(int));
 		// if (!mini_sh->input->pid || !mini_sh->input->heredocs)

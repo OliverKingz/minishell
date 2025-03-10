@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/09 02:21:31 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:40:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ bool	validate_rline_syntax(char *read_line)
 	i = -1;
 	while (current[++i] != '\0')
 	{
-		if (current[i] == '|' && current[i + 1] == '|') // Consultar Raul
-			return (ft_puterr(ERR_SYNTAX), false);
-		if (current[i] == '\'')
-			s_quote_count++;
-		if (current[i] == '\"')
-			d_quote_count++;
+		if (!check_syntax_quotes(current, i, &s_quote_count, &d_quote_count))
+			return (false);
 	}
 	if (current[i - 1] == '|' || current[i - 1] == '>' || current[i - 1] == '<')
 		return (ft_puterr(ERR_SYNTAX_NL), false);
@@ -38,7 +34,30 @@ bool	validate_rline_syntax(char *read_line)
 		return (ft_puterr(ERR_SYNTAX), false);
 	return (true);
 }
-void	count_cmds_heredocs(t_shell **mini_sh)
+
+bool	check_syntax_quotes(char *current, int i, int *s_quote_count,int *d_quote_count)
+{
+	bool	in_s_quote;
+	bool	in_d_quote;
+
+	in_s_quote = false;
+	in_d_quote = false;
+	if (current[i] == '|' && current[i + 1] == '|') // Consultar Raul
+		return (ft_puterr(ERR_SYNTAX), false);
+	if (current[i] == '\'' && !in_d_quote && (*d_quote_count % 2) == 0)
+	{
+		in_s_quote = !in_s_quote;
+		(*s_quote_count)++;
+	}
+	if (current[i] == '\"' && !in_s_quote && (*s_quote_count % 2) == 0)
+	{
+		in_d_quote = !in_d_quote;
+		(*d_quote_count)++;
+	}
+	return (true);
+}
+
+void	count_cmds_heredocs(t_shell *mini_sh)
 {
 	t_token	*current;
 	int		cmd_counter;
@@ -46,7 +65,7 @@ void	count_cmds_heredocs(t_shell **mini_sh)
 
 	cmd_counter = 0;
 	heredoc_counter = 0;
-	current = (*mini_sh)->input->token_lst;
+	current = mini_sh->input->token_lst;
 	while (current != NULL)
 	{
 		if (current->type == COMMAND)
@@ -55,6 +74,6 @@ void	count_cmds_heredocs(t_shell **mini_sh)
 			heredoc_counter++;
 		current = current->next;
 	}
-	(*mini_sh)->input->cmd_count = cmd_counter;
-	(*mini_sh)->input->hdoc_count = heredoc_counter;
+	mini_sh->input->cmd_count = cmd_counter;
+	mini_sh->input->hdoc_count = heredoc_counter;
 }

@@ -86,10 +86,10 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 - echo "hola '  "
 
 ## TODO
-- Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. 
+- Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
 - Current_type añadir a mini_sh
 - Investiga var exp para ""y '''
-- Solo importa la comillas exteriores
+- Solo importa la comillas exteriores ✅
 raperez-@c1r16s2:~/Desktop/minishelloza$ echo '$USER'
 $USER
 raperez-@c1r16s2:~/Desktop/minishelloza$ echo "'$USER'"
@@ -103,4 +103,14 @@ c1r16s2% "'echo'"
 zsh: command not found: 'echo'
 - Organizar var_expansions
 - Cambiar mi libft para poner ft_calloc bien. 
+- No separar los ""
+"ec"ho funciona el comando
+- Quitar los "" y '' despues de tokenizar. 
+
 ---
+
+## Legend:
+- ✅ It works, maybe with frees and leaks
+- ❌ Wrong
+- ⌛ Work in Progress
+- 🆓 There are leaks to fix. Waiting for parse.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 11:51:28 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:31:53 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ void				my_free(void **mem);
 int					my_strchr_pos(const char *s, char c);
 
 bool	validate_rline_syntax(char *read_line);
-void	count_cmds_heredocs(t_shell **mini_sh);
+bool	check_syntax_quotes(char *current, int i, int *s_quote_count,int *d_quote_count);
+void	count_cmds_heredocs(t_shell *mini_sh);
 
 void	tokenize(t_shell *mini_sh);
 void	classify_word_token(t_shell *mini_sh);
