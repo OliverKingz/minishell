@@ -11,7 +11,10 @@
 		"string.h": "c",
 		"ioctl.h": "c",
 		"termios.h": "c",
-		"errno.h": "c"
+		"errno.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"type_traits": "c"
 	},
 	"files.exclude": {
 		"**/old": true

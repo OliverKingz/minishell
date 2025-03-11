@@ -79,14 +79,15 @@ Todos son errores de sintaxis, mirar explicación Slack/DM.
 - Si pones algo, y usas CTRL+D no hace exit, solo si esta esperando
 
 ## Casos donde falla
-- ><ls sale syntax error near unexpected token `<' (<>ls Lo acepta y crea ls. )
 
-- cat <g<<<g<<<<<<g<g<g<g<g
+- "ech"o ⌛
 
 # FINISHED
+- cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e ✅
+
 - Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
 
-- Solo importa la comillas exteriores ✅
+- Solo importa la comillas exteriores, expansion ✅
 echo '$USER'✅
 $USER
 echo "'$USER'"✅
@@ -129,15 +130,21 @@ echo hola | < cat -e
 echo hola | >> cat -e
 echo hola | << cat -e
 
-## TO DO INMEDIATO OLIVER
-
 - Dentro de los tokens, quitar las comillas exteriores. Investigar más.  ✅
 "echo"     
 
-c1r16s2% echo
+- Casos donde tiene que funcionar
+""echo✅
+echo""✅
+""echo""✅
+"" echo ""✅
+"ech"o ⌛
 
-c1r16s2% "'echo'"
-zsh: command not found: 'echo'
+ "echo" 'que' ""tal"" ''yo''✅
+[echo     ]→[que      ]→[tal      ]→[yo       ]
+[COMMAND  ]→[ARG      ]→[ARG      ]→[ARG      ]
+
+## TO DO INMEDIATO OLIVER
 
 - Organizar var_expansions
 
