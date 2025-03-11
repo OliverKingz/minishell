@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/11 00:10:48 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:28:17 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ bool	check_syntax_quotes(char *current, int i, int *s_quote_count,int *d_quote_c
 
 	in_s_quote = false;
 	in_d_quote = false;
-	if (current[i] == '|' && current[i + 1] == '|')
-		return (ft_puterr(ERR_SYNTAX), false);
+	// if (current[i] == '|' && current[i + 1] == '|')
+	// 	return (ft_puterr(ERR_SYNTAX), false);
+	// if (current[i] == '>' && current[i + 1] == '|')
+	// 	return (ft_puterr(ERR_SYNTAX), false);
 	if (current[i] == '\'' && !in_d_quote && (*d_quote_count % 2) == 0)
 	{
 		in_s_quote = !in_s_quote;
