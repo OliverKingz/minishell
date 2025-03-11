@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:36:02 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:51:10 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state)
 			*state = S_QUOTE, i[0] = i[1];
 		else if (*state == S_QUOTE)
 		{
-			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0] + 1),
+			addback_token(mini_sh, ft_substr(current, i[0] + 1, i[1] - i[0] - 1),
 				WORD);
 			*state = WORD;
 			i[0] = i[1] + 1;
@@ -32,7 +32,7 @@ void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state)
 			*state = D_QUOTE, i[0] = i[1];
 		else if (*state == D_QUOTE)
 		{
-			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0] + 1),
+			addback_token(mini_sh, ft_substr(current, i[0] + 1, i[1] - i[0] - 1),
 				WORD);
 			*state = WORD;
 			i[0] = i[1] + 1;

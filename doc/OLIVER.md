@@ -131,7 +131,7 @@ echo hola | << cat -e
 
 ## TO DO INMEDIATO OLIVER
 
-- Dentro de los tokens, quitar las comillas exteriores. Investigar más. 
+- Dentro de los tokens, quitar las comillas exteriores. Investigar más.  ✅
 "echo"     
 
 c1r16s2% echo
