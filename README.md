@@ -84,6 +84,30 @@ The project is written in C and adheres to strict coding standards, ensuring no 
   ```  
 - Test with various commands, redirections, and pipes to ensure proper functionality.
 
+### Parser Example
+Input:
+```
+cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e
+```
+
+Tokenizer result and classification:
+- `"cat"`: command
+- `"<"`: redir_in
+- `"in"`: file_path
+- `"|"`: op_pipe
+- `"grep"`: command
+- `"Hi bye"`: argument
+- `"|"`: op_pipe
+- `"grep"`: command
+- `"M"`: argument
+- `">"`: redir_out
+- `"out"`: file_path
+- `"|"`: op_pipe
+- `"cat"`: command
+- `">>"`: redir_append
+- `"final_out"`: file_path
+- `"-e"`: argument
+
 ### Example Usage
 
 | **Input Command**                                      | **Description**                                                                 | **Expected Output**                                                                 |

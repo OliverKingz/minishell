@@ -5,6 +5,7 @@
 - ❌ Wrong
 - ⌛ Work in Progress
 - 🆓 There are leaks to fix. Waiting for parse.
+- ❓ No se si tiene que contemplarse
 
 ---
 ## **Priority 0: Project Setup**
@@ -18,63 +19,64 @@
 ## **Priority 1: Parser**
 
 ### **1. Basic Tokenization**
-- [] Split input into tokens by spaces (e.g., `ls -l > file.txt` → `["ls", "-l", ">", "file.txt"]`).
-  - [] Handle multiple spaces and tabs.
-  - [] Ignore leading and trailing spaces.
-- [] Identify special tokens (e.g., `>`, `<`, `|`, `>>`, `<<`).
-  - [] Handle consecutive special tokens (e.g., `>>`, `<<`).
-- [] Store tokens in a data structure (e.g., linked list).
-  - [] Ensure the structure is easy to traverse and manipulate.
+- [✅] Split input into tokens by spaces (e.g., `ls -l > file.txt` → `["ls", "-l", ">", "file.txt"]`).
+  - [✅] Handle multiple spaces and tabs.
+  - [✅] Ignore leading and trailing spaces.
+  - [❌] Check edge cases
+- [✅] Identify special tokens (e.g., `>`, `<`, `|`, `>>`, `<<`).
+  - [✅] Handle consecutive special tokens (e.g., `>>`, `<<`).
+- [✅] Store tokens in a data structure (e.g., linked list).
+  - [✅] Ensure the structure is easy to traverse and manipulate.
 
 ### **2. Command Parsing**
-- [] Group tokens into commands and arguments.
-  - [] Separate commands by pipes (`|`).
-  - [] Handle redirections (`<`, `>`, `>>`, `<<`) within commands.
-- [] Handle basic redirections:
-  - [] `<` for input redirection.
-  - [] `>` for output redirection.
-  - [] `>>` for append output redirection.
-  - [] `<<` for here document (read input until delimiter).
-- [] Handle pipes (`|`):
-  - [] Connect the output of one command to the input of the next.
+- [✅] Group tokens into commands and arguments.
+  - [✅] Separate commands by pipes (`|`).
+  - [✅] Handle redirections (`<`, `>`, `>>`, `<<`) within commands.
+- [✅] Handle basic redirections:
+  - [✅] `<` for input redirection.
+  - [✅] `>` for output redirection.
+  - [✅] `>>` for append output redirection.
+  - [✅] `<<` for here document (read input until delimiter).
+- [✅] Handle pipes (`|`):
+  - [✅] Connect the output of one command to the input of the next.
 
 ### **3. Syntax Validation**
-- [] Check for invalid syntax:
-  - [] Double pipes (`||`).
-  - [] Unclosed quotes (`'`, `"`).
-  - [] Invalid redirections (e.g., `> > file.txt`).
-- [] Print error messages for invalid syntax.
-  - [] Use `perror` or custom error messages.
-  - [] Ensure the shell continues running after an error.
+- [✅] Check for invalid syntax:
+  - [✅] Double pipes (`||`).
+  - [✅] Unclosed quotes (`'`, `"`).
+  - [✅] Invalid redirections (e.g., `> > file.txt`).
+- [✅] Print error messages for invalid syntax.
+  - [✅] Use `perror` or custom error messages.
+  - [✅] Ensure the shell continues running after an error.
 
 ### **4. Advanced Tokenization**
-- [] Handle quotes (`'`, `"`):
-  - [] Single quotes: Prevent interpretation of metacaracters.
-  - [] Double quotes: Prevent interpretation of metacaracters except `$`.
-- [] Handle special characters (e.g., `\`, `$`):
-  - [] Escape characters (e.g., `\n`, `\t`).
-  - [] Expand environment variables (e.g., `$HOME`).
-  - [] Handle `$?` to expand to the exit status of the last command.
+- [✅] Handle quotes (`'`, `"`):
+  - [✅] Single quotes: Prevent interpretation of metacaracters.
+  - [✅] Double quotes: Prevent interpretation of metacaracters except `$`.
+- [✅] Handle special characters (e.g., `\`, `$`):
+  - [❓] Escape characters (e.g., `\n`, `\t`).
+  - [✅] Expand environment variables (e.g., `$HOME`).
+  - [❌] Handle `$?` to expand to the exit status of the last command.
 
 ### **5. Command Structure**
-- [] Create a data structure to represent commands:
-  - [] Command name (e.g., `ls`).
-  - [] Arguments (e.g., `-l`).
-  - [] Redirections (e.g., `> file.txt`).
-  - [] Pipes (e.g., `| grep .c`).
-  - [] Input/output file descriptors for redirections and pipes.
+- [✅] Create a data structure to represent commands:
+  - [✅] Command name (e.g., `ls`).
+  - [✅] Arguments (e.g., `-l`).
+  - [✅] Redirections (e.g., `> file.txt`).
+  - [✅] Pipes (e.g., `| grep .c`).
+  - [✅] Input/output file descriptors for redirections and pipes.
 
 ---
 
 ## **Priority 2: Core Shell Functionality**
 
 ### **1. Basic Shell Loop**
-- [] Display a prompt (e.g., `minishell> `).
-  - [] Customize the prompt if needed.
-- [] Read user input using `readline`.
-  - [] Handle `ctrl-D` (EOF) to exit the shell.
-  - [] Add input to history using `add_history`.
-- [] Print the input back to the user (for testing purposes).
+- [✅] Display a prompt (e.g., `minishell> `).
+  - [❌] Customize the prompt if needed.
+- [✅] Read user input using `readline`.
+  - [✅] Handle `ctrl-D` (EOF) to exit the shell.
+  - [✅] Add input to history using `add_history`.
+- [✅] Print the input back to the user (for testing purposes).
 
 ### **2. Command Execution**
 - [] Execute commands using `fork`, `execve`, and `waitpid`.
