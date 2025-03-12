@@ -130,10 +130,24 @@ echo hola | << cat -e
   - IDEA: Usar my_replace(?) Donde usarlo? antes del handle?
 		if (!my_replace(current->content, "\"", ""))
 			return (my_perr("remove_quotes", true, errno), false);
+  - Concatenation of characters: This ensures that characters inside quotes are concatenated and treated as single tokens.
+
 
 # TO DO INMEDIATO OLIVER
-- Intentar reducir el loop con Raul. 
-  - Hacer funcion (readline_checks) que englobe los 3 continue
+- Hacer signal.c
+  - signal(SIGINT, handle_ctrl_c);
+  - void handle_ctrl_c(int signal_sigint)
+      ft_putstr_fd("^C\n", STDIN_FILENO);
+      rl_on_new_line();
+      rl_replace_line("", 0);
+      rl_redisplay();
+  - Investigar para que vale señal global
+  - signal(SIGQUIT, handle_ctrl_backslash)
+    -	signal(SIGQUIT, SIG_IGN);
+
+- History file
+  - Create with open, append. 
+  - Como pongo limite? 
 
 
 # TO DO LEJANO OLIVER

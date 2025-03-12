@@ -122,6 +122,10 @@
   ```
 
 - **Termcap functions**
+Terminal capability is a library and database used in Unix-like operating systems 
+to define the capabilities and control sequences of various types of terminals. 
+It allows programs to interact with different terminal types in a consistent way 
+without needing to know the specifics of each terminal.
   - `tgetent`: Loads a terminal entry from the termcap database.
   - `tgetflag`: Gets a boolean entry from the termcap database.
   - `tgetnum`: Gets a numeric entry from the termcap database.
@@ -198,4 +202,379 @@ int tgetnum(const char *id);
 char *tgetstr(const char *id, char **area);
 char *tgoto(const char *cap, int col, int row);
 int tputs(const char *str, int affcnt, int (*putc)(int));
+```
+
+---
+
+### Readline Functions
+
+```c
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+int main() {
+    char *input;
+
+    // Read a line of input from the user
+    input = readline("Enter something: ");
+    if (input && *input) {
+        // Add the input to the history
+        add_history(input);
+    }
+
+    // Replace the current line with a new text
+    rl_replace_line("New text", 1);
+
+    // Inform readline that the cursor is on a new line
+    rl_on_new_line();
+
+    // Redisplay the current line
+    rl_redisplay();
+
+    // Clear the readline history
+    rl_clear_history();
+
+    // Free the input
+    free(input);
+
+    return 0;
+}
+
+/*
+Tested functions:
+- readline
+- add_history
+- rl_replace_line
+- rl_on_new_line
+- rl_redisplay
+- rl_clear_history
+
+Functions still to be tested:
+- None
+*/
+```
+
+### File Operations
+
+```c
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main() {
+    int fd;
+    char buffer[100];
+
+    // Check file accessibility
+    if (access("example.txt", F_OK) == -1) {
+        perror("File does not exist");
+        return 1;
+    }
+
+    // Open a file
+    fd = open("example.txt", O_RDONLY);
+    if (fd == -1) {
+        perror("Failed to open file");
+        return 1;
+    }
+
+    // Get file status
+    struct stat file_stat;
+    if (fstat(fd, &file_stat) == -1) {
+        perror("Failed to get file status");
+        close(fd);
+        return 1;
+    }
+
+    // Read data from the file
+    ssize_t bytes_read = read(fd, buffer, sizeof(buffer) - 1);
+    if (bytes_read == -1) {
+        perror("Failed to read file");
+        close(fd);
+        return 1;
+    }
+
+    // Null-terminate the buffer and print it
+    buffer[bytes_read] = '\0';
+    printf("File content: %s\n", buffer);
+
+    // Close the file
+    close(fd);
+
+    return 0;
+}
+
+/*
+Tested functions:
+- access
+- open
+- fstat
+- read
+- close
+
+Functions still to be tested:
+- write
+- stat
+- lstat
+- unlink
+*/
+```
+
+### Process Control
+
+```c
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid == -1) {
+        perror("Failed to fork");
+        return 1;
+    } else if (pid == 0) {
+        // Child process
+        printf("Child process\n");
+        execlp("ls", "ls", NULL);
+        perror("Failed to exec");
+        exit(1);
+    } else {
+        // Parent process
+        int status;
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status)) {
+            printf("Child exited with status %d\n", WEXITSTATUS(status));
+        }
+    }
+
+    return 0;
+}
+
+/*
+Tested functions:
+- fork
+- waitpid
+- execlp
+- exit
+
+Functions still to be tested:
+- wait
+- wait3
+- wait4
+- execve
+*/
+```
+
+### Signal Handling
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void handle_signal(int signal) {
+    printf("Received signal %d\n", signal);
+}
+
+int main() {
+    // Set a signal handler for SIGINT
+    signal(SIGINT, handle_signal);
+
+    // Wait for a signal
+    printf("Waiting for SIGINT (Ctrl+C)...\n");
+    pause();
+
+    return 0;
+}
+
+/*
+Tested functions:
+- signal
+
+Functions still to be tested:
+- sigaction
+- kill
+*/
+```
+
+### Directory Operations
+
+```c
+#include <dirent.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    DIR *dir;
+    struct dirent *entry;
+    char cwd[1024];
+
+    // Get the current working directory
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("Current working directory: %s\n", cwd);
+    } else {
+        perror("getcwd() error");
+        return 1;
+    }
+
+    // Open a directory stream
+    dir = opendir(".");
+    if (!dir) {
+        perror("Failed to open directory");
+        return 1;
+    }
+
+    // Read directory entries
+    while ((entry = readdir(dir)) != NULL) {
+        printf("Found file: %s\n", entry->d_name);
+    }
+
+    // Close the directory stream
+    closedir(dir);
+
+    return 0;
+}
+
+/*
+Tested functions:
+- getcwd
+- opendir
+- readdir
+- closedir
+
+Functions still to be tested:
+- None
+*/
+```
+
+### Terminal Control
+
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <termios.h>
+
+int main() {
+    struct termios term;
+
+    // Check if the file descriptor refers to a terminal
+    if (isatty(STDIN_FILENO)) {
+        printf("stdin is a terminal\n");
+    } else {
+        printf("stdin is not a terminal\n");
+    }
+
+    // Get the terminal attributes
+    if (tcgetattr(STDIN_FILENO, &term) == -1) {
+        perror("Failed to get terminal attributes");
+        return 1;
+    }
+
+    // Modify the terminal attributes (e.g., disable echo)
+    term.c_lflag &= ~ECHO;
+    if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1) {
+        perror("Failed to set terminal attributes");
+        return 1;
+    }
+
+    printf("Echo disabled. Type something: ");
+    char buffer[100];
+    fgets(buffer, sizeof(buffer), stdin);
+    printf("\nYou typed: %s\n", buffer);
+
+    // Restore the terminal attributes
+    term.c_lflag |= ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
+    return 0;
+}
+
+/*
+Tested functions:
+- isatty
+- tcgetattr
+- tcsetattr
+
+Functions still to be tested:
+- ttyname
+- ttyslot
+- ioctl
+*/
+```
+
+### Environment
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    // Get an environment variable
+    char *path = getenv("PATH");
+    if (path) {
+        printf("PATH: %s\n", path);
+    } else {
+        printf("PATH not set\n");
+    }
+
+    return 0;
+}
+
+/*
+Tested functions:
+- getenv
+
+Functions still to be tested:
+- None
+*/
+```
+
+### Termcap Functions
+
+```c
+#include <termcap.h>
+#include <stdio.h>
+
+int main() {
+    char term_buffer[2048];
+    char *term_type = getenv("TERM");
+
+    if (!term_type) {
+        fprintf(stderr, "TERM environment variable not set\n");
+        return 1;
+    }
+
+    // Load a terminal entry from the termcap database
+    if (tgetent(term_buffer, term_type) != 1) {
+        fprintf(stderr, "Could not access the termcap database\n");
+        return 1;
+    }
+
+    // Get a string entry from the termcap database
+    char *clear_screen = tgetstr("cl", NULL);
+    if (clear_screen) {
+        printf("Clear screen sequence: %s\n", clear_screen);
+    } else {
+        printf("Clear screen sequence not found\n");
+    }
+
+    return 0;
+}
+
+/*
+Tested functions:
+- tgetent
+- tgetstr
+
+Functions still to be tested:
+- tgetflag
+- tgetnum
+- tgoto
+- tputs
+*/
 ```
