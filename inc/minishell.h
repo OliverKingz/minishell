@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:31:56 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:34:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@
 
 # define READ_END 0
 # define WRITE_END 1
+
+# define BREAK_LOOP 1
+# define CONTINUE_LOOP 2
+# define OKAY_LOOP 3
 
 # define TRUE 1
 # define FALSE 0
@@ -126,11 +130,12 @@ typedef struct s_shell
 // shell.c
 
 t_shell				*create_shell(char **env);
+int					process_readline_toinput(t_shell *mini_sh, char **readline);
+void				execution(t_shell *mini_sh);
 int					loop_shell(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
-
 t_input				*init_input(t_shell *mini_sh, char *read_line);
 void				free_input(t_shell **mini_sh);
 
@@ -195,13 +200,13 @@ int					my_strchr_pos(const char *s, char c);
 int					my_strnstr_pos(const char *big, const char *little,
 						size_t len);
 char				*my_replace_first(char *og, char *target, char *rep);
-char				*my_replace(char *og, char *target, char *rep);
+char				*my_replace(char *og, char *target, char *rep); // LEAKS
 void				my_skip(char **s, char c);
 
 // prints.c
 
 void				print_envlist(t_env *start);
 void				print_tokenslist(t_token *token_lst);
-void	print_tokenslist_short(t_token *token_lst); // USA PRINTF OG
+void				print_tokenslist_short(t_token *token_lst); // USA PRINTF OG
 
 #endif

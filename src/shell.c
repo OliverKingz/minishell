@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:43:22 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:33:57 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,51 @@ t_shell	*create_shell(char **env)
 	return (mini_sh);
 }
 
+int	process_readline_toinput(t_shell *mini_sh, char **readline)
+{
+	if (!readline || !*readline)
+		return (BREAK_LOOP);
+	if (ft_strncmp(*readline, "", -1) == 0)
+		return (CONTINUE_LOOP);
+	else
+		add_history(*readline);
+	if (!validate_rline_syntax(*readline))
+	{
+		(free(*readline), *readline = NULL);
+		return (CONTINUE_LOOP);
+	}
+	mini_sh->input = init_input(mini_sh, *readline);
+	if (!mini_sh->input)
+	{
+		(free(*readline), *readline = NULL);
+		return (CONTINUE_LOOP);
+	}
+	return (OKAY_LOOP);
+}
+
+void	execution(t_shell *mini_sh)
+{
+	print_tokenslist_short(mini_sh->input->token_lst);
+	// print_envlist(mini_sh->env);
+}
+
 int	loop_shell(t_shell *mini_sh)
 {
 	char	*read_line;
-	int		exit_status;
+	int		result;
 
 	while (1)
 	{
 		read_line = readline(PROMPT);
-		if (!read_line)
+		result = process_readline_toinput(mini_sh, &read_line);
+		if (result == BREAK_LOOP)
 			break ;
-		if (ft_strncmp(read_line, "", -1) == 0)
+		else if (result == CONTINUE_LOOP)
 			continue ;
-		else
-			add_history(read_line);
-		if (!validate_rline_syntax(read_line))
-		{
-			free(read_line), read_line = NULL;
-			continue ;
-		}
-		mini_sh->input = init_input(mini_sh, read_line);
-		if (!mini_sh->input)
-		{
-			free(read_line), read_line = NULL;
-			continue ;
-		}
-		print_tokenslist_short(mini_sh->input->token_lst);
-		// print_envlist(mini_sh->env);
-		(free(read_line), free_input(&mini_sh));
+		execution(mini_sh);
+		(free(read_line), free_input(&mini_sh), mini_sh->input = NULL);
 	}
-	exit_status = mini_sh->last_exit_status;
-	return (free_shell(mini_sh), exit_status);
+	return (mini_sh->last_exit_status);
 }
 
 void	free_shell(t_shell *mini_sh)

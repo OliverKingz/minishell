@@ -31,8 +31,11 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 # FINISHED ✅
 
 ## TESTS
-- echo hola | <<EOF cat -e ✅
-- find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
+```C
+cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e✅
+echo hola | <<EOF cat -e ✅
+find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
+```
 
 ## TOKENIZACION
 - Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`. ✅
@@ -49,15 +52,18 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
 - `""` y `''` tratarlo como syntax error si no está cerrado. ✅
 - Dentro de los tokens, quitar las comillas exteriores. Investigar más. ✅
 - Casos donde tiene que funcionar:
-  - ""echo ✅
-  - echo"" ✅
-  - ""echo"" ✅
-  - "" echo "" ✅
-  - "echo" 'que' ""tal"" ''yo'' ✅
+```C
+  ""echo ✅
+  echo"" ✅
+  ""echo"" ✅
+  "" echo "" ✅
+  "echo" 'que' ""tal"" ''yo'' ✅
+  "ech"o ⌛ 
+  ec""ho ⌛
+```
+  "echo" 'que' ""tal"" ''yo'' ✅
     [echo     ]→[que      ]→[tal      ]→[yo       ]
     [COMMAND  ]→[ARG      ]→[ARG      ]→[ARG      ]
-  - "ech"o ⌛ 
-  - ec""ho ⌛
 
 ## SEÑALES
 - Si pones algo, y usas CTRL+D no hace exit, solo si está esperando.✅
@@ -75,34 +81,38 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   - cat | | cat (make validate_tokens_syntax) ✅
 
 ### Comandos Inválidos ✅
-- echo hola | | cat -e
-- echo hola > | cat -e
-- echo hola > > cat -e
-- echo hola > < cat -e
-- echo hola > << cat -e
-- echo hola < | cat -e
-- echo hola < > cat -e
-- echo hola < < cat -e
-- echo hola < << cat -e
-- echo hola >> | cat -e
-- echo hola >> > cat -e
-- echo hola >> < cat -e
-- echo hola >> << cat -e
-- echo hola << | cat -e
-- echo hola << < cat -e
-- echo hola << << cat -e
-- echo hola > >> cat -e
-- echo hola < >> cat -e
-- echo hola < << cat -e
-- echo hola >> >> cat -e
-- echo hola >> << cat -e
-- echo hola << > cat -e
+```C
+echo hola | | cat -e
+echo hola > | cat -e
+echo hola > > cat -e
+echo hola > < cat -e
+echo hola > << cat -e
+echo hola < | cat -e
+echo hola < > cat -e
+echo hola < < cat -e
+echo hola < << cat -e
+echo hola >> | cat -e
+echo hola >> > cat -e
+echo hola >> < cat -e
+echo hola >> << cat -e
+echo hola << | cat -e
+echo hola << < cat -e
+echo hola << << cat -e
+echo hola > >> cat -e
+echo hola < >> cat -e
+echo hola < << cat -e
+echo hola >> >> cat -e
+echo hola >> << cat -e
+echo hola << > cat -e
+```
 
 ### Comandos Válidos ✅
-- echo hola | > cat -e
-- echo hola | < cat -e
-- echo hola | >> cat -e
-- echo hola | << cat -e
+```C
+echo hola | > cat -e
+echo hola | < cat -e
+echo hola | >> cat -e
+echo hola | << cat -e
+```
 
 ---
 
