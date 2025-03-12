@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/10 23:53:26 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:31:56 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,40 +158,50 @@ void				handle_redir(t_shell *mini_sh, char *current, int i[2],
 void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 						int *state);
 
-// token.c
+// env.c
+
+char				*my_getenv(t_env *start, char *name);
+
+// var_expansion.c
+
+char				*extract_first_var(char *s);
+char				*expand_vars(char *og, t_env *node);
+
+// token_list.c
 
 t_token				*create_token(char *content, t_type token_type);
 t_token				*init_tokenlist(t_shell *mini_sh);
 void				addback_token(t_shell *mini_sh, char *content,
 						t_type token_type);
-void				print_tokenslist(t_token *token_lst);
-void				print_tokenslist_short(t_token *token_lst);
 void				clear_tokenlist(t_token **token_lst);
 
-// env.c
+// env_list.c
 
-char				*my_getenv(t_env *start, char *name);
 t_env				*create_envnode(char *name, char *value);
 t_env				*init_envlist(char **env);
 void				addback_envnode(t_env **start, t_env *node);
-void				print_envlist(t_env *start);
 void				clear_envnode(t_env *node);
 void				clear_envlist(t_env **start);
-
-// variable_utils.c
-
-int					my_strnstr_pos(const char *big, const char *little,
-						size_t len);
-char				*my_replace_first(char *og, char *target, char *rep);
-size_t				my_strlen_word(char *s);
-void				my_skip(char **s, char c);
-char				*extract_first_var(char *s);
-char				*expand_vars(char *og, t_env *node);
 
 // utils.c
 
 void				my_perr(const char *msg, bool should_exit, int exit_status);
 void				my_free(void **mem);
+size_t				my_strlen_word(char *s);
+
+// utils2.c
+
 int					my_strchr_pos(const char *s, char c);
+int					my_strnstr_pos(const char *big, const char *little,
+						size_t len);
+char				*my_replace_first(char *og, char *target, char *rep);
+char				*my_replace(char *og, char *target, char *rep);
+void				my_skip(char **s, char c);
+
+// prints.c
+
+void				print_envlist(t_env *start);
+void				print_tokenslist(t_token *token_lst);
+void	print_tokenslist_short(t_token *token_lst); // USA PRINTF OG
 
 #endif

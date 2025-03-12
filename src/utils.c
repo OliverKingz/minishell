@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:44 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 18:23:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:31:24 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,15 @@ void	my_free(void **mem)
 	{
 		free(*mem);
 		*mem = NULL;
-	}	
+	}
 }
 
-int	my_strchr_pos(const char *s, char c)
+size_t	my_strlen_word(char *s)
 {
-	int	i;
+	size_t	i;
 
-	if (!s)
-		return (-1);
 	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
+	while (s[i] && ft_isalnum(s[i]))
 		i++;
-	}
-	return (-1);
+	return (i);
 }

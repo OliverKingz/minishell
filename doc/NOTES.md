@@ -28,16 +28,6 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 
 ---
 
-## CASOS A CONSULTAR
-- `echo 'Hello/nWorld' | \\\n` ❓
-- Deberiamos usar \n y \t❓
-
-## CASOS DONDE FALLA
-- "ech"o ⌛
-- ec""ho ⌛
-
----
-
 # FINISHED ✅
 
 ## TESTS
@@ -45,16 +35,29 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 - find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
 
 ## TOKENIZACION
-- Pipes entre `""` y `''` los toma como texto. ✅
 - Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`. ✅
 - Para `;`, `\`, mejor ni siquiera mirarlo al principio (incluido `#`, `=`, `)`). ✅
 - `||` tratarlo. ✅
-- `""` y `''` tratarlo como syntax error si no está cerrado. ✅
 - Taggear: orden de prioridad✅
   - Si es pipe, si es redirección doble, redirección simple.✅
   - Luego comando/argumento al mismo nivel (si ya he puesto un comando antes, este será argumento).✅
 - Comandos que terminan en `>`, `>>`, `<`, `<<` y `|`✅
 Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
+
+### HANDLE QUOTES
+- Pipes entre `""` y `''` los toma como texto. ✅
+- `""` y `''` tratarlo como syntax error si no está cerrado. ✅
+- Dentro de los tokens, quitar las comillas exteriores. Investigar más. ✅
+- Casos donde tiene que funcionar:
+  - ""echo ✅
+  - echo"" ✅
+  - ""echo"" ✅
+  - "" echo "" ✅
+  - "echo" 'que' ""tal"" ''yo'' ✅
+    [echo     ]→[que      ]→[tal      ]→[yo       ]
+    [COMMAND  ]→[ARG      ]→[ARG      ]→[ARG      ]
+  - "ech"o ⌛ 
+  - ec""ho ⌛
 
 ## SEÑALES
 - Si pones algo, y usas CTRL+D no hace exit, solo si está esperando.✅
@@ -103,29 +106,25 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
 
 ---
 
-## TOKENIZACIÓN
-- Dentro de los tokens, quitar las comillas exteriores. Investigar más. ✅
-- Casos donde tiene que funcionar:
-  - ""echo ✅
-  - echo"" ✅
-  - ""echo"" ✅
-  - "" echo "" ✅
-  - "echo" 'que' ""tal"" ''yo'' ✅
-    [echo     ]→[que      ]→[tal      ]→[yo       ]
-    [COMMAND  ]→[ARG      ]→[ARG      ]→[ARG      ]
-  - "ech"o ⌛
-  - ec""ho ⌛
+## CASOS A CONSULTAR
+- `echo 'Hello/nWorld' | \\\n` ❓
+- Deberiamos usar \n y \t❓
 
----
+## CASOS DONDE FALLA
+- "ech"o ⌛ 
+- ec""ho ⌛
 
-# TO DO INMEDIATO OLIVER
-- Organizar var_expansions.
-- Cambiar mi libft para poner ft_calloc bien.
 - No separar los `""`:
   - "ec"ho funciona el comando.
-- IDEA: Quitar los `""` y `''` después de tokenizar.
+  - IDEA: Quitar los `""` y `''` después de tokenizar.
+  - IDEA: Usar my_replace(?) Donde usarlo? antes del handle?
+		if (!my_replace(current->content, "\"", ""))
+			return (my_perr("remove_quotes", true, errno), false);
 
----
+# TO DO INMEDIATO OLIVER
+- Intentar reducir el loop con Raul. 
+  - Hacer funcion (readline_checks) que englobe los 3 continue
+
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
@@ -136,7 +135,7 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
 
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar env de emergencia y PATH de emergencia.
-- Mirar qué pasa cuando init devuelve NULL.
+- Mirar qué pasa cuando init_envlist devuelve NULL.
 - En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1?
 - Revisar validate_tokens_syntax, muchos casos.
 
