@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 00:15:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:06:45 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state)
 {	
-	if (*state == WORD
-		&& (i[1] > i[0]) && (current[i[1]] == '\'' || current[i[1]] == '\"'))
-		addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
+	(void)mini_sh;
+	// if (*state == WORD
+	// 	&& (i[1] > i[0]) && (current[i[1]] == '\'' || current[i[1]] == '\"')) // Revisar 
+	// 	addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
 	if (current[i[1]] == '\'' && *state != D_QUOTE)
 	{
 		if (*state == WORD)
 		{
 			*state = S_QUOTE;
-			i[0] = i[1] + 1;
+			//i[0] = i[1]; // Dejar las comillas
 		}
 		else if (*state == S_QUOTE)
 		{
-			if (i[1] - i[0] > 0)
-				addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
+			// if (i[1] - i[0] > 0)
+			// 	addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0] + 1), WORD); //Dejar comillas
 			*state = WORD;
-			i[0] = i[1] + 1;
-			if (current[i[1] + 1] == '\'' || current[i[1] + 1] == '\"')
-				i[0] = i[1] + 1; 
+			//i[0] = i[1] + 1;
+			// if (current[i[1] + 1] == '\'' || current[i[1] + 1] == '\'')
+			// 	i[0] = i[1] + 1; 
 		}
 	}
 	else if (current[i[1]] == '\"' && *state != S_QUOTE)
@@ -39,16 +40,16 @@ void	handle_quotes(t_shell *mini_sh, char *current, int i[2], int *state)
 		if (*state == WORD)
 		{
 			*state = D_QUOTE;
-			i[0] = i[1] + 1;
+			//i[0] = i[1]; // Dejar comillas
 		}
 		else if (*state == D_QUOTE)
 		{
-			if (i[1] - i[0] > 0)
-				addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
+			// if (i[1] - i[0] > 0)
+			// 	addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0] + 1), WORD);//Dejar comillas
 			*state = WORD;
-			i[0] = i[1] + 1;
-			if (current[i[1] + 1] == '\'' || current[i[1] + 1] == '\"')
-				i[0] = i[1] + 1; 
+			//i[0] = i[1] + 1;
+			// if (current[i[1] + 1] == '\"' || current[i[1] + 1] == '\"') //
+			// 	i[0] = i[1] + 1; 
 		}
 	}
 }

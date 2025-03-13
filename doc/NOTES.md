@@ -20,6 +20,7 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 
 ## HISTORIAL
 - Revisar que no hay fugas acumulados, cuando está lleno. Da leaks. Usar fsanitize.
+- Guardar el historial no es obligatorio. 
 
 ---
 
@@ -40,7 +41,6 @@ find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
 ## TOKENIZACION
 - Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`. ✅
 - Para `;`, `\`, mejor ni siquiera mirarlo al principio (incluido `#`, `=`, `)`). ✅
-- `||` tratarlo. ✅
 - Taggear: orden de prioridad✅
   - Si es pipe, si es redirección doble, redirección simple.✅
   - Luego comando/argumento al mismo nivel (si ya he puesto un comando antes, este será argumento).✅
@@ -60,6 +60,7 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   "echo" 'que' ""tal"" ''yo'' ✅
   "ech"o ⌛ 
   ec""ho ⌛
+  "" -> Esto es token valido. Yo no lo tokenizo.⌛
 ```
   "echo" 'que' ""tal"" ''yo'' ✅
     [echo     ]→[que      ]→[tal      ]→[yo       ]
@@ -123,6 +124,7 @@ echo hola | << cat -e
 ## CASOS DONDE FALLA
 - "ech"o ⌛ 
 - ec""ho ⌛
+- ""
 
 - No separar los `""`:
   - "ec"ho funciona el comando.
@@ -145,7 +147,7 @@ echo hola | << cat -e
   - signal(SIGQUIT, handle_ctrl_backslash)
     -	signal(SIGQUIT, SIG_IGN);
 
-- History file
+- History file (no es obligatorio)
   - Create with open, append. 
   - Como pongo limite? 
 
@@ -160,7 +162,9 @@ echo hola | << cat -e
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar env de emergencia y PATH de emergencia.
 - Mirar qué pasa cuando init_envlist devuelve NULL.
-- En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1?
+- En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1? -> Solo si hace falta espacio
 - Revisar validate_tokens_syntax, muchos casos.
+
+# RAUL
 
 ---
