@@ -19,7 +19,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	mini_sh->input = (t_input *)ft_calloc(1, sizeof(t_input));
 	if (!mini_sh->input)
 		return (free_shell(mini_sh), my_perr("input", true, errno), NULL);
-	mini_sh->input->read_line = expand_vars(read_line, mini_sh->env);
+	mini_sh->input->read_line = expand_vars(read_line, mini_sh);
 	if (!mini_sh->input->read_line)
 		return (free_shell(mini_sh), my_perr("expanded readline", true, errno), NULL);
 	mini_sh->input->token_lst = init_tokenlist(mini_sh);

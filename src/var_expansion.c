@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:30:02 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:51:23 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*extract_first_var(char *s)
 {
 	size_t	size;
-	char	*var;
 	bool	is_double_quote;
 
 	if (!s)
@@ -28,11 +27,12 @@ char	*extract_first_var(char *s)
 			s++;
 			my_skip(&s, '\'');
 		}
+		else if (*s == '$' && s[1] == '?')
+			return (ft_strdup("$?"));
 		else if (*s == '$' && s[1] != '\0' && ft_isalnum(s[1]))
 		{
 			size = my_strlen_word(&s[1]);
-			var = ft_substr(s, 0, size + 1);
-			return (var);
+			return (ft_substr(s, 0, size + 1));
 		}
 		else if (*s == '\"')
 			is_double_quote = !is_double_quote;
@@ -41,7 +41,7 @@ char	*extract_first_var(char *s)
 	return (NULL);
 }
 
-char	*expand_vars(char *og, t_env *node)
+char	*expand_vars(char *og, t_shell *mini_sh)
 {
 	char	*var;
 	char	*value;
@@ -54,14 +54,16 @@ char	*expand_vars(char *og, t_env *node)
 		var = extract_first_var(str);
 		if (!var)
 			break ;
-		value = my_getenv(node, &var[1]);
+		value = my_getenv(mini_sh->env, &var[1]);
+		if (ft_strncmp(var, "$?", -1) == 0)
+		{
+			value = ft_itoa(mini_sh->last_exit_status); //Hay leaks (Oliver no me mates pls0)
+		}
 		temp = str;
-		if (value)
-			str = my_replace_first(temp, var, value);
-		else
-			str = my_replace_first(temp, var, "");
+		str = my_replace_first(temp, var, value);
 		free(temp);
 		free(var);
+		free(value);
 	}
 	return (str);
 }

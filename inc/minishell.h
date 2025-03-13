@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 14:51:48 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:19:30 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ char				*my_getenv(t_env *start, char *name);
 // var_expansion.c
 
 char				*extract_first_var(char *s);
-char				*expand_vars(char *og, t_env *node);
+char				*expand_vars(char *og, t_shell *mini_sh);
 
 // token_list.c
 
