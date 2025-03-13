@@ -22,7 +22,7 @@
 - [✅] Split input into tokens by spaces (e.g., `ls -l > file.txt` → `["ls", "-l", ">", "file.txt"]`).
   - [✅] Handle multiple spaces and tabs.
   - [✅] Ignore leading and trailing spaces.
-  - [❌] Check edge cases
+  - [⌛] Check edge cases
 - [✅] Identify special tokens (e.g., `>`, `<`, `|`, `>>`, `<<`).
   - [✅] Handle consecutive special tokens (e.g., `>>`, `<<`).
 - [✅] Store tokens in a data structure (e.g., linked list).
