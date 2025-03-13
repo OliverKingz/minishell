@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 12:06:45 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:53:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,39 @@ void	handle_pipe_space(t_shell *mini_sh, char *current, int i[2], int *state)
 		if (i[1] > i[0])
 			addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
 		i[0] = i[1] + 1;
+	}
+}
+
+void	remove_chr_pos(char *s, int pos)
+{
+	int		len;
+
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	if (pos >= len)
+		return ;
+	ft_memmove(&s[pos], &s[pos + 1], ft_strlen(&s[pos]));
+}
+
+void	remove_external_quotes(char *s)
+{
+	int		i;
+	char	quote;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+		{
+			quote = s[i];
+			remove_chr_pos(s, i);
+			while (s[i] && s[i] != quote)
+				i++;
+			remove_chr_pos(s, i);
+		}
+		i++;
 	}
 }
