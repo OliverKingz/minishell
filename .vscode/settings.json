@@ -15,8 +15,8 @@
 		"array": "c",
 		"string_view": "c",
 		"type_traits": "c"
-	},
-	"files.exclude": {
-		"**/old": true
 	}
+	// "files.exclude": {
+	// 	"**/old": true
+	// }
 }

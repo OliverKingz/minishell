@@ -141,7 +141,8 @@ without needing to know the specifics of each terminal.
   char *tgoto(const char *cap, int col, int row);
   int tputs(const char *str, int affcnt, int (*putc)(int));
   ```
-_________________________________________________________________________________
+
+---
 
 ```c
 char *readline(const char *prompt);

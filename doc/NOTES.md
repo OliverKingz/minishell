@@ -29,7 +29,12 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 
 ---
 
-# FINISHED ✅
+# DUDAS RESUELTAS
+- En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1?
+
+---
+
+# TERMINADO ✅
 
 ## TESTS
 ```C
@@ -118,8 +123,7 @@ echo hola | << cat -e
 ---
 
 ## CASOS A CONSULTAR
-- `echo 'Hello/nWorld' | \\\n` ❓
-- Deberiamos usar \n y \t❓
+- `echo 'Hello/nWorld' | \\\n` Deberiamos usar \n y \t -> Manejarlo
 
 ## CASOS DONDE FALLA
 - "ech"o ⌛ 
@@ -138,11 +142,6 @@ echo hola | << cat -e
 # TO DO INMEDIATO OLIVER
 - Hacer signal.c
   - signal(SIGINT, handle_ctrl_c);
-  - void handle_ctrl_c(int signal_sigint)
-      ft_putstr_fd("^C\n", STDIN_FILENO);
-      rl_on_new_line();
-      rl_replace_line("", 0);
-      rl_redisplay();
   - Investigar para que vale señal global
   - signal(SIGQUIT, handle_ctrl_backslash)
     -	signal(SIGQUIT, SIG_IGN);
