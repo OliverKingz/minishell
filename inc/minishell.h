@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:59:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:34:05 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 
 /* ************************************************************************** */
 
-extern int			g_sign;
+extern int			g_signal;
 
 /* ************************************************************************** */
 
@@ -129,9 +129,10 @@ typedef struct s_shell
 
 // signal.c
 
-void	*handle_ctrl_c(int signal_sigint, t_shell *mini_sh);
-void	*handle_ctrl_backslash(int signal_sigquit);
-void	set_signals(t_shell *mini_sh);
+void	handle_ctrl_c(int signal_sigint);
+void	handle_ctrl_backslash(int signal_sigquit);
+void	set_signals(void);
+void	set_signal_errors(t_shell *mini_sh);
 
 // shell.c
 

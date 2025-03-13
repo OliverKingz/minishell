@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:57:47 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:42:52 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ t_shell	*create_shell(char **env)
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
 		return (my_perr("create mini_sh", false, errno), NULL);
-	mini_sh->env = init_envlist(env);
-	// Mirar env de emergencia y PATH de emergencia
-	// Mirar que pasa cuando init devuelve NULL
+	mini_sh->env = init_envlist(env); // Mirar env de emergencia y PATH de emergencia Y Mirar que pasa cuando init devuelve NULL
 	mini_sh->last_exit_status = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);
@@ -52,6 +50,7 @@ int	process_readline_toinput(t_shell *mini_sh, char **readline)
 void	execution(t_shell *mini_sh)
 {
 	print_tokenslist_short(mini_sh->input->token_lst);
+	//mini_sh->last_exit_status = 100;
 	// print_envlist(mini_sh->env);
 }
 
@@ -60,17 +59,18 @@ int	loop_shell(t_shell *mini_sh)
 	char	*read_line;
 	int		result;
 
-	//set_signals(mini_sh);
+	set_signals();
 	while (1)
 	{
 		read_line = readline(PROMPT);
+		set_signal_errors(mini_sh);
 		result = process_readline_toinput(mini_sh, &read_line);
 		if (result == BREAK_LOOP)
 			break ;
 		else if (result == CONTINUE_LOOP)
 			continue ;
 		execution(mini_sh);
-		(free(read_line), free_input(&mini_sh), mini_sh->input = NULL), g_sign = 0;
+		free(read_line), free_input(&mini_sh);
 	}
 	return (mini_sh->last_exit_status);
 }

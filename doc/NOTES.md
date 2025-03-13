@@ -63,9 +63,9 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   ""echo"" ✅
   "" echo "" ✅
   "echo" 'que' ""tal"" ''yo'' ✅
-  "ech"o ⌛ 
-  ec""ho ⌛
-  "" -> Esto es token valido. Yo no lo tokenizo.⌛
+  "ech"o ✅
+  ec""ho ✅
+  "" ✅
 ```
   "echo" 'que' ""tal"" ''yo'' ✅
     [echo     ]→[que      ]→[tal      ]→[yo       ]
@@ -126,18 +126,8 @@ echo hola | << cat -e
 - `echo 'Hello/nWorld' | \\\n` Deberiamos usar \n y \t -> Manejarlo
 
 ## CASOS DONDE FALLA
-- "ech"o ⌛ 
-- ec""ho ⌛
-- ""
-
-- No separar los `""`:
-  - "ec"ho funciona el comando.
-  - IDEA: Quitar los `""` y `''` después de tokenizar.
-  - IDEA: Usar my_replace(?) Donde usarlo? antes del handle?
-		if (!my_replace(current->content, "\"", ""))
-			return (my_perr("remove_quotes", true, errno), false);
-  - Concatenation of characters: This ensures that characters inside quotes are concatenated and treated as single tokens.
-
+- ""ec"""h"o""
+- ""ec"""ho"
 
 # TO DO INMEDIATO OLIVER
 - Hacer signal.c
