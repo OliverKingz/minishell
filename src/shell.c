@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:33:57 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:57:47 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	loop_shell(t_shell *mini_sh)
 	char	*read_line;
 	int		result;
 
+	//set_signals(mini_sh);
 	while (1)
 	{
 		read_line = readline(PROMPT);
@@ -69,7 +70,7 @@ int	loop_shell(t_shell *mini_sh)
 		else if (result == CONTINUE_LOOP)
 			continue ;
 		execution(mini_sh);
-		(free(read_line), free_input(&mini_sh), mini_sh->input = NULL);
+		(free(read_line), free_input(&mini_sh), mini_sh->input = NULL), g_sign = 0;
 	}
 	return (mini_sh->last_exit_status);
 }
