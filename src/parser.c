@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 12:11:35 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:53:59 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	tokenize(t_shell *mini_sh)
 	}
 	if (i[1] > i[0])
 		addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-	//Eliminar comillas exteriores
 	classify_word_token(mini_sh);
 }
 
@@ -46,6 +45,7 @@ void	classify_word_token(t_shell *mini_sh)
 	current = mini_sh->input->token_lst;
 	while (current != NULL)
 	{
+		remove_external_quotes(current->content);
 		classify_condition(current, &last_type, &single_cmd);
 		current = current->next;
 	}

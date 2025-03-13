@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:34:37 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:51:48 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ void				handle_redir(t_shell *mini_sh, char *current, int i[2],
 						int *state);
 void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 						int *state);
+void				remove_chr_pos(char *s, int pos);
+void				remove_external_quotes(char *s);
 
 // env.c
 
