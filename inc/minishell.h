@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:56:26 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:59:05 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ char				*my_getenv(t_env *start, char *name);
 // var_expansion.c
 
 char				*extract_first_var(char *s);
-char				*expand_vars(char *og, t_env *node);
+char				*expand_vars(char *og, t_shell *mini_sh);
 
 // token_list.c
 
