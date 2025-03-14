@@ -31,6 +31,10 @@ char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 
 # DUDAS RESUELTAS
 - En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1?
+  -> Solo si hace falta espacio
+- Revisar validate_tokens_syntax, muchos casos.
+  -> Todos bien
+
 
 ---
 
@@ -151,8 +155,6 @@ echo hola | << cat -e
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar env de emergencia y PATH de emergencia.
 - Mirar qué pasa cuando init_envlist devuelve NULL.
-- En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1? -> Solo si hace falta espacio
-- Revisar validate_tokens_syntax, muchos casos.
 - Hacer $? ✅
 - Integrar ejecución, haciendo los archivos ya con 5 funciones, y bien nombrados.
 

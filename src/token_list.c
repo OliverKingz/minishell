@@ -5,10 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 22:46:10 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/14 22:51:53 by raperez-         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/03/14 23:04:20 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
 
 #include "minishell.h"
 
@@ -36,7 +40,7 @@ void	addback_token(t_shell *mini_sh, char *content, t_type token_type)
 	node = create_token(content, token_type);
 	if (!node)
 	{
-		free_shell(mini_sh), exit(errno);
+		(free_shell(mini_sh), exit(errno));
 		return ;
 	}
 	if (!mini_sh->input->token_lst)
@@ -76,8 +80,8 @@ void	clear_tokenlist(t_token **token_lst)
 	{
 		next = current->next;
 		if (current->content)
-			free(current->content), current->content = NULL;
-		free(current), current = NULL;
+			(free(current->content), current->content = NULL);
+		(free(current), current = NULL);
 		current = next;
 	}
 	*token_lst = NULL;

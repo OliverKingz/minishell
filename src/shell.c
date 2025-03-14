@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 15:47:48 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:18:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_shell	*create_shell(char **env)
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
 		return (my_perr("create mini_sh", false, errno), NULL);
-	mini_sh->env = init_envlist(env); // Mirar env de emergencia y PATH de emergencia Y Mirar que pasa cuando init devuelve NULL
+	mini_sh->env = init_envlist(env);
 	mini_sh->last_exit_status = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);
@@ -50,8 +50,8 @@ int	process_readline_toinput(t_shell *mini_sh, char **readline)
 void	execution(t_shell *mini_sh)
 {
 	print_tokenslist_short(mini_sh->input->token_lst);
-	//tokens_to_cmd(mini_sh);
-	//mini_sh->last_exit_status = 100;
+	// tokens_to_cmd(mini_sh);
+	// mini_sh->last_exit_status = 100;
 	// print_envlist(mini_sh->env);
 }
 
@@ -71,7 +71,7 @@ int	loop_shell(t_shell *mini_sh)
 		else if (result == CONTINUE_LOOP)
 			continue ;
 		execution(mini_sh);
-		free(read_line), free_input(&mini_sh);
+		(free(read_line), free_input(&mini_sh));
 	}
 	return (mini_sh->last_exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 14:53:59 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:39:57 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
 		else if ((*last_type == OP_PIPE || *last_type == FILE_PATH
 				|| *last_type == LIMITER || current->index == 0)
 			&& *single_cmd == false)
-			current->type = COMMAND, *single_cmd = true;
+		{
+			current->type = COMMAND;
+			*single_cmd = true;
+		}
 		else if ((*last_type == COMMAND || *last_type == FILE_PATH
 				|| *last_type == LIMITER || *last_type == ARG)
 			&& *single_cmd == true)
