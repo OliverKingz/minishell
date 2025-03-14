@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 15:20:16 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 22:54:02 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ typedef struct s_cmd
 {
 	int				in_fd;
 	int				out_fd;
-	int				close_fd[2];
+	int				close_fd;
 	char			*cmd_path;
 	char			**cmd_args;
+	char			**env;
 }					t_cmd;
 
 typedef struct s_input
@@ -189,6 +190,9 @@ t_token				*init_tokenlist(t_shell *mini_sh);
 void				addback_token(t_shell *mini_sh, char *content,
 						t_type token_type);
 void				clear_tokenlist(t_token **token_lst);
+t_token				*get_token_type(t_token *node, t_type type);
+char				**get_args(t_token *node);
+int					count_token_type(t_token *node, t_type type);
 
 // env_list.c
 
