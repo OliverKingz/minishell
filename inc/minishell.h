@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:23:06 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:39:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum e_type
 {
 	WORD,
 	COMMAND,
-	ARG,
+	CMD_ARG,
 	OP_PIPE,
 	REDIR_IN,
 	REDIR_OUT,
@@ -197,6 +197,8 @@ void				clear_tokenlist(t_token **token_lst);
 t_token				*get_token_type(t_token *node, t_type type);
 char				**get_args(t_token *node);
 int					count_token_type(t_token *node, t_type type);
+t_token				*get_token_conent(t_token *node, char *content);
+char				**get_cmd_args(t_shell *mini_sh, char *cmd);
 
 // env_list.c
 
@@ -208,12 +210,17 @@ void				clear_envlist(t_env **start);
 
 // execution.c
 
+t_cmd				init_cmd(t_shell *mini_sh);
 void				tokens_to_cmd(t_shell *mini_sh);
+
+// bi_echo.c
+void				bi_echo(t_shell *mini_sh);
 
 // utils.c
 
 void				my_perr(const char *msg, bool should_exit, int exit_status);
 void				my_free(void **mem);
+void				my_free2d(void ***mem);
 size_t				my_strlen_word(char *s);
 
 // utils2.c
@@ -230,5 +237,6 @@ void				my_skip(char **s, char c);
 void				print_envlist(t_env *start);
 void				print_tokenslist(t_token *token_lst);
 void				print_tokenslist_short(t_token *token_lst); // USA PRINTF OG
+void				print_strings(char **args);
 
 #endif

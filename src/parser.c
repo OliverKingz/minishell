@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:39:57 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:27:01 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
 			*single_cmd = true;
 		}
 		else if ((*last_type == COMMAND || *last_type == FILE_PATH
-				|| *last_type == LIMITER || *last_type == ARG)
+				|| *last_type == LIMITER || *last_type == CMD_ARG)
 			&& *single_cmd == true)
-			current->type = ARG;
+			current->type = CMD_ARG;
 	}
 	else if (current->type == OP_PIPE)
 		*single_cmd = false;

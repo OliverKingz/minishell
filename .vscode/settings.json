@@ -14,7 +14,11 @@
 		"errno.h": "c",
 		"array": "c",
 		"string_view": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"compare": "c",
+		"functional": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 	// "files.exclude": {
 	// 	"**/old": true

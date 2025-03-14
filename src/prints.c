@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:20:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:53:48 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:35:09 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_envlist(t_env *start)
 
 void	print_tokenslist(t_token *token_lst)
 {
-	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
+	const char	*type_strings[] = {"WORD", "COMMAND", "CMD_ARG", "OP_PIPE",
 		"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
 		"LIMITER"};
 	t_token		*current;
@@ -44,7 +44,7 @@ void	print_tokenslist(t_token *token_lst)
 // USA FUNCION PROHIBIDA PRINTF!
 void	print_tokenslist_short(t_token *token_lst)
 {
-	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
+	const char	*type_strings[] = {"WORD", "COMMAND", "CMD_ARG", "OP_PIPE",
 		"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
 		"LIMITER"};
 	t_token		*current;
@@ -67,4 +67,17 @@ void	print_tokenslist_short(t_token *token_lst)
 		current = current->next;
 	}
 	printf("\n─────────────────────────────────────────────────────\n");
+}
+
+void	print_strings(char **strings)
+{
+	int i = 0;
+	while (strings[i])
+	{
+		ft_putstr_fd(strings[i], STDOUT_FILENO);
+		if (strings[i + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
+	ft_putchar_fd('\n', STDOUT_FILENO);
 }

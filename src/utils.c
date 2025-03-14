@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:44 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 14:29:49 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:58:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,26 @@ void	my_free(void **mem)
 		free(*mem);
 		*mem = NULL;
 	}
+}
+
+void	my_free2d(void ***mem)
+{
+	int	i;
+
+	if (!mem || !*mem)
+		return;
+	i = 0;
+	while ((*mem)[i])
+	{
+		if ((*mem)[i] != NULL)
+		{
+			free((*mem)[i]);
+			(*mem)[i] = NULL;
+		}
+		i++;
+	}
+	free(*mem);
+	*mem = NULL;
 }
 
 size_t	my_strlen_word(char *s)
