@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/08 01:18:00 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:51:56 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,41 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 		return (free_shell(mini_sh), my_perr("input", true, errno), NULL);
 	mini_sh->input->read_line = expand_vars(read_line, mini_sh);
 	if (!mini_sh->input->read_line)
-		return (free_shell(mini_sh), my_perr("expanded readline", true, errno), NULL);
+		return (free_shell(mini_sh), my_perr("expanded line", 1, errno), NULL);
 	mini_sh->input->token_lst = init_tokenlist(mini_sh);
 	if (!mini_sh->input->token_lst)
 		return (free_input(&mini_sh), NULL);
-	count_cmds_heredocs(mini_sh);
+	init_input_pid_heredoc(mini_sh);
+	return (mini_sh->input);
+}
+
+void	init_input_pid_heredoc(t_shell *mini_sh)
+{
+	t_token	*current;
+
+	mini_sh->input->cmd_count = 0;
+	mini_sh->input->hdoc_count = 0;
+	current = mini_sh->input->token_lst;
+	while (current)
+	{
+		mini_sh->input->cmd_count += (current->type == COMMAND);
+		mini_sh->input->hdoc_count += (current->type == REDIR_HD);
+		current = current->next;
+	}
 	if (mini_sh->input->cmd_count > 0)
 	{
-		mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count, sizeof(pid_t));
+		mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count,
+				sizeof(pid_t));
 		if (!mini_sh->input->pid)
-			return (free_shell(mini_sh), my_perr("input hdoc", true, errno), NULL);
+			return (free_shell(mini_sh), my_perr("input hdoc", 1, errno), NULL);
 	}
 	if (mini_sh->input->hdoc_count > 0)
 	{
-		mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count, sizeof(int));
+		mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count,
+				sizeof(int));
 		if (!mini_sh->input->heredocs)
-			return (free_shell(mini_sh), my_perr("pid", true, errno), NULL);
+			return (free_shell(mini_sh), my_perr("input pid", 1, errno), NULL);
 	}
-	return (mini_sh->input);
 }
 
 void	free_input(t_shell **mini_sh)

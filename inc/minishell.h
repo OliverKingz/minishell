@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 15:20:16 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:55:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ extern int			g_signal;
 
 /* ************************************************************************** */
 
-typedef enum
+typedef enum e_type
 {
 	WORD,
 	COMMAND,
@@ -129,10 +129,10 @@ typedef struct s_shell
 
 // signal.c
 
-void	handle_ctrl_c(int signal_sigint);
-void	handle_ctrl_backslash(int signal_sigquit);
-void	set_signals(void);
-void	set_signal_errors(t_shell *mini_sh);
+void				handle_ctrl_c(int signal_sigint);
+void				handle_ctrl_backslash(int signal_sigquit);
+void				set_signals(void);
+void				set_signal_errors(t_shell *mini_sh);
 
 // shell.c
 
@@ -143,7 +143,9 @@ int					loop_shell(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
+
 t_input				*init_input(t_shell *mini_sh, char *read_line);
+void				init_input_pid_heredoc(t_shell *mini_sh);
 void				free_input(t_shell **mini_sh);
 
 // lexer.c
@@ -151,7 +153,6 @@ void				free_input(t_shell **mini_sh);
 bool				validate_rline_syntax(char *read_line);
 bool				check_syntax_quotes(char *current, int i, int *sq_count,
 						int *dq_count);
-void				count_cmds_heredocs(t_shell *mini_sh);
 bool				validate_tokens_syntax(t_shell *mini_sh);
 
 // parser.c

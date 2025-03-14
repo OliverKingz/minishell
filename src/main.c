@@ -6,13 +6,13 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 23:34:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:06:15 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_signal = 0;
+int	g_signal = 0;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -27,5 +27,5 @@ int	main(int argc, char **argv, char **env)
 		return (EXIT_FAILURE);
 	exit_status = loop_shell(mini_sh);
 	ft_putendl_fd("exit", 1);
-	return(free_shell(mini_sh), exit_status);
+	return (free_shell(mini_sh), exit_status);
 }

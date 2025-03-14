@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:20:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:29:29 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:53:48 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	print_envlist(t_env *start)
 void	print_tokenslist(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
-			"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
-			"LIMITER"};
+		"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
+		"LIMITER"};
 	t_token		*current;
 
 	current = token_lst;
@@ -45,8 +45,8 @@ void	print_tokenslist(t_token *token_lst)
 void	print_tokenslist_short(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "ARG", "OP_PIPE",
-			"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
-			"LIMITER"};
+		"REDIR_IN", "REDIR_OUT", "REDIR_HD", "REDIR_APP", "FILE_PATH",
+		"LIMITER"};
 	t_token		*current;
 
 	current = token_lst;

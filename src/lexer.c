@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:44:15 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:46:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ bool	validate_rline_syntax(char *read_line)
 	return (true);
 }
 
-bool	check_syntax_quotes(char *current, int i, int *s_quote_count,int *d_quote_count)
+bool	check_syntax_quotes(char *current, int i, int *s_quote_count,
+		int *d_quote_count)
 {
 	bool	in_s_quote;
 	bool	in_d_quote;
 
 	in_s_quote = false;
 	in_d_quote = false;
-	// if (current[i] == '|' && current[i + 1] == '|')
-	// 	return (ft_puterr(ERR_SYNTAX), false);
-	// if (current[i] == '>' && current[i + 1] == '|')
-	// 	return (ft_puterr(ERR_SYNTAX), false);
 	if (current[i] == '\'' && !in_d_quote && (*d_quote_count % 2) == 0)
 	{
 		in_s_quote = !in_s_quote;
@@ -59,25 +56,12 @@ bool	check_syntax_quotes(char *current, int i, int *s_quote_count,int *d_quote_c
 	return (true);
 }
 
-void	count_cmds_heredocs(t_shell *mini_sh)
+static bool	is_next_token_symbol(t_token *current)
 {
-	t_token	*current;
-	int		cmd_counter;
-	int		heredoc_counter;
-
-	cmd_counter = 0;
-	heredoc_counter = 0;
-	current = mini_sh->input->token_lst;
-	while (current != NULL)
-	{
-		if (current->type == COMMAND)
-			cmd_counter++;
-		if (current->type == REDIR_HD)
-			heredoc_counter++;
-		current = current->next;
-	}
-	mini_sh->input->cmd_count = cmd_counter;
-	mini_sh->input->hdoc_count = heredoc_counter;
+	if ((!current->next || (current->next->type >= OP_PIPE
+				&& current->next->type <= REDIR_APP)))
+		return (true);
+	return (false);
 }
 
 bool	validate_tokens_syntax(t_shell *mini_sh)
@@ -87,11 +71,12 @@ bool	validate_tokens_syntax(t_shell *mini_sh)
 	current = mini_sh->input->token_lst;
 	while (current != NULL)
 	{
-		if ((current->type == OP_PIPE && (!current->next || current->next->type == OP_PIPE))
-			|| (current->type == REDIR_IN && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
-			|| (current->type == REDIR_OUT && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
-			|| (current->type == REDIR_HD && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP)))
-			|| (current->type == REDIR_APP && (!current->next || (current->next->type >= OP_PIPE && current->next->type <= REDIR_APP))))
+		if ((current->type == OP_PIPE
+				&& (!current->next || current->next->type == OP_PIPE))
+			|| (current->type == REDIR_IN && is_next_token_symbol(current))
+			|| (current->type == REDIR_OUT && is_next_token_symbol(current))
+			|| (current->type == REDIR_HD && is_next_token_symbol(current))
+			|| (current->type == REDIR_APP && is_next_token_symbol(current)))
 		{
 			return (ft_puterr(ERR_SYNTAX), false);
 		}
