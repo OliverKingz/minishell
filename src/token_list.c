@@ -3,16 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/03/14 23:04:20 by raperez-         ###   ########.fr       */
+/*   Created: 2025/03/14 23:32:05 by ozamora-          #+#    #+#             */
+/*   Updated: 2025/03/14 23:32:56 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
 
 #include "minishell.h"
 
@@ -85,57 +81,4 @@ void	clear_tokenlist(t_token **token_lst)
 		current = next;
 	}
 	*token_lst = NULL;
-}
-
-/*Devuelve el primer token del tipo específicado.
-Chequea hasta que llega a un pipe o al final de la lista*/
-t_token	*get_token_type(t_token *node, t_type type)
-{
-	while (node && node->type != OP_PIPE)
-	{
-		if (node->type == type)
-			return (node);
-		node = node->next;
-	}
-	return (NULL);
-}
-
-/*Devuelve un array de strings con cada uno de los argumentos
-desde el nodo inicial hasta un pipe o el final. El propio comando
-es el argumento 0 (necesario para execve).
-*/
-char	**get_args(t_token *node)
-{
-	char	**args;
-	int		argc;
-	int		i;
-
-	argc = count_token_type(node, COMMAND) + 1;
-	args = ft_calloc(argc + 1, sizeof(char *));
-	i = 0;
-	while (node && node->type != OP_PIPE)
-	{
-		if (node->type == COMMAND || node->type == ARG)
-			args[i++] = ft_strdup(node->content);
-		node = node->next;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
-/*Devuelve el número de nodos del tipo especificado
-hasta que encuentre un pipe o se llegue al final
-*/
-int	count_token_type(t_token *node, t_type type)
-{
-	int	i;
-
-	i = 0;
-	while (node && node->type != OP_PIPE)
-	{
-		if (node->type == type)
-			i++;
-		node = node->next;
-	}
-	return (i);
 }

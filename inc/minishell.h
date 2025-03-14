@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:05:28 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:23:06 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,9 @@ t_token				*init_tokenlist(t_shell *mini_sh);
 void				addback_token(t_shell *mini_sh, char *content,
 						t_type token_type);
 void				clear_tokenlist(t_token **token_lst);
+
+// token_utils.c
+
 t_token				*get_token_type(t_token *node, t_type type);
 char				**get_args(t_token *node);
 int					count_token_type(t_token *node, t_type type);

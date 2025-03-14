@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 20:23:58 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:28:49 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 
 void	init_input_pid_heredoc(t_shell *mini_sh)
 {
-	t_token	*current;
-
-	mini_sh->input->cmd_count = 0;
-	mini_sh->input->hdoc_count = 0;
-	current = mini_sh->input->token_lst;
-	while (current)
-	{
-		mini_sh->input->cmd_count += (current->type == COMMAND);
-		mini_sh->input->hdoc_count += (current->type == REDIR_HD);
-		current = current->next;
-	}
+	mini_sh->input->cmd_count = count_token_type(mini_sh->input->token_lst,
+			COMMAND);
+	mini_sh->input->hdoc_count = count_token_type(mini_sh->input->token_lst,
+			REDIR_HD);
 	if (mini_sh->input->cmd_count > 0)
 	{
 		mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count,

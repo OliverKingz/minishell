@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:06:27 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:29:35 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	init_cmd(t_shell *mini_sh)
 	cmd.close_fd = -1;
 	cmd.cmd_path = NULL;
 	cmd.cmd_args = NULL;
-	cmd.env	= envlist_to_str(mini_sh->env);
+	cmd.env = envlist_to_str(mini_sh->env);
 	return (cmd);
 }
 
