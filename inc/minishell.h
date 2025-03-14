@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 23:34:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:20:16 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void				remove_external_quotes(char *s);
 // env.c
 
 char				*my_getenv(t_env *start, char *name);
+char				**envlist_to_str(t_env *start);
 
 // var_expansion.c
 
@@ -196,6 +197,10 @@ t_env				*init_envlist(char **env);
 void				addback_envnode(t_env **start, t_env *node);
 void				clear_envnode(t_env *node);
 void				clear_envlist(t_env **start);
+
+// execution.c
+
+void				tokens_to_cmd(t_shell *mini_sh);
 
 // utils.c
 

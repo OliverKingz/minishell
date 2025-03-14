@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:51:23 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:05:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 		var = extract_first_var(str);
 		if (!var)
 			break ;
-		value = my_getenv(mini_sh->env, &var[1]);
+		value = ft_strdup(my_getenv(mini_sh->env, &var[1]));
 		if (ft_strncmp(var, "$?", -1) == 0)
-		{
-			value = ft_itoa(mini_sh->last_exit_status); //Hay leaks (Oliver no me mates pls0)
-		}
+			value = ft_itoa(mini_sh->last_exit_status);
 		temp = str;
 		str = my_replace_first(temp, var, value);
 		free(temp);
