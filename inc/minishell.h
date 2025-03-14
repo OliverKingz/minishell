@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:39:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:44:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void				clear_tokenlist(t_token **token_lst);
 t_token				*get_token_type(t_token *node, t_type type);
 char				**get_args(t_token *node);
 int					count_token_type(t_token *node, t_type type);
-t_token				*get_token_conent(t_token *node, char *content);
+t_token				*get_token_content(t_token *node, char *content);
 char				**get_cmd_args(t_shell *mini_sh, char *cmd);
 
 // env_list.c

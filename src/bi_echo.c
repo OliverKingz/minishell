@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:01:51 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:37:34 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 00:45:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	bi_echo(t_shell *mini_sh)
 	int		i;
 
 	args = get_cmd_args(mini_sh, "echo");
+	if (!args)
+		return ;
 	i = 1;
 	n_flag = false;
 	if (args[1] && ft_strncmp(args[1], "-n", 2) == 0)
