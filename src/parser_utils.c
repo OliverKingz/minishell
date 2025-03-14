@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 14:53:19 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:02:58 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,18 @@ void	remove_external_quotes(char *s)
 			while (s[i] && s[i] != quote)
 				i++;
 			remove_chr_pos(s, i);
+			i--;
 		}
 		i++;
 	}
 }
+
+/*
+int main(void)
+{
+	char s[] = "\"\'\'\"Hola";
+
+	remove_external_quotes(s);
+	printf("%s\n", s);
+	return (0);
+}*/
