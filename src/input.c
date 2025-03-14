@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:51:56 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:23:58 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	init_input_pid_heredoc(t_shell *mini_sh)
 		mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count,
 				sizeof(pid_t));
 		if (!mini_sh->input->pid)
-			return (free_shell(mini_sh), my_perr("input hdoc", 1, errno), NULL);
+			(free_shell(mini_sh), my_perr("input hdoc", 1, errno));
 	}
 	if (mini_sh->input->hdoc_count > 0)
 	{
 		mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count,
 				sizeof(int));
 		if (!mini_sh->input->heredocs)
-			return (free_shell(mini_sh), my_perr("input pid", 1, errno), NULL);
+			(free_shell(mini_sh), my_perr("input pid", 1, errno));
 	}
 }
 

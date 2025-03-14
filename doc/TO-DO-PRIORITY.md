@@ -85,10 +85,10 @@
 - [] Handle relative and absolute paths for executables.
 
 ### **3. Signal Handling**
-- [] Handle `ctrl-C` (SIGINT) to print a new prompt.
-  - [] Ensure the signal handler resets the prompt on a new line.
-- [] Handle `ctrl-\` (SIGQUIT) to do nothing.
-- [] Use only **one global variable** to indicate signal reception (e.g., signal number).
+- [✅] Handle `ctrl-C` (SIGINT) to print a new prompt.
+  - [✅] Ensure the signal handler resets the prompt on a new line.
+- [✅] Handle `ctrl-\` (SIGQUIT) to do nothing.
+- [✅] Use only **one global variable** to indicate signal reception (e.g., signal number).
 
 ### **4. Environment Variables**
 - [] Retrieve environment variables using `getenv`.

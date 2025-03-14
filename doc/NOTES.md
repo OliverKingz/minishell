@@ -66,10 +66,12 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   echo"" ✅
   ""echo"" ✅
   "" echo "" ✅
-  "echo" 'que' ""tal"" ''yo'' ✅
   "ech"o ✅
   ec""ho ✅
   "" ✅
+  ""ec"""h"o"" ✅
+  ""ec"""ho" ✅
+  "echo" 'que' ""tal"" ''yo'' ✅
 ```
   "echo" 'que' ""tal"" ''yo'' ✅
     [echo     ]→[que      ]→[tal      ]→[yo       ]
@@ -77,6 +79,11 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
 
 ## SEÑALES
 - Si pones algo, y usas CTRL+D no hace exit, solo si está esperando.✅
+- Hacer signal.c ✅
+  - signal(SIGINT, handle_ctrl_c); ✅
+  - Investigar para que vale señal global ✅
+  - signal(SIGQUIT, handle_ctrl_backslash) ✅
+    -	signal(SIGQUIT, SIG_IGN);
 
 ## COMANDOS VÁLIDOS E INVÁLIDOS
 - cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e ✅
@@ -130,26 +137,18 @@ echo hola | << cat -e
 - `echo 'Hello/nWorld' | \\\n` Deberiamos usar \n y \t -> Manejarlo
 
 ## CASOS DONDE FALLA
-- ""ec"""h"o""
-- ""ec"""ho"
 
 # TO DO INMEDIATO OLIVER
-- Hacer signal.c
-  - signal(SIGINT, handle_ctrl_c);
-  - Investigar para que vale señal global
-  - signal(SIGQUIT, handle_ctrl_backslash)
-    -	signal(SIGQUIT, SIG_IGN);
-
-- History file (no es obligatorio)
-  - Create with open, append. 
-  - Como pongo limite? 
-
+- Hacer builtins echo y exit
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
   - Incluso si lo mato en otra ventana.
 - Poner loop en un fork???
 
+- History file (no es obligatorio)
+  - Create with open, append. 
+  - Como pongo limite? 
 ---
 
 # TO DO/PREGUNTAR/DECIR A RAUL
