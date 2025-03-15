@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 15:44:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:20:13 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,54 +36,52 @@ int	check_if_bi(t_token *node)
 	return (BI_NO);
 }
 
-int	exec_bi(t_shell *mini_sh, t_builtin bi_cmd)
+int	exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd)
 {
 	int	exit_code;
 
 	exit_code = 0;
 	if (bi_cmd == BI_ECHO)
-		exit_code = bi_echo(mini_sh);
+		exit_code = bi_echo(mini_sh, node);
 	else if (bi_cmd == BI_PWD)
-		exit_code = bi_pwd(mini_sh);
+		exit_code = bi_pwd(mini_sh, node);
 	else if (bi_cmd == BI_ENV)
-		exit_code = bi_env(mini_sh);
+		exit_code = bi_env(mini_sh, node);
 	else if (bi_cmd == BI_CD)
-		exit_code = bi_cd(mini_sh);
+		exit_code = bi_cd(mini_sh, node);
 	else if (bi_cmd == BI_EXPORT)
-		exit_code = bi_export(mini_sh);
+		exit_code = bi_export(mini_sh, node);
 	else if (bi_cmd == BI_UNSET)
-		exit_code = bi_unset(mini_sh);
+		exit_code = bi_unset(mini_sh, node);
 	else if (bi_cmd == BI_EXIT)
-		exit_code = bi_exit(mini_sh);
+		exit_code = bi_exit(mini_sh, node);
 	return (exit_code);
 }
 
-int	bi_pwd(t_shell *mini_sh)
+int	bi_pwd(t_shell *mini_sh, t_token *node)
 {
 	(void)mini_sh;
+	(void)node;
 	return (EXIT_FAILURE);
 }
 
-int	bi_env(t_shell *mini_sh)
+int	bi_cd(t_shell *mini_sh, t_token *node)
 {
 	(void)mini_sh;
+	(void)node;
 	return (EXIT_FAILURE);
 }
 
-int	bi_cd(t_shell *mini_sh)
+int	bi_export(t_shell *mini_sh, t_token *node)
 {
 	(void)mini_sh;
+	(void)node;
 	return (EXIT_FAILURE);
 }
 
-int	bi_export(t_shell *mini_sh)
+int	bi_unset(t_shell *mini_sh, t_token *node)
 {
 	(void)mini_sh;
-	return (EXIT_FAILURE);
-}
-
-int	bi_unset(t_shell *mini_sh)
-{
-	(void)mini_sh;
+	(void)node;
 	return (EXIT_FAILURE);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 15:26:24 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:38:11 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ char	**envlist_to_str(t_env *start)
 		node = node->next;
 	}
 	return (env);
+}
+
+int	bi_env(t_shell *mini_sh, t_token *node)
+{
+	int		argc;
+	int		exit_code;
+
+	argc = 1 + count_token_type(node, CMD_ARG);
+	if (argc == 1)
+		exit_code = EXIT_SUCCESS, print_envlist(mini_sh->env);
+	else
+		(exit_code = EXIT_FAILURE, ft_puterr("env"), ft_puterr(ERR_ARGS));
+	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:42:11 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:41:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,16 @@ void	bi_exit(t_shell *mini_sh)
 }
 */
 
-int	bi_exit(t_shell *mini_sh)
+int	bi_exit(t_shell *mini_sh, t_token *node)
 {
-	t_token *cmd_tkn;
 	char	**args;
 	int		argc;
 	int		exit_code;
 
-	cmd_tkn = get_token_content(mini_sh->input->token_lst, "exit");
-	args = get_args(cmd_tkn);
-	argc = 1 + count_token_type(cmd_tkn, CMD_ARG);
-	if (!cmd_tkn || !args)
-		return (my_free2d((void ***)&args), -1); //Consultar
+	args = get_args(node);
+	argc = 1 + count_token_type(node, CMD_ARG);
+	if (!args)
+		return ( -1); //Consultar
 	printf("exit\n");
 	if (argc == 1)
 		exit_code = EXIT_SUCCESS;

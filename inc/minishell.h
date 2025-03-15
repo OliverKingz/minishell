@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:20:09 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,11 +188,6 @@ void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 void				remove_chr_pos(char *s, int pos);
 void				remove_external_quotes(char *s);
 
-// env.c
-
-char				*my_getenv(t_env *start, char *name);
-char				**envlist_to_str(t_env *start);
-
 // var_expansion.c
 
 char				*extract_first_var(char *s);
@@ -229,19 +224,25 @@ void				tokens_to_cmd(t_shell *mini_sh);
 
 //builtin.c
 int					check_if_bi(t_token *node);
-int					exec_bi(t_shell *mini_sh, t_builtin bi_cmd);
+int					exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd);
 
-int					bi_pwd(t_shell *mini_sh);
-int					bi_env(t_shell *mini_sh);
-int					bi_cd(t_shell *mini_sh);
-int					bi_export(t_shell *mini_sh);
-int					bi_unset(t_shell *mini_sh);
-
-// bi_echo.c
-int					bi_echo(t_shell *mini_sh);
+int					bi_pwd(t_shell *mini_sh, t_token *node);
+int					bi_cd(t_shell *mini_sh, t_token *node);
+int					bi_export(t_shell *mini_sh, t_token *node);
+int					bi_unset(t_shell *mini_sh, t_token *node);
 
 // bi_echo.c
-int					bi_exit(t_shell *mini_sh);
+
+int					bi_echo(t_shell *mini_sh, t_token *node);
+
+// bi_env.c
+
+int					bi_env(t_shell *mini_sh, t_token *node);
+char				*my_getenv(t_env *start, char *name);
+char				**envlist_to_str(t_env *start);
+
+// bi_exit.c
+int					bi_exit(t_shell *mini_sh, t_token *node);
 int					my_atoi_circular(const char *nptr, int min, int max);
 
 // utils.c

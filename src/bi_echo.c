@@ -6,19 +6,20 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:01:51 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:43:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:21:26 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	bi_echo(t_shell *mini_sh)
+int	bi_echo(t_shell *mini_sh, t_token *node)
 {
 	char	**args;
 	bool	n_flag;
 	int		i;
 
-	args = get_cmd_args(mini_sh, "echo");
+	(void)mini_sh;
+	args = get_args(node);
 	if (!args)
 		return (-1); // Consultar
 	i = 1;
