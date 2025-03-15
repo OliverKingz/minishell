@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:38:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:57:38 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ typedef enum e_builtin
 {
 	BI_NO,
 	BI_ECHO,
-	BI_CD,
 	BI_PWD,
+	BI_ENV,
+	BI_CD,
 	BI_EXPORT,
 	BI_UNSET,
-	BI_ENV,
 	BI_EXIT
 }					t_builtin;
 
