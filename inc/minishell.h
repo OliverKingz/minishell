@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:44:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:46:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,11 +194,11 @@ void				clear_tokenlist(t_token **token_lst);
 
 // token_utils.c
 
-t_token				*get_token_type(t_token *node, t_type type);
-char				**get_args(t_token *node);
-int					count_token_type(t_token *node, t_type type);
-t_token				*get_token_content(t_token *node, char *content);
-char				**get_cmd_args(t_shell *mini_sh, char *cmd);
+t_token				*get_token_type(t_token *node, t_type type); //Creo que habria que cambiarle nombre a get_ttype_tilp o sino hacerlo general
+char				**get_args(t_token *node);//Creo que habria que cambiarle nombre a get_args_tilp
+int					count_token_type(t_token *node, t_type type);//Creo que habria que cambiarle nombre a count_ttype_tilp
+t_token				*get_token_content(t_token *node, char *content);//Creo que habria que cambiarle nombre a get_tcntn_tilp o sino hacerlo general
+char				**get_cmd_args(t_shell *mini_sh, char *cmd); // Lo mismo que get_args pero buscando
 
 // env_list.c
 
@@ -215,6 +215,9 @@ void				tokens_to_cmd(t_shell *mini_sh);
 
 // bi_echo.c
 void				bi_echo(t_shell *mini_sh);
+
+// bi_echo.c
+void				bi_exit(t_shell *mini_sh);
 
 // utils.c
 
@@ -236,7 +239,7 @@ void				my_skip(char **s, char c);
 
 void				print_envlist(t_env *start);
 void				print_tokenslist(t_token *token_lst);
-void				print_tokenslist_short(t_token *token_lst); // USA PRINTF OG
+void				print_tokenslist_short(t_token *token_lst);
 void				print_strings(char **args);
 
 #endif

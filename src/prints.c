@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:20:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:35:09 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:46:35 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ void	print_tokenslist(t_token *token_lst)
 	current = token_lst;
 	while (current != NULL)
 	{
-		ft_printf("Token Content: %s\n", current->content);
-		ft_printf("Token Type: %s\n", type_strings[current->type]);
-		ft_printf("Token Index: %d\n", current->index);
-		ft_printf("_________________________________\n");
+		printf("Token Content: %s\n", current->content);
+		printf("Token Type: %s\n", type_strings[current->type]);
+		printf("Token Index: %d\n", current->index);
+		printf("_________________________________\n");
 		current = current->next;
 	}
 }
 
-// USA FUNCION PROHIBIDA PRINTF!
 void	print_tokenslist_short(t_token *token_lst)
 {
 	const char	*type_strings[] = {"WORD", "COMMAND", "CMD_ARG", "OP_PIPE",

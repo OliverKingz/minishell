@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:23:31 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:46:46 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:02:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	count_token_type(t_token *node, t_type type)
  */
 t_token	*get_token_content(t_token *node, char *content)
 {
-	while (node && node->type != OP_PIPE)
+	while (node)
 	{
 		if (ft_strncmp(node->content, content, ft_strlen(node->content)) == 0)
 			return (node);

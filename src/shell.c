@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:53:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:35:31 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	execution(t_shell *mini_sh)
 {
 	print_tokenslist_short(mini_sh->input->token_lst);
 	bi_echo(mini_sh);
+	bi_exit(mini_sh);
 	// tokens_to_cmd(mini_sh);
 	// mini_sh->last_exit_status = 100;
 	// print_envlist(mini_sh->env);
