@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:57:42 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:25:38 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	if (!mini_sh->input->token_lst)
 		return (free_input(&mini_sh), NULL);
 	init_input_pid_heredoc(mini_sh);
+	mini_sh->input->pid = ft_calloc(mini_sh->input->cmd_count, sizeof(pid_t));
 	return (mini_sh->input);
 }
 
@@ -73,5 +74,6 @@ void	free_input(t_shell **mini_sh)
 		(free((*mini_sh)->input->pid), (*mini_sh)->input->pid = NULL);
 	if ((*mini_sh)->input->heredocs)
 		(free((*mini_sh)->input->heredocs), (*mini_sh)->input->heredocs = NULL);
+	free((*mini_sh)->input->pid);
 	(free((*mini_sh)->input), (*mini_sh)->input = NULL);
 }

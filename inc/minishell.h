@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 16:20:09 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 18:01:37 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,11 @@ void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 void				remove_chr_pos(char *s, int pos);
 void				remove_external_quotes(char *s);
 
+// env.c
+
+char				*my_getenv(t_env *start, char *name);
+char				**envlist_to_str(t_env *start);
+
 // var_expansion.c
 
 char				*extract_first_var(char *s);
@@ -219,8 +224,15 @@ void				clear_envlist(t_env **start);
 
 // execution.c
 
-t_cmd				init_cmd(t_shell *mini_sh, t_token *node);
-void				tokens_to_cmd(t_shell *mini_sh);
+pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
+void				execute_cmds(t_shell *mini_sh);
+
+// cmd_utils.c
+
+char				*locate_cmd(t_shell *mini_sh, t_token *node);
+t_cmd				init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
+void				clear_cmd(t_cmd *cmd);
+void				cmd_not_found(t_shell *mini_sh, t_cmd *cmd);
 
 //builtin.c
 int					check_if_bi(t_token *node);
@@ -260,6 +272,10 @@ int					my_strnstr_pos(const char *big, const char *little,
 char				*my_replace_first(char *og, char *target, char *rep);
 char				*my_replace(char *og, char *target, char *rep); // LEAKS
 void				my_skip(char **s, char c);
+
+// utils3.c
+
+void				my_close(int *fd);
 
 // prints.c
 

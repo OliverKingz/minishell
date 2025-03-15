@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 16:45:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:50:38 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	execution(t_shell *mini_sh)
 	is_bi = check_if_bi(node);
 	if (is_bi != BI_NO)
 		mini_sh->exit_code = exec_bi(mini_sh, node, is_bi);
-	//execute_cmds(mini_sh);
+	execute_cmds(mini_sh);
 }
 
 int	loop_shell(t_shell *mini_sh)

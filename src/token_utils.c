@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:23:31 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:19:08 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 19:00:45 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
  */
 t_token	*get_token_type(t_token *node, t_type type)
 {
-	while (node && node->type != OP_PIPE)
+	while (node)
 	{
 		if (node->type == type)
 			return (node);
+		if (node->type == OP_PIPE)
+			break ;
 		node = node->next;
 	}
 	return (NULL);
@@ -45,8 +47,10 @@ char	**get_args(t_token *node)
 	int		argc;
 	int		i;
 
-	argc = count_token_type(node, CMD_ARG) + 1;
-	args = ft_calloc(argc + 1, sizeof(char *));
+	argc = count_token_type(node, CMD_ARG);
+	if (argc == 0 && !get_token_type(node, COMMAND))
+		return (NULL);
+	args = ft_calloc(argc + 2, sizeof(char *));
 	i = 0;
 	while (node && node->type != OP_PIPE)
 	{
