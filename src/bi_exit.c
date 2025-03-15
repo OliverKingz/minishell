@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 02:22:33 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:42:11 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	my_atoi_circular(const char *nptr, int min, int max)
 		nbr = nbr - range * ((nbr - max) / range + 1);
 	return (nbr);
 }
-
+/*
 void	bi_exit(t_shell *mini_sh)
 {
 	char	**args;
@@ -46,4 +46,33 @@ void	bi_exit(t_shell *mini_sh)
 		exit_code = STDERR_FILENO;
 	my_free2d((void ***)&args);
 	(printf("exit\n"), free_shell(mini_sh), exit(exit_code));
+}
+*/
+
+int	bi_exit(t_shell *mini_sh)
+{
+	t_token *cmd_tkn;
+	char	**args;
+	int		argc;
+	int		exit_code;
+
+	cmd_tkn = get_token_content(mini_sh->input->token_lst, "exit");
+	args = get_args(cmd_tkn);
+	argc = 1 + count_token_type(cmd_tkn, CMD_ARG);
+	if (!cmd_tkn || !args)
+		return (my_free2d((void ***)&args), -1); //Consultar
+	printf("exit\n");
+	if (argc == 1)
+		exit_code = EXIT_SUCCESS;
+	else if (argc == 2)
+	{
+		if (ft_issigned_nbr(args[1]))
+			exit_code = my_atoi_circular(args[1], 0, 255);
+		else
+			exit_code = STDERR_FILENO;
+	}
+	else
+		(exit_code = EXIT_FAILURE, ft_puterr("exit"), ft_puterr(ERR_ARGS));
+	(my_free2d((void ***)&args), free_shell(mini_sh), exit(exit_code));
+	return (exit_code);
 }

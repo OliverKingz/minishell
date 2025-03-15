@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 12:16:33 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:38:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,25 @@
 # define ERR_COMMAND ": command not found\n"
 # define ERR_PERMISSION ": permission denied\n"
 # define ERR_FILE_DIR ": no such file or directory\n"
+# define ERR_ARGS ": too many arguments\n"
 
 /* ************************************************************************** */
 
 extern int			g_signal;
 
 /* ************************************************************************** */
+
+typedef enum e_builtin
+{
+	BI_NO,
+	BI_ECHO,
+	BI_CD,
+	BI_PWD,
+	BI_EXPORT,
+	BI_UNSET,
+	BI_ENV,
+	BI_EXIT
+}					t_builtin;
 
 typedef enum e_type
 {
@@ -215,10 +228,11 @@ t_cmd				init_cmd(t_shell *mini_sh, t_token *node);
 void				tokens_to_cmd(t_shell *mini_sh);
 
 // bi_echo.c
-void				bi_echo(t_shell *mini_sh);
+int				bi_echo(t_shell *mini_sh);
 
 // bi_echo.c
-void				bi_exit(t_shell *mini_sh);
+int				bi_exit(t_shell *mini_sh);
+int				my_atoi_circular(const char *nptr, int min, int max);
 
 // utils.c
 

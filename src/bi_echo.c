@@ -6,13 +6,13 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:01:51 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 00:45:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 13:43:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	bi_echo(t_shell *mini_sh)
+int	bi_echo(t_shell *mini_sh)
 {
 	char	**args;
 	bool	n_flag;
@@ -20,7 +20,7 @@ void	bi_echo(t_shell *mini_sh)
 
 	args = get_cmd_args(mini_sh, "echo");
 	if (!args)
-		return ;
+		return (-1); // Consultar
 	i = 1;
 	n_flag = false;
 	if (args[1] && ft_strncmp(args[1], "-n", 2) == 0)
@@ -35,4 +35,5 @@ void	bi_echo(t_shell *mini_sh)
 	if (n_flag == false)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	my_free2d((void ***)&args);
+	return (EXIT_SUCCESS);
 }

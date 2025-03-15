@@ -135,11 +135,18 @@ echo hola | << cat -e
 
 ## CASOS A CONSULTAR
 - `echo 'Hello/nWorld' | \\\n` Deberiamos usar \n y \t -> Manejarlo
+- echo 12e > /dev/full
+bash: echo: write error: No space left on device
 
 ## CASOS DONDE FALLA
 
 # TO DO INMEDIATO OLIVER
-- Hacer builtins echo y exit
+- Hacer builtins echo y exit ✅
+- Investigar el return de echo. Siempre 0? Como se falla. ✅
+    -> Opciones incorrectas las representa
+- Exit tiene que tener si o si solo 1. Poner exit: too many arguments✅
+- Hacer export y unset. De momento hacer builtins. Todos tienen que devolver
+- Hacer si es builtin o no. Hacer enum. 
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
