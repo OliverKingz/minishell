@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 02:00:29 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 02:22:33 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ void	bi_exit(t_shell *mini_sh)
 	if (!args)
 		return ;
 	if (!args[1])
-		(printf("exit\n"), exit(exit_code));
+	{
+		my_free2d((void ***)&args);
+		(printf("exit\n"), free_shell(mini_sh), exit(exit_code));
+	}
 	if (ft_issigned_nbr(args[1]))
 		exit_code = my_atoi_circular(args[1], 0, 255);
 	else
 		exit_code = STDERR_FILENO;
 	my_free2d((void ***)&args);
-	(printf("exit %d\n", exit_code), exit(exit_code));
+	(printf("exit\n"), free_shell(mini_sh), exit(exit_code));
 }
