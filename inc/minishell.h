@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 01:46:42 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:16:33 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_cmd
 	char			*cmd_path;
 	char			**cmd_args;
 	char			**env;
+	int				is_bi;	//Cambiar por el enum bi
 }					t_cmd;
 
 typedef struct s_input
@@ -210,7 +211,7 @@ void				clear_envlist(t_env **start);
 
 // execution.c
 
-t_cmd				init_cmd(t_shell *mini_sh);
+t_cmd				init_cmd(t_shell *mini_sh, t_token *node);
 void				tokens_to_cmd(t_shell *mini_sh);
 
 // bi_echo.c

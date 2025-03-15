@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:23:31 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 01:02:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 12:10:49 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**get_args(t_token *node)
 	int		argc;
 	int		i;
 
-	argc = count_token_type(node, COMMAND) + 1; // por que cuenta command?
+	argc = count_token_type(node, CMD_ARG) + 1;
 	args = ft_calloc(argc + 1, sizeof(char *));
 	i = 0;
 	while (node && node->type != OP_PIPE)
