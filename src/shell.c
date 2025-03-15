@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 11:48:34 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:47:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_shell	*create_shell(char **env)
 	if (!mini_sh)
 		return (my_perr("create mini_sh", false, errno), NULL);
 	mini_sh->env = init_envlist(env);
-	mini_sh->last_exit_status = 0;
+	mini_sh->exit_code = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);
 }
@@ -49,11 +49,12 @@ int	process_readline_toinput(t_shell *mini_sh, char **readline)
 
 void	execution(t_shell *mini_sh)
 {
+	t_builtin	is_bi;
+
 	print_tokenslist_short(mini_sh->input->token_lst);
-	bi_echo(mini_sh);
-	bi_exit(mini_sh);
+	is_bi = check_if_bi(get_token_type(mini_sh->input->token_lst, COMMAND));
+	mini_sh->exit_code = exec_bi(mini_sh, is_bi);
 	//execute_cmds(mini_sh);
-	// mini_sh->last_exit_status = 100;
 	// print_envlist(mini_sh->env);
 }
 
@@ -75,7 +76,7 @@ int	loop_shell(t_shell *mini_sh)
 		execution(mini_sh);
 		(free(read_line), free_input(&mini_sh));
 	}
-	return (mini_sh->last_exit_status);
+	return (mini_sh->exit_code);
 }
 
 void	free_shell(t_shell *mini_sh)

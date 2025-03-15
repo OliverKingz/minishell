@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/14 14:05:19 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 			break ;
 		value = ft_strdup(my_getenv(mini_sh->env, &var[1]));
 		if (ft_strncmp(var, "$?", -1) == 0)
-			value = ft_itoa(mini_sh->last_exit_status);
+			value = ft_itoa(mini_sh->exit_code);
 		temp = str;
 		str = my_replace_first(temp, var, value);
 		free(temp);

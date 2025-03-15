@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:52:55 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/13 23:37:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	set_signals(void)
 void	set_signal_errors(t_shell *mini_sh)
 {
 	if (g_signal == SIGINT)
-		mini_sh->last_exit_status = 128 + SIGINT;
+		mini_sh->exit_code = 128 + SIGINT;
 	else if (g_signal == SIGQUIT)
-		mini_sh->last_exit_status = 128 + SIGQUIT;
+		mini_sh->exit_code = 128 + SIGQUIT;
 	g_signal = 0;
 }

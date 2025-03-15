@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 13:57:38 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_cmd
 	char			*cmd_path;
 	char			**cmd_args;
 	char			**env;
-	int				is_bi;	//Cambiar por el enum bi
+	t_builtin		is_bi;
 }					t_cmd;
 
 typedef struct s_input
@@ -137,7 +137,7 @@ typedef struct s_shell
 {
 	t_input			*input;
 	t_env			*env;
-	int				last_exit_status;
+	int				exit_code;
 }					t_shell;
 
 /* ************************************************************************** */
@@ -227,12 +227,22 @@ void				clear_envlist(t_env **start);
 t_cmd				init_cmd(t_shell *mini_sh, t_token *node);
 void				tokens_to_cmd(t_shell *mini_sh);
 
-// bi_echo.c
-int				bi_echo(t_shell *mini_sh);
+//builtin.c
+int					check_if_bi(t_token *node);
+int					exec_bi(t_shell *mini_sh, t_builtin bi_cmd);
+
+int					bi_pwd(t_shell *mini_sh);
+int					bi_env(t_shell *mini_sh);
+int					bi_cd(t_shell *mini_sh);
+int					bi_export(t_shell *mini_sh);
+int					bi_unset(t_shell *mini_sh);
 
 // bi_echo.c
-int				bi_exit(t_shell *mini_sh);
-int				my_atoi_circular(const char *nptr, int min, int max);
+int					bi_echo(t_shell *mini_sh);
+
+// bi_echo.c
+int					bi_exit(t_shell *mini_sh);
+int					my_atoi_circular(const char *nptr, int min, int max);
 
 // utils.c
 
