@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 18:01:37 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:31:07 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,6 @@ void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 						int *state);
 void				remove_chr_pos(char *s, int pos);
 void				remove_external_quotes(char *s);
-
-// env.c
-
-char				*my_getenv(t_env *start, char *name);
-char				**envlist_to_str(t_env *start);
 
 // var_expansion.c
 
