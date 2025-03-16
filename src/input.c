@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 21:33:47 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:41:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ void	free_input(t_shell **mini_sh)
 	if (!(*mini_sh)->input)
 		return ;
 	if ((*mini_sh)->input->read_line)
-	{
-		free((*mini_sh)->input->read_line);
-		(*mini_sh)->input->read_line = NULL;
-	}
+		my_free((void **)&((*mini_sh)->input->read_line));
 	if ((*mini_sh)->input->token_lst)
 		clear_tokenlist(&(*mini_sh)->input->token_lst);
 	if ((*mini_sh)->input->pid)
-		(free((*mini_sh)->input->pid), (*mini_sh)->input->pid = NULL);
+		my_free((void **)&((*mini_sh)->input->pid));
 	if ((*mini_sh)->input->heredocs)
-		(free((*mini_sh)->input->heredocs), (*mini_sh)->input->heredocs = NULL);
-	(free((*mini_sh)->input), (*mini_sh)->input = NULL);
+		my_free((void **)&((*mini_sh)->input->heredocs));
+	my_free((void **)&((*mini_sh)->input));
 }

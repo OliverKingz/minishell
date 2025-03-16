@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:50:38 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:43:26 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	process_readline_toinput(t_shell *mini_sh, char **readline)
 		add_history(*readline);
 	if (!validate_rline_syntax(*readline))
 	{
-		(free(*readline), *readline = NULL);
+		my_free((void **)readline);
 		return (CONTINUE_LOOP);
 	}
 	mini_sh->input = init_input(mini_sh, *readline);
 	if (!mini_sh->input)
 	{
-		(free(*readline), *readline = NULL);
+		my_free((void **)readline);
 		return (CONTINUE_LOOP);
 	}
 	return (OKAY_LOOP);
@@ -76,7 +76,7 @@ int	loop_shell(t_shell *mini_sh)
 		else if (result == CONTINUE_LOOP)
 			continue ;
 		execution(mini_sh);
-		(free(read_line), free_input(&mini_sh));
+		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
 	return (mini_sh->exit_code);
 }
@@ -88,5 +88,5 @@ void	free_shell(t_shell *mini_sh)
 	if (mini_sh->input)
 		free_input(&mini_sh);
 	clear_envlist(&(mini_sh->env));
-	free(mini_sh);
+	my_free((void **)&mini_sh);
 }

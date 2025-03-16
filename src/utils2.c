@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:15:01 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:18:20 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:44:53 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*my_replace(char *og, char *target, char *rep)
 	{
 		temp = s;
 		s = my_replace_first(temp, target, rep);
-		free(temp);
+		my_free((void **)&temp);
 	}
 	return (s);
 }

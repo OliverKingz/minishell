@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/12 16:29:41 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:39:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	clear_envnode(t_env *node)
 {
 	if (!node)
 		return ;
-	free(node->name);
-	free(node->value);
+	my_free((void **)&(node->name));
+	my_free((void **)&(node->value));
 }
 
 void	clear_envlist(t_env **start)
@@ -87,7 +87,7 @@ void	clear_envlist(t_env **start)
 	{
 		next_node = node->next;
 		clear_envnode(node);
-		free(node);
+		my_free((void **)&node);
 		node = next_node;
 	}
 	*start = NULL;

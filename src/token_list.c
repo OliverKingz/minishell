@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:32:05 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:32:56 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:44:09 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	clear_tokenlist(t_token **token_lst)
 	{
 		next = current->next;
 		if (current->content)
-			(free(current->content), current->content = NULL);
-		(free(current), current = NULL);
+			my_free((void **)&(current->content));
+		my_free((void **)&current);
 		current = next;
 	}
 	*token_lst = NULL;

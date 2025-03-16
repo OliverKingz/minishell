@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:59:46 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:38:08 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*locate_cmd(t_shell *mini_sh, t_token *node)
 	{
 		temp = ft_strjoin_char(path[i], name, '/');
 		if (!temp || access(temp, X_OK) != 0)
-			free(temp);
+			my_free((void **)&temp);
 		else
 			return (my_free2d((void ***) &path), temp);
 		i++;
@@ -66,7 +66,7 @@ t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2)
 
 void	clear_cmd(t_cmd *cmd)
 {
-	free(cmd->cmd_path);
+	my_free((void **)&(cmd->cmd_path));
 	my_free2d((void ***) &(cmd->cmd_args));
 	my_free2d((void ***) &(cmd->env));
 }
@@ -77,9 +77,8 @@ void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd)
 
 	s = ft_strjoin(cmd->cmd_args[0], ERR_COMMAND);
 	ft_putstr_fd(s, STDERR_FILENO);
-	free(s);
+	my_free((void **)&s);
 	clear_cmd(cmd);
-	(void)mini_sh;
 	free_shell(mini_sh);
 	exit(127);
 }

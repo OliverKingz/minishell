@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:53:00 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 		var = extract_first_var(str);
 		if (!var)
 			break ;
-		value = ft_strdup(my_getenv(mini_sh->env, &var[1]));
 		if (ft_strncmp(var, "$?", -1) == 0)
 			value = ft_itoa(mini_sh->exit_code);
+		else
+			value = ft_strdup(my_getenv(mini_sh->env, &var[1]));
 		temp = str;
 		str = my_replace_first(temp, var, value);
-		free(temp);
-		free(var);
-		free(value);
+		my_free((void **)&temp);
+		my_free((void **)&var);
+		my_free((void **)&value);
 	}
 	return (str);
 }
@@ -76,7 +77,7 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 // 	node = init_envlist(env);
 // 	s = expand_vars("hola '$USER'$USER :) \n", node);
 // 	ft_putstr_fd(s, STDOUT_FILENO);
-// 	free(s);
+// 	my_free((void **)&s);
 // 	clear_envlist(&node);
 // 	return (0);
 // }
