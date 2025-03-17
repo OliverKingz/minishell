@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:54:45 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:55:44 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:48:49 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	my_close(int *fd)
 {
-	if (*fd != -1)
+	if (*fd != -1 && *fd != STDOUT_FILENO && *fd != STDIN_FILENO)
 		close(*fd);
 	*fd = -1;
 }

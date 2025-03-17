@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 12:45:02 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:07:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd)
 	my_free((void **)&s);
 	clear_cmd(cmd);
 	free_shell(mini_sh);
+	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
 	exit(127);
 }

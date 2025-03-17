@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 13:01:40 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:54:00 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	my_close(&(cmd->close_fd));
 	dup2(cmd->in_fd, STDIN_FILENO);
 	dup2(cmd->out_fd, STDOUT_FILENO);
+	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
 	cmd_node = get_token_type(node, COMMAND);
 	if (!cmd_node)
 		(clear_cmd(cmd), free_shell(mini_sh), exit(0));
@@ -59,8 +60,9 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 		bi = exec_bi(mini_sh, cmd_node, bi);
 	else
 		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
+	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
 	(clear_cmd(cmd), free_shell(mini_sh), exit(bi));
-	return (0);
+	return (bi);
 }
 
 void	execute_cmds(t_shell *mini_sh)

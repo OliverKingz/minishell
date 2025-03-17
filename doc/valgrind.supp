@@ -46,3 +46,39 @@
     ...
     fun:alloc_history_entry
 }
+
+{
+    ls_malloc_leak
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:malloc
+    obj:/usr/bin/ls
+}
+
+{
+    grep_malloc_leak
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:malloc
+    obj:/usr/bin/grep
+}
+
+{
+    cat_malloc_leak
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:malloc
+    obj:/usr/bin/cat
+}
+
+{
+    clear_malloc_leak
+    Memcheck:Leak
+    match-leak-kinds: all
+    ...
+    fun:malloc
+    obj:/usr/bin/clear
+}
