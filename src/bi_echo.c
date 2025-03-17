@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:01:51 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 16:21:26 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:45:36 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	bi_echo(t_shell *mini_sh, t_token *node)
 	(void)mini_sh;
 	args = get_args(node);
 	if (!args)
-		return (-1); // Consultar
+		return (2); // Consultar
 	i = 1;
 	n_flag = false;
 	if (args[1] && ft_strncmp(args[1], "-n", 2) == 0)

@@ -152,6 +152,10 @@ bash: echo: write error: No space left on device
 
 - Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""
 - Ver CTRL+\ mejor✅
+- CHE, ARREGLA EL EXIT
+  - caso: exit 1 2 3 4
+  - caso: exit brenda
+  - caso: ls | exit 12
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.

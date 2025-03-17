@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 16:41:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:48:34 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,7 @@ int	my_atoi_circular(const char *nptr, int min, int max)
 		nbr = nbr - range * ((nbr - max) / range + 1);
 	return (nbr);
 }
-/*
-void	bi_exit(t_shell *mini_sh)
-{
-	char	**args;
-	int		exit_code;
 
-	args = get_cmd_args(mini_sh, "exit");
-	exit_code = 0;
-	if (!args)
-		return ;
-	if (!args[1])
-	{
-		my_free2d((void ***)&args);
-		(printf("exit\n"), free_shell(mini_sh), exit(exit_code));
-	}
-	if (ft_issigned_nbr(args[1]))
-		exit_code = my_atoi_circular(args[1], 0, 255);
-	else
-		exit_code = STDERR_FILENO;
-	my_free2d((void ***)&args);
-	(printf("exit\n"), free_shell(mini_sh), exit(exit_code));
-}
-*/
 
 int	bi_exit(t_shell *mini_sh, t_token *node)
 {
@@ -58,7 +36,7 @@ int	bi_exit(t_shell *mini_sh, t_token *node)
 	args = get_args(node);
 	argc = 1 + count_token_type(node, CMD_ARG);
 	if (!args)
-		return ( -1); //Consultar
+		return (2); //Consultar
 	printf("exit\n");
 	if (argc == 1)
 		exit_code = EXIT_SUCCESS;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:06:15 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:47:04 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	main(int argc, char **argv, char **env)
 	if (!mini_sh)
 		return (EXIT_FAILURE);
 	exit_status = loop_shell(mini_sh);
-	ft_putendl_fd("exit", 1);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	return (free_shell(mini_sh), exit_status);
 }
