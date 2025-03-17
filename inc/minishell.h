@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 13:02:55 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:11:20 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@
 # define ERR_PERMISSION ": permission denied\n"
 # define ERR_FILE_DIR ": no such file or directory\n"
 # define ERR_ARGS ": too many arguments\n"
+# define ERR_ARG_INT ": numeric argument required\n"
 
 /* ************************************************************************** */
 
@@ -270,6 +271,8 @@ void				my_skip(char **s, char c);
 // utils3.c
 
 void				my_close(int *fd);
+char				*my_strjoin3(char const *s1, char const *s2, char const *s3);
+char				*my_strjoin4(char const *s1, char const *s2, char const *s3, char const *s4);
 
 // prints.c
 

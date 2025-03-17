@@ -68,6 +68,7 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   "" echo "" ✅
   "ech"o ✅
   ec""ho ✅
+  "echo "✅
   "" ✅
   ""ec"""h"o"" ✅
   ""ec"""ho" ✅
@@ -148,14 +149,15 @@ bash: echo: write error: No space left on device
 - Exit tiene que tener si o si solo 1. Poner exit: too many arguments✅
 - Enum de builtin. ✅
 - Hacer funcion si es builtin o no. 
-- Hacer export y unset. De momento hacer builtins. Todos tienen que devolver
+- Hacer env, export y unset. De momento hacer builtins. Todos tienen que devolver
 
 - Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""
 - Ver CTRL+\ mejor✅
 - CHE, ARREGLA EL EXIT
-  - caso: exit 1 2 3 4
-  - caso: exit brenda
-  - caso: ls | exit 12
+  - caso: exit 1 2 3 4, no sale✅
+  - caso: exit brenda 2 3 4, si sale✅
+  - caso: exit brenda✅
+  - caso: ls | exit 12✅ si sale, pero el hijo
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
