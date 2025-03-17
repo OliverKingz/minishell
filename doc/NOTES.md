@@ -139,6 +139,7 @@ echo hola | << cat -e
 bash: echo: write error: No space left on device
 
 ## CASOS DONDE FALLA
+- Hacer Ctrl+C con un comando como cat: Se duplica el prompt (Bug visual que no se ve :D)
 
 # TO DO INMEDIATO OLIVER
 - Hacer builtins echo y exit ✅

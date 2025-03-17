@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 12:19:54 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:07:35 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	loop_shell(t_shell *mini_sh)
 	set_signals();
 	while (1)
 	{
+		if (g_signal == SIGINT)
+			ft_putchar_fd('\r', 1);
 		read_line = readline(PROMPT);
 		set_signal_errors(mini_sh);
 		result = process_readline_toinput(mini_sh, &read_line);
