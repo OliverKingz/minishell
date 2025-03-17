@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/16 12:41:37 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:07:43 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,25 @@ void	init_input_pid_heredoc(t_shell *mini_sh)
 {
 	t_token	*current;
 
-	mini_sh->input->cmd_count = 0;
+	mini_sh->input->pipe_count = 0;
 	mini_sh->input->hdoc_count = 0;
 	current = mini_sh->input->token_lst;
 	while (current)
 	{
-		mini_sh->input->cmd_count += (current->type == COMMAND);
+		mini_sh->input->pipe_count += (current->type == OP_PIPE);
 		mini_sh->input->hdoc_count += (current->type == REDIR_HD);
 		current = current->next;
 	}
-	if (mini_sh->input->cmd_count > 0)
-	{
-		mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->cmd_count,
-				sizeof(pid_t));
-		if (!mini_sh->input->pid)
-			(free_shell(mini_sh), my_perr("input hdoc", 1, errno));
-	}
+	mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->pipe_count + 1,
+		sizeof(pid_t));
+	if (!mini_sh->input->pid)
+		(free_shell(mini_sh), my_perr("input pid", 1, errno));
 	if (mini_sh->input->hdoc_count > 0)
 	{
 		mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count,
 				sizeof(int));
 		if (!mini_sh->input->heredocs)
-			(free_shell(mini_sh), my_perr("input pid", 1, errno));
+			(free_shell(mini_sh), my_perr("input hdoc", 1, errno));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/15 19:25:56 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:01:40 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	wait_children(t_input *input)
 
 	i = 0;
 	status = 0;
-	while(i < input->cmd_count)
+	while (i < input->pipe_count + 1)
 	{
 		if (input->pid[i] != -1)
 			waitpid(input->pid[i], &status, 0);
@@ -28,28 +28,38 @@ int	wait_children(t_input *input)
 	return (WEXITSTATUS(status));
 }
 
+// void	man_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd)
+// {
+// 	while (node)
+// 	{
+// 		if (node_)
+// 		node = node->next;
+// 	}
+// }
+
 pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 {
-	pid_t pid;
+	pid_t	pid;
+	t_token	*cmd_node;
+	int		bi;
 
-	(void)mini_sh;
-	(void)node;
 	pid = fork();
 	if (pid != 0)
 		return (pid);
 	my_close(&(cmd->close_fd));
 	dup2(cmd->in_fd, STDIN_FILENO);
 	dup2(cmd->out_fd, STDOUT_FILENO);
-	if (!cmd->cmd_path && !cmd->cmd_args)
-	{
-		clear_cmd(cmd);
-		free_shell(mini_sh);
-		exit(0);
-	}
+	cmd_node = get_token_type(node, COMMAND);
+	if (!cmd_node)
+		(clear_cmd(cmd), free_shell(mini_sh), exit(0));
 	if (!cmd->cmd_path)
 		cmd_not_found(mini_sh, cmd);
-	execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
-	exit(0);
+	bi = check_if_bi(cmd_node);
+	if (bi)
+		bi = exec_bi(mini_sh, cmd_node, bi);
+	else
+		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
+	(clear_cmd(cmd), free_shell(mini_sh), exit(bi));
 	return (0);
 }
 
@@ -69,14 +79,12 @@ void	execute_cmds(t_shell *mini_sh)
 	while (node)
 	{
 		cmd = init_cmd(mini_sh, node, &pipe1, pipe2);
-		mini_sh->input->pid[i++] = exe_in_child(mini_sh, node, &cmd);
 		if (node->type == OP_PIPE)
 			node = node->next;
+		mini_sh->input->pid[i++] = exe_in_child(mini_sh, node, &cmd);
 		while (node && node->type != OP_PIPE)
 			node = node->next;
-		clear_cmd(&cmd);
-		my_close(&pipe1);
-		my_close(&pipe2[WRITE_END]);
+		(clear_cmd(&cmd), my_close(&pipe1), my_close(&pipe2[WRITE_END]));
 		pipe1 = pipe2[READ_END];
 	}
 	my_close(&pipe1);

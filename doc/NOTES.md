@@ -149,6 +149,9 @@ bash: echo: write error: No space left on device
 - Hacer funcion si es builtin o no. 
 - Hacer export y unset. De momento hacer builtins. Todos tienen que devolver
 
+- Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""
+- Ver CTRL+\ mejor✅
+
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
   - Incluso si lo mato en otra ventana.

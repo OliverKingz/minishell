@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 21:31:07 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:02:55 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_input
 {
 	char			*read_line;
 	t_token			*token_lst;
-	int				cmd_count;
+	int				pipe_count;
 	int				hdoc_count;
 	int				*heredocs;
 	pid_t			*pid;
@@ -145,7 +145,6 @@ typedef struct s_shell
 // signal.c
 
 void				handle_ctrl_c(int signal_sigint);
-void				handle_ctrl_backslash(int signal_sigquit);
 void				set_signals(void);
 void				set_signal_errors(t_shell *mini_sh);
 
@@ -223,7 +222,7 @@ pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 void				execute_cmds(t_shell *mini_sh);
 
 // cmd_utils.c
-
+int					is_file(char *route);
 char				*locate_cmd(t_shell *mini_sh, t_token *node);
 t_cmd				init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
 void				clear_cmd(t_cmd *cmd);

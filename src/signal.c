@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:52:55 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 15:45:25 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:28:46 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,15 @@ void	handle_ctrl_c(int signal_sigint)
 	g_signal = SIGINT;
 }
 
-void	handle_ctrl_backslash(int signal_sigquit)
-{
-	(void)signal_sigquit;
-}
-
 void	set_signals(void)
 {
 	signal(SIGINT, handle_ctrl_c);
-	signal(SIGQUIT, handle_ctrl_backslash);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	set_signal_errors(t_shell *mini_sh)
 {
 	if (g_signal == SIGINT)
 		mini_sh->exit_code = 128 + SIGINT;
-	else if (g_signal == SIGQUIT)
-		mini_sh->exit_code = 128 + SIGQUIT;
 	g_signal = 0;
 }
