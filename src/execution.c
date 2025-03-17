@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 14:54:00 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:15:56 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,34 @@ int	wait_children(t_input *input)
 	return (WEXITSTATUS(status));
 }
 
-// void	man_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd)
-// {
-// 	while (node)
-// 	{
-// 		if (node_)
-// 		node = node->next;
-// 	}
-// }
+void	man_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd)
+{
+	while (node && node->type != OP_PIPE)
+	{
+		if (node->type == REDIR_OUT || node->type == REDIR_APP)
+		{
+			my_close(&(cmd->out_fd));
+			if (node->type == REDIR_OUT)
+				cmd->out_fd = open(node->next->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			else
+				cmd->out_fd = open(node->next->content, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		}
+		else if (node->type == REDIR_IN || node->type == REDIR_APP)
+		{
+			my_close(&(cmd->in_fd));
+			if (node->type == REDIR_IN)
+				cmd->in_fd = open(node->next->content, O_RDONLY);
+		}
+		if (cmd->in_fd < 0 || cmd->out_fd < 0)
+		{
+			perror(node->next->content);
+			free_shell(mini_sh);
+			clear_cmd(cmd);
+			exit (1);
+		}
+		node = node->next;
+	}
+}
 
 pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 {
@@ -47,6 +67,7 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	if (pid != 0)
 		return (pid);
 	my_close(&(cmd->close_fd));
+	man_redirections(mini_sh, node, cmd);
 	dup2(cmd->in_fd, STDIN_FILENO);
 	dup2(cmd->out_fd, STDOUT_FILENO);
 	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
