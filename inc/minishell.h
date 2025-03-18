@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 14:38:00 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:23:20 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,11 +204,10 @@ void				clear_tokenlist(t_token **token_lst);
 
 // token_utils.c
 
-t_token				*get_token_type(t_token *node, t_type type); //Creo que habria que cambiarle nombre a get_ttype_tilp o sino hacerlo general
-char				**get_args(t_token *node);//Creo que habria que cambiarle nombre a get_args_tilp
-int					count_token_type(t_token *node, t_type type);//Creo que habria que cambiarle nombre a count_ttype_tilp
-t_token				*get_token_content(t_token *node, char *content);//Creo que habria que cambiarle nombre a get_tcntn_tilp o sino hacerlo general
-char				**get_cmd_args(t_shell *mini_sh, char *cmd); // Lo mismo que get_args pero buscando
+t_token				*get_token_type(t_token *node, t_type type);
+t_token				*get_token_content(t_token *node, char *content);
+char				**get_args(t_token *node);
+int					count_token_type(t_token *node, t_type type);
 
 // env_list.c
 
@@ -237,29 +236,28 @@ void				cmd_close_all_fd(t_cmd *cmd);
 
 //builtin.c
 int					check_if_bi(t_token *node);
-int					exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd);
-int					exec_bi2(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd);
+int					exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd);
 void				exec_one_bi(t_shell *mini_sh, t_builtin is_bi);
-int					bi_pwd(t_shell *mini_sh, t_token *node);
-int					bi_cd(t_shell *mini_sh, t_token *node);
-int					bi_export(t_shell *mini_sh, t_token *node);
-int					bi_unset(t_shell *mini_sh, t_token *node);
+
+int					bi_pwd(t_shell *mini_sh, t_cmd *cmd);
+int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
+int					bi_export(t_shell *mini_sh, t_cmd *cmd);
+int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_echo.c
 
-int					bi_echo(t_shell *mini_sh, t_token *node);
-int					bi_echo2(t_shell *mini_sh, t_cmd *cmd);
+int					bi_echo(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_env.c
 
-int					bi_env(t_shell *mini_sh, t_token *node);
+int					bi_env(t_shell *mini_sh, t_cmd *cmd);
+void				print_envlist(t_env *start);
 char				*my_getenv(t_env *start, char *name);
 char				**envlist_to_str(t_env *start);
 
 // bi_exit.c
-int					bi_exit(t_shell *mini_sh, t_token *node);
 int					my_atoi_circular(const char *nptr, int min, int max);
-int					bi_exit2(t_shell *mini_sh, t_cmd *cmd);
+int					bi_exit(t_shell *mini_sh, t_cmd *cmd);
 
 // utils.c
 
@@ -285,7 +283,6 @@ char				*my_strjoin4(char const *s1, char const *s2, char const *s3, char const 
 
 // prints.c
 
-void				print_envlist(t_env *start);
 void				print_tokenslist(t_token *token_lst);
 void				print_tokenslist_short(t_token *token_lst);
 void				print_strings(char **args);

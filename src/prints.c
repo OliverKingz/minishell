@@ -6,22 +6,11 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:20:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 01:46:35 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:10:21 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_envlist(t_env *start)
-{
-	while (start)
-	{
-		ft_putstr_fd(start->name, STDOUT_FILENO);
-		ft_putchar_fd('=', STDOUT_FILENO);
-		ft_putendl_fd(start->value, STDOUT_FILENO);
-		start = start->next;
-	}
-}
 
 void	print_tokenslist(t_token *token_lst)
 {

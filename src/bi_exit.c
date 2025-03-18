@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 14:00:34 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:07:06 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,7 @@ static void	handle_exit_error(char **args, int x)
 	my_free((void **)&s);
 }
 
-int	bi_exit(t_shell *mini_sh, t_token *node)
-{
-	char	**args;
-	int		argc;
-	int		exit_code;
-
-	args = get_args(node);
-	argc = 1 + count_token_type(node, CMD_ARG);
-	if (!args)
-		return (2); // Consultar
-	if (mini_sh->input->pipe_count == 0)
-		printf("exit\n");
-	if (argc == 1)
-		exit_code = EXIT_SUCCESS;
-	else if (argc == 2 && ft_issigned_nbr(args[1]))
-		exit_code = my_atoi_circular(args[1], 0, 255);
-	else
-	{
-		exit_code = 2;
-		if (!ft_issigned_nbr(args[1]))
-			handle_exit_error(args, 1);
-		else
-			return (my_free2d((void ***)&args), handle_exit_error(args, 2), 1);
-	}
-	(my_free2d((void ***)&args), free_shell(mini_sh), exit(exit_code));
-	return (exit_code);
-}
-
-int	bi_exit2(t_shell *mini_sh, t_cmd *cmd)
+int	bi_exit(t_shell *mini_sh, t_cmd *cmd)
 {
 	int		exit_code;
 

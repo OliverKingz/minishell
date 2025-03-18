@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 14:48:17 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:08:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,47 +36,25 @@ int	check_if_bi(t_token *node)
 	return (BI_NO);
 }
 
-int	exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd)
-{
-	int	exit_code;
-
-	exit_code = 0;
-	if (bi_cmd == BI_ECHO)
-		exit_code = bi_echo(mini_sh, node);
-	else if (bi_cmd == BI_PWD)
-		exit_code = bi_pwd(mini_sh, node);
-	else if (bi_cmd == BI_ENV)
-		exit_code = bi_env(mini_sh, node);
-	else if (bi_cmd == BI_CD)
-		exit_code = bi_cd(mini_sh, node);
-	else if (bi_cmd == BI_EXPORT)
-		exit_code = bi_export(mini_sh, node);
-	else if (bi_cmd == BI_UNSET)
-		exit_code = bi_unset(mini_sh, node);
-	else if (bi_cmd == BI_EXIT)
-		exit_code = bi_exit(mini_sh, node);
-	return (exit_code);
-}
-
-int	exec_bi2(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
+int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 {
 	int exit_code;
 
 	exit_code = 0;
 	if (bi_cmd == BI_ECHO)
-		exit_code = bi_echo2(mini_sh, cmd);
-	/*else if (bi_cmd == BI_PWD)
-		exit_code = bi_pwd(mini_sh, node);
+		exit_code = bi_echo(mini_sh, cmd);
+	// else if (bi_cmd == BI_PWD)
+	// 	exit_code = bi_pwd(mini_sh, cmd);
 	else if (bi_cmd == BI_ENV)
-		exit_code = bi_env(mini_sh, node);
-	else if (bi_cmd == BI_CD)
-		exit_code = bi_cd(mini_sh, node);
-	else if (bi_cmd == BI_EXPORT)
-		exit_code = bi_export(mini_sh, node);
-	else if (bi_cmd == BI_UNSET)
-		exit_code = bi_unset(mini_sh, node);*/
+		exit_code = bi_env(mini_sh, cmd);
+	// else if (bi_cmd == BI_CD)
+	// 	exit_code = bi_cd(mini_sh, cmd);
+	// else if (bi_cmd == BI_EXPORT)
+	// 	exit_code = bi_export(mini_sh, cmd);
+	// else if (bi_cmd == BI_UNSET)
+	// 	exit_code = bi_unset(mini_sh, cmd);
 	else if (bi_cmd == BI_EXIT)
-		exit_code = bi_exit2(mini_sh, cmd);
+		exit_code = bi_exit(mini_sh, cmd);
 	return (exit_code);
 }
 
@@ -93,7 +71,7 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
 		dup2(cmd.in_fd, STDIN_FILENO);
 		dup2(cmd.out_fd, STDOUT_FILENO);
 		cmd_close_all_fd(&cmd);
-		mini_sh->exit_code = exec_bi2(mini_sh, &cmd, is_bi);
+		mini_sh->exit_code = exec_bi(mini_sh, &cmd, is_bi);
 		dup2(savefd[0], STDIN_FILENO);
 		dup2(savefd[1], STDOUT_FILENO);
 		my_close(&savefd[0]);
@@ -104,30 +82,23 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
 	clear_cmd(&cmd);
 }
 
-int	bi_pwd(t_shell *mini_sh, t_token *node)
+int	bi_pwd(t_shell *mini_sh, t_cmd *cmd)
 {
 	(void)mini_sh;
-	(void)node;
+	(void)cmd;
 	return (EXIT_FAILURE);
 }
 
-int	bi_cd(t_shell *mini_sh, t_token *node)
+int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 {
 	(void)mini_sh;
-	(void)node;
+	(void)cmd;
 	return (EXIT_FAILURE);
 }
 
-int	bi_export(t_shell *mini_sh, t_token *node)
+int	bi_unset(t_shell *mini_sh, t_cmd *cmd)
 {
 	(void)mini_sh;
-	(void)node;
-	return (EXIT_FAILURE);
-}
-
-int	bi_unset(t_shell *mini_sh, t_token *node)
-{
-	(void)mini_sh;
-	(void)node;
+	(void)cmd;
 	return (EXIT_FAILURE);
 }

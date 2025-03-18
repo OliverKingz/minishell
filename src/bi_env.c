@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 21:18:10 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:14:29 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,22 @@ char	**envlist_to_str(t_env *start)
 	return (env);
 }
 
-int	bi_env(t_shell *mini_sh, t_token *node)
+void	print_envlist(t_env *start)
 {
-	int		argc;
+	while (start)
+	{
+		ft_putstr_fd(start->name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putendl_fd(start->value, STDOUT_FILENO);
+		start = start->next;
+	}
+}
+
+int	bi_env(t_shell *mini_sh, t_cmd *cmd)
+{
 	int		exit_code;
 
-	argc = 1 + count_token_type(node, CMD_ARG);
-	if (argc == 1)
+	if (cmd->cmd_argc == 1)
 		exit_code = EXIT_SUCCESS, print_envlist(mini_sh->env);
 	else
 		(exit_code = EXIT_FAILURE, ft_puterr("env"), ft_puterr(ERR_ARGS));
