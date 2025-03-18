@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 21:04:15 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:33:04 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ extern int			g_signal;
 
 typedef enum e_builtin
 {
-	BI_NO,
+	NO_BI,
 	BI_ECHO,
 	BI_PWD,
 	BI_ENV,
@@ -155,7 +155,6 @@ void				set_signal_errors(t_shell *mini_sh);
 
 t_shell				*create_shell(char **env);
 int					process_readline_toinput(t_shell *mini_sh, char **readline);
-void				execution(t_shell *mini_sh);
 int					loop_shell(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
@@ -219,10 +218,11 @@ void				clear_envlist(t_env **start);
 void				remove_envnode(t_env **env, char *name);
 
 // execution.c
-
-pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
+void				execution(t_shell *mini_sh);
 void				execute_cmds(t_shell *mini_sh);
+pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 int					man_redirections(t_token *node, t_cmd *cmd);
+int					wait_children(t_input *input);
 
 // cmd_utils.c
 int					is_file(char *route);
@@ -236,11 +236,12 @@ void				cmd_exit_and_clean(t_shell *shell, t_cmd *cmd, int exit_status);
 void				cmd_close_all_fd(t_cmd *cmd);
 
 //builtin.c
-int					check_if_bi(t_token *node);
+int					is_bi(t_token *node);
 int					exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd);
-void				exec_one_bi(t_shell *mini_sh, t_builtin is_bi);
+void				exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
 
-int					bi_pwd(t_shell *mini_sh, t_cmd *cmd);
+// bi_cd.c
+
 int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_echo.c
@@ -249,24 +250,28 @@ int					bi_echo(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_env.c
 
+int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 void				print_envlist(t_env *start);
 char				*my_getenv(t_env *start, char *name);
 char				**envlist_to_str(t_env *start);
-int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_exit.c
 
+int					bi_exit(t_shell *mini_sh, t_cmd *cmd);
 int					my_atoi_circular(const char *nptr, int min, int max);
 void				handle_exit_error(char **args, int x);
-int					bi_exit(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_export.c
 
+int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 void				print_export(t_env *start);
 int					is_valid_var(const char *argv);
 void				add_new_var(t_shell *mini_sh, const char *argv);
 void				handle_export_error(char *args);
-int					bi_export(t_shell *mini_sh, t_cmd *cmd);
+
+// bi_pwd.c
+
+int					bi_pwd(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_unset.c
 
@@ -277,7 +282,7 @@ int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 void				my_perr(const char *msg, bool should_exit, int exit_status);
 void				my_free(void **mem);
 void				my_free2d(void ***mem);
-size_t				my_strlen_word(char *s); // Cambiar a strlen_id_name
+size_t				my_strlen_idname(char *s);
 
 // utils2.c
 

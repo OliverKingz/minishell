@@ -6,13 +6,13 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 21:06:11 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:33:11 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_if_bi(t_token *node)
+int	is_bi(t_token *node)
 {
 	size_t	len;
 
@@ -33,7 +33,7 @@ int	check_if_bi(t_token *node)
 		return (BI_UNSET);
 	if (ft_strlen("exit") == len && ft_strncmp(node->content, "exit", len) == 0)
 		return (BI_EXIT);
-	return (BI_NO);
+	return (NO_BI);
 }
 
 int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
@@ -43,12 +43,12 @@ int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 	exit_code = 0;
 	if (bi_cmd == BI_ECHO)
 		exit_code = bi_echo(mini_sh, cmd);
-	// else if (bi_cmd == BI_PWD)
-	// 	exit_code = bi_pwd(mini_sh, cmd);
+	else if (bi_cmd == BI_PWD)
+		exit_code = bi_pwd(mini_sh, cmd);
 	else if (bi_cmd == BI_ENV)
 		exit_code = bi_env(mini_sh, cmd);
-	// else if (bi_cmd == BI_CD)
-	// 	exit_code = bi_cd(mini_sh, cmd);
+	else if (bi_cmd == BI_CD)
+		exit_code = bi_cd(mini_sh, cmd);
 	else if (bi_cmd == BI_EXPORT)
 		exit_code = bi_export(mini_sh, cmd);
 	else if (bi_cmd == BI_UNSET)
@@ -58,7 +58,7 @@ int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 	return (exit_code);
 }
 
-void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
+void	exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd)
 {
 	t_cmd	cmd;
 	int		savefd[2];
@@ -71,7 +71,7 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
 		dup2(cmd.in_fd, STDIN_FILENO);
 		dup2(cmd.out_fd, STDOUT_FILENO);
 		cmd_close_all_fd(&cmd);
-		mini_sh->exit_code = exec_bi(mini_sh, &cmd, is_bi);
+		mini_sh->exit_code = exec_bi(mini_sh, &cmd, bi_cmd);
 		dup2(savefd[0], STDIN_FILENO);
 		dup2(savefd[1], STDOUT_FILENO);
 		my_close(&savefd[0]);
@@ -80,18 +80,4 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
 	else
 		mini_sh->exit_code = 1;
 	clear_cmd(&cmd);
-}
-
-int	bi_pwd(t_shell *mini_sh, t_cmd *cmd)
-{
-	(void)mini_sh;
-	(void)cmd;
-	return (EXIT_FAILURE);
-}
-
-int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
-{
-	(void)mini_sh;
-	(void)cmd;
-	return (EXIT_FAILURE);
 }
