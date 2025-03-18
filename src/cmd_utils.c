@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/18 11:48:08 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:23:06 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2)
 	cmd.in_fd = STDIN_FILENO;
 	cmd.out_fd = STDOUT_FILENO;
 	cmd.close_fd = -1;
-	if (node->type == OP_PIPE)
+	if (pipe1 && node->type == OP_PIPE)
 	{
 		cmd.in_fd = *pipe1;
 		node = node->next;
 	}
-	if (get_token_type(node, OP_PIPE))
+	if (pipe2 && get_token_type(node, OP_PIPE))
 	{
 		pipe(pipe2);
 		cmd.out_fd = pipe2[WRITE_END];
@@ -68,6 +68,7 @@ t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2)
 	}
 	cmd.cmd_path = locate_cmd(mini_sh, node);
 	cmd.cmd_args = get_args(node);
+	cmd.cmd_argc = count_token_type(node, CMD_ARG) + 1;
 	cmd.env = envlist_to_str(mini_sh->env);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 11:48:55 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:38:00 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_cmd
 	int				close_fd;
 	char			*cmd_path;
 	char			**cmd_args;
+	int				cmd_argc;
 	char			**env;
 	t_builtin		is_bi;
 }					t_cmd;
@@ -237,7 +238,8 @@ void				cmd_close_all_fd(t_cmd *cmd);
 //builtin.c
 int					check_if_bi(t_token *node);
 int					exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd);
-
+int					exec_bi2(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd);
+void				exec_one_bi(t_shell *mini_sh, t_builtin is_bi);
 int					bi_pwd(t_shell *mini_sh, t_token *node);
 int					bi_cd(t_shell *mini_sh, t_token *node);
 int					bi_export(t_shell *mini_sh, t_token *node);
@@ -246,6 +248,7 @@ int					bi_unset(t_shell *mini_sh, t_token *node);
 // bi_echo.c
 
 int					bi_echo(t_shell *mini_sh, t_token *node);
+int					bi_echo2(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_env.c
 
@@ -256,6 +259,7 @@ char				**envlist_to_str(t_env *start);
 // bi_exit.c
 int					bi_exit(t_shell *mini_sh, t_token *node);
 int					my_atoi_circular(const char *nptr, int min, int max);
+int					bi_exit2(t_shell *mini_sh, t_cmd *cmd);
 
 // utils.c
 

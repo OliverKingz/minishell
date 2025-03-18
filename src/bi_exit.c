@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 18:09:58 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:00:34 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,27 @@ int	bi_exit(t_shell *mini_sh, t_token *node)
 			return (my_free2d((void ***)&args), handle_exit_error(args, 2), 1);
 	}
 	(my_free2d((void ***)&args), free_shell(mini_sh), exit(exit_code));
+	return (exit_code);
+}
+
+int	bi_exit2(t_shell *mini_sh, t_cmd *cmd)
+{
+	int		exit_code;
+
+	if (mini_sh->input->pipe_count == 0)
+		printf("exit\n");
+	if (cmd->cmd_argc == 1)
+		exit_code = EXIT_SUCCESS;
+	else if (cmd->cmd_argc == 2 && ft_issigned_nbr(cmd->cmd_args[1]))
+		exit_code = my_atoi_circular(cmd->cmd_args[1], 0, 255);
+	else
+	{
+		exit_code = 2;
+		if (!ft_issigned_nbr(cmd->cmd_args[1]))
+			handle_exit_error(cmd->cmd_args, 1);
+		else
+			return (handle_exit_error(cmd->cmd_args, 2), 1);
+	}
+	cmd_exit_and_clean(mini_sh, cmd, exit_code);
 	return (exit_code);
 }

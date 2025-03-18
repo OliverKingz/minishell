@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/15 16:20:13 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:48:17 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,52 @@ int	exec_bi(t_shell *mini_sh, t_token *node, t_builtin bi_cmd)
 	else if (bi_cmd == BI_EXIT)
 		exit_code = bi_exit(mini_sh, node);
 	return (exit_code);
+}
+
+int	exec_bi2(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
+{
+	int exit_code;
+
+	exit_code = 0;
+	if (bi_cmd == BI_ECHO)
+		exit_code = bi_echo2(mini_sh, cmd);
+	/*else if (bi_cmd == BI_PWD)
+		exit_code = bi_pwd(mini_sh, node);
+	else if (bi_cmd == BI_ENV)
+		exit_code = bi_env(mini_sh, node);
+	else if (bi_cmd == BI_CD)
+		exit_code = bi_cd(mini_sh, node);
+	else if (bi_cmd == BI_EXPORT)
+		exit_code = bi_export(mini_sh, node);
+	else if (bi_cmd == BI_UNSET)
+		exit_code = bi_unset(mini_sh, node);*/
+	else if (bi_cmd == BI_EXIT)
+		exit_code = bi_exit2(mini_sh, cmd);
+	return (exit_code);
+}
+
+void	exec_one_bi(t_shell *mini_sh, t_builtin is_bi)
+{
+	t_cmd	cmd;
+	int		savefd[2];
+
+	cmd = init_cmd(mini_sh, mini_sh->input->token_lst, NULL, NULL);
+	if (!man_redirections(mini_sh->input->token_lst, &cmd))
+	{
+		savefd[0] = dup(STDIN_FILENO);
+		savefd[1] = dup(STDOUT_FILENO);
+		dup2(cmd.in_fd, STDIN_FILENO);
+		dup2(cmd.out_fd, STDOUT_FILENO);
+		cmd_close_all_fd(&cmd);
+		mini_sh->exit_code = exec_bi2(mini_sh, &cmd, is_bi);
+		dup2(savefd[0], STDIN_FILENO);
+		dup2(savefd[1], STDOUT_FILENO);
+		my_close(&savefd[0]);
+		my_close(&savefd[1]);
+	}
+	else
+		mini_sh->exit_code = 1;
+	clear_cmd(&cmd);
 }
 
 int	bi_pwd(t_shell *mini_sh, t_token *node)

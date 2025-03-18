@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:07:35 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:37:07 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	execution(t_shell *mini_sh)
 	node = mini_sh->input->token_lst;
 	is_bi = check_if_bi(node);
 	if (mini_sh->input->pipe_count == 0 && is_bi)
-		mini_sh->exit_code = exec_bi(mini_sh, node, is_bi);
+		exec_one_bi(mini_sh, is_bi);
 	else
 		execute_cmds(mini_sh);
 }

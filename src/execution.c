@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/18 12:53:17 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:03:44 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 		(clear_cmd(cmd), free_shell(mini_sh), exit(0));
 	cmd_not_found(mini_sh, cmd);
 	bi = check_if_bi(cmd_node);
-	if (bi)
-		bi = exec_bi(mini_sh, cmd_node, bi);
-	else
+	if (!bi)
 		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
+	bi = exec_bi2(mini_sh, cmd, bi);
 	cmd_exit_and_clean(mini_sh, cmd, bi);
 	return (bi);
 }
