@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:23:20 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:49:16 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # define ERR_FILE_DIR ": no such file or directory\n"
 # define ERR_ARGS ": too many arguments\n"
 # define ERR_ARG_INT ": numeric argument required\n"
+# define ERR_ID ": not a valid identifier\n"
 
 /* ************************************************************************** */
 
@@ -186,8 +187,8 @@ void				handle_redir(t_shell *mini_sh, char *current, int i[2],
 						int *state);
 void				handle_pipe_space(t_shell *mini_sh, char *current, int i[2],
 						int *state);
-void				remove_chr_pos(char *s, int pos);
-void				remove_external_quotes(char *s);
+void				rm_chr_pos(char *s, int pos);
+void				rm_external_quotes(char *s);
 
 // var_expansion.c
 
@@ -241,7 +242,6 @@ void				exec_one_bi(t_shell *mini_sh, t_builtin is_bi);
 
 int					bi_pwd(t_shell *mini_sh, t_cmd *cmd);
 int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
-int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_echo.c
@@ -250,21 +250,31 @@ int					bi_echo(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_env.c
 
-int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 void				print_envlist(t_env *start);
 char				*my_getenv(t_env *start, char *name);
 char				**envlist_to_str(t_env *start);
+int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_exit.c
+
 int					my_atoi_circular(const char *nptr, int min, int max);
+void				handle_exit_error(char **args, int x);
 int					bi_exit(t_shell *mini_sh, t_cmd *cmd);
+
+// bi_export.c
+
+void				print_export(t_env *start);
+int					is_valid_var(const char *argv);
+void				add_new_var(t_shell *mini_sh, const char *argv);
+void				handle_export_error(char *args);
+int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 
 // utils.c
 
 void				my_perr(const char *msg, bool should_exit, int exit_status);
 void				my_free(void **mem);
 void				my_free2d(void ***mem);
-size_t				my_strlen_word(char *s);
+size_t				my_strlen_word(char *s); // Cambiar a strlen_id_name
 
 // utils2.c
 

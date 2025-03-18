@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:08:36 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:39:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 		exit_code = bi_env(mini_sh, cmd);
 	// else if (bi_cmd == BI_CD)
 	// 	exit_code = bi_cd(mini_sh, cmd);
-	// else if (bi_cmd == BI_EXPORT)
-	// 	exit_code = bi_export(mini_sh, cmd);
+	else if (bi_cmd == BI_EXPORT)
+		exit_code = bi_export(mini_sh, cmd);
 	// else if (bi_cmd == BI_UNSET)
 	// 	exit_code = bi_unset(mini_sh, cmd);
 	else if (bi_cmd == BI_EXIT)

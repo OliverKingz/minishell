@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:07:06 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:33:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	my_atoi_circular(const char *nptr, int min, int max)
 	return (nbr);
 }
 
-static void	handle_exit_error(char **args, int x)
+void	handle_exit_error(char **args, int x)
 {
 	char	*s;
 

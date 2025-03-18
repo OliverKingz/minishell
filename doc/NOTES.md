@@ -145,19 +145,22 @@ bash: echo: write error: No space left on device
 # TO DO INMEDIATO OLIVER
 - Hacer builtins echo y exit ✅
 - Investigar el return de echo. Siempre 0? Como se falla. ✅
-    -> Opciones incorrectas las representa
+    -> Opciones incorrectas las representa igual ✅
 - Exit tiene que tener si o si solo 1. Poner exit: too many arguments✅
 - Enum de builtin. ✅
-- Hacer funcion si es builtin o no. 
-- Hacer env, export y unset. De momento hacer builtins. Todos tienen que devolver
+- Hacer funcion si es builtin o no. ✅
 
-- Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""
 - Ver CTRL+\ mejor✅
-- CHE, ARREGLA EL EXIT
+- Exit
   - caso: exit 1 2 3 4, no sale✅
   - caso: exit brenda 2 3 4, si sale✅
   - caso: exit brenda✅
   - caso: ls | exit 12✅ si sale, pero el hijo
+- Export
+  - Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""✅
+  - export 0a a b= c="" d="ho""la" e?✅
+  - Necesario ordenar? Para eso necesito duplicar primero y luego ordenar el rep. Saber como esta ordenado env as well
+- Unset
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
@@ -175,6 +178,7 @@ bash: echo: write error: No space left on device
 - Hacer $? ✅
 - Integrar ejecución, haciendo los archivos ya con 5 funciones, y bien nombrados.
 
+- Quitar replace all?
 # RAUL
 
 ---

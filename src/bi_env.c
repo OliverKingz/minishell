@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:14:29 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:42:29 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ void	print_envlist(t_env *start)
 {
 	while (start)
 	{
-		ft_putstr_fd(start->name, STDOUT_FILENO);
-		ft_putchar_fd('=', STDOUT_FILENO);
-		ft_putendl_fd(start->value, STDOUT_FILENO);
+		if (start->value != NULL)
+		{
+			ft_putstr_fd(start->name, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putendl_fd(start->value, STDOUT_FILENO);	
+		}
 		start = start->next;
 	}
 }

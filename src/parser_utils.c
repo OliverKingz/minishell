@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 00:34:59 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:17:17 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:48:54 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	handle_pipe_space(t_shell *mini_sh, char *current, int i[2], int *state)
 	}
 }
 
-void	remove_chr_pos(char *s, int pos)
+void	rm_chr_pos(char *s, int pos)
 {
 	int		len;
 
@@ -88,7 +88,7 @@ void	remove_chr_pos(char *s, int pos)
 	ft_memmove(&s[pos], &s[pos + 1], ft_strlen(&s[pos]));
 }
 
-void	remove_external_quotes(char *s)
+void	rm_external_quotes(char *s)
 {
 	int		i;
 	char	quote;
@@ -101,10 +101,10 @@ void	remove_external_quotes(char *s)
 		if (s[i] == '\'' || s[i] == '\"')
 		{
 			quote = s[i];
-			remove_chr_pos(s, i);
+			rm_chr_pos(s, i);
 			while (s[i] && s[i] != quote)
 				i++;
-			remove_chr_pos(s, i);
+			rm_chr_pos(s, i);
 			i--;
 		}
 		i++;

@@ -19,7 +19,10 @@
 		"functional": "c",
 		"tuple": "c",
 		"utility": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"typeinfo": "c",
+		"system_error": "c",
+		"initializer_list": "c"
 	}
 	// "files.exclude": {
 	// 	"**/old": true
