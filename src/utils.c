@@ -6,17 +6,17 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:44 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 23:58:36 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:37:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	my_perr(const char *msg, bool should_exit, int exit_status)
+void	my_perr(const char *msg, bool should_exit, int exit_code)
 {
 	perror(msg);
 	if (should_exit)
-		exit(exit_status);
+		exit(exit_code);
 }
 
 void	my_free(void **mem)
@@ -48,7 +48,7 @@ void	my_free2d(void ***mem)
 	*mem = NULL;
 }
 
-size_t	my_strlen_word(char *s)
+size_t	my_strlen_idname(char *s)
 {
 	size_t	i;
 

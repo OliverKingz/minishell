@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/16 12:53:00 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:22:23 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*extract_first_var(char *s)
 			return (ft_strdup("$?"));
 		else if (*s == '$' && s[1] != '\0' && ft_isalnum(s[1]))
 		{
-			size = my_strlen_word(&s[1]);
+			size = my_strlen_idname(&s[1]);
 			return (ft_substr(s, 0, size + 1));
 		}
 		else if (*s == '\"')

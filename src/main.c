@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:47:04 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:37:34 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	g_signal = 0;
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	*mini_sh;
-	int		exit_status;
+	int		exit_code;
 
 	(void)argv;
 	if (argc != 1)
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 	mini_sh = create_shell(env);
 	if (!mini_sh)
 		return (EXIT_FAILURE);
-	exit_status = loop_shell(mini_sh);
+	exit_code = loop_shell(mini_sh);
 	ft_putendl_fd("exit", STDOUT_FILENO);
-	return (free_shell(mini_sh), exit_status);
+	return (free_shell(mini_sh), exit_code);
 }
