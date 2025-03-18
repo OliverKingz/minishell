@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:44 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:37:46 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:40:33 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	my_free2d(void ***mem)
 	int	i;
 
 	if (!mem || !*mem)
-		return;
+		return ;
 	i = 0;
 	while ((*mem)[i])
 	{

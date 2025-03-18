@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:33:04 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:44:39 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void				set_signal_errors(t_shell *mini_sh);
 // shell.c
 
 t_shell				*create_shell(char **env);
-int					process_readline_toinput(t_shell *mini_sh, char **readline);
+int					handle_readline_input(t_shell *mini_sh, char **readline);
 int					loop_shell(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
@@ -227,15 +227,17 @@ int					wait_children(t_input *input);
 // cmd_utils.c
 int					is_file(char *route);
 char				*locate_cmd(t_shell *mini_sh, t_token *node);
-t_cmd				init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
+t_cmd				init_cmd(t_shell *mini_sh, t_token *node, int *pipe1,
+						int *pipe2);
 void				clear_cmd(t_cmd *cmd);
 void				cmd_not_found(t_shell *mini_sh, t_cmd *cmd);
 
 // cmd_utils2.c
-void				cmd_exit_and_clean(t_shell *shell, t_cmd *cmd, int exit_status);
+void				cmd_exit_and_clean(t_shell *shell, t_cmd *cmd,
+						int exit_code);
 void				cmd_close_all_fd(t_cmd *cmd);
 
-//builtin.c
+// builtin.c
 int					is_bi(t_token *node);
 int					exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd);
 void				exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
@@ -265,9 +267,10 @@ void				handle_exit_error(char **args, int x);
 
 int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 void				print_export(t_env *start);
-int					is_valid_var(const char *argv);
-void				add_new_var(t_shell *mini_sh, const char *argv);
-void				handle_export_error(char *args);
+int					is_valid_var_name(const char *argv);
+void				register_new_var(t_shell *mini_sh, const char *argv);
+void				update_or_add_var(t_shell *mini_sh, char *name,
+						char *value);
 
 // bi_pwd.c
 
@@ -279,7 +282,7 @@ int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 
 // utils.c
 
-void				my_perr(const char *msg, bool should_exit, int exit_status);
+void				my_perr(const char *msg, bool should_exit, int exit_code);
 void				my_free(void **mem);
 void				my_free2d(void ***mem);
 size_t				my_strlen_idname(char *s);
@@ -296,8 +299,10 @@ void				my_skip(char **s, char c);
 // utils3.c
 
 void				my_close(int *fd);
-char				*my_strjoin3(char const *s1, char const *s2, char const *s3);
-char				*my_strjoin4(char const *s1, char const *s2, char const *s3, char const *s4);
+char				*my_strjoin3(char const *s1, char const *s2,
+						char const *s3);
+char				*my_strjoin4(char const *s1, char const *s2, char const *s3,
+						char const *s4);
 
 // prints.c
 

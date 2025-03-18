@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:36:40 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:40:53 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ int	man_redirections(t_token *node, t_cmd *cmd)
 		{
 			my_close(&(cmd->out_fd));
 			if (node->type == REDIR_OUT)
-				cmd->out_fd = open(node->next->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+				cmd->out_fd = open(node->next->content,
+						O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			else
-				cmd->out_fd = open(node->next->content, O_CREAT | O_WRONLY | O_APPEND, 0644);
+				cmd->out_fd = open(node->next->content,
+						O_CREAT | O_WRONLY | O_APPEND, 0644);
 		}
 		else if (node->type == REDIR_IN || node->type == REDIR_APP)
 		{

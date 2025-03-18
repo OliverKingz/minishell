@@ -6,13 +6,23 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:03:23 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 21:11:13 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:27:35 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// printf("declare -x %s=\"%s\"\n", mini_sh->env->name, mini_sh->env->value);
+/*
+	current = mini_sh->env;
+	while (current)
+	{
+		if (current->value != NULL)
+			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+		else
+			printf("declare -x %s\n", current->name);
+		current = current->next;
+	}
+*/
 void	print_export(t_env *start)
 {
 	char	*line;
@@ -36,7 +46,7 @@ void	print_export(t_env *start)
 	}
 }
 
-int	is_valid_var(const char *argv)
+int	is_valid_var_name(const char *argv)
 {
 	char	*name;
 	int		eq_pos;
@@ -60,48 +70,50 @@ int	is_valid_var(const char *argv)
 	return (true);
 }
 
-void	add_new_var(t_shell *mini_sh, const char *argv)
+void	register_new_var(t_shell *mini_sh, const char *argv)
 {
 	char	*name;
 	char	*value;
-	t_env	*cur;
 	int		eq_pos;
 
 	eq_pos = my_strchr_pos(argv, '=');
 	if (eq_pos == -1)
-		(name = ft_strdup(argv), value = NULL);
+	{
+		name = ft_strdup(argv);
+		value = NULL;
+	}
 	else
 	{
 		name = ft_substr(argv, 0, eq_pos);
-		(value = ft_substr(argv, eq_pos + 1, -1), rm_external_quotes(value));
+		value = ft_substr(argv, eq_pos + 1, -1);
+		rm_external_quotes(value);
 	}
-	cur = mini_sh->env;
-	while (cur != NULL)
+	update_or_add_var(mini_sh, name, value);
+}
+
+void	update_or_add_var(t_shell *mini_sh, char *name, char *value)
+{
+	t_env	*current;
+
+	current = mini_sh->env;
+	while (current != NULL)
 	{
-		if (ft_strncmp(cur->name, name, -1) == 0)
+		if (ft_strncmp(current->name, name, -1) == 0)
 		{
-			(my_free((void **)&(cur->value)), my_free((void **)&(name)));
-			cur->value = value;
+			(my_free((void **)&(current->value)), my_free((void **)&(name)));
+			current->value = value;
 			return ;
 		}
-		cur = cur->next;
+		current = current->next;
 	}
 	addback_envnode(&(mini_sh->env), create_envnode(name, value));
 }
 
-void	handle_export_error(char *args)
-{
-	char	*s;
-
-	s = my_strjoin3("export: ", args, ERR_ID);
-	ft_putstr_fd(s, STDERR_FILENO);
-	my_free((void **)&s);
-}
-
 int	bi_export(t_shell *mini_sh, t_cmd *cmd)
 {
-	int	exit_code;
-	int	i;
+	char	*err;
+	int		exit_code;
+	int		i;
 
 	exit_code = EXIT_SUCCESS;
 	if (!cmd->cmd_args[1])
@@ -109,11 +121,13 @@ int	bi_export(t_shell *mini_sh, t_cmd *cmd)
 	i = 1;
 	while (cmd->cmd_args[i])
 	{
-		if (is_valid_var(cmd->cmd_args[i]))
-			add_new_var(mini_sh, cmd->cmd_args[i]);
+		if (is_valid_var_name(cmd->cmd_args[i]))
+			register_new_var(mini_sh, cmd->cmd_args[i]);
 		else
 		{
-			handle_export_error(cmd->cmd_args[i]);
+			err = my_strjoin3("export: ", cmd->cmd_args[i], ERR_ID);
+			ft_putstr_fd(err, STDERR_FILENO);
+			my_free((void **)&err);
 			exit_code = EXIT_FAILURE;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:20:15 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:10:21 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:42:51 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	print_tokenslist_short(t_token *token_lst)
 
 void	print_strings(char **strings)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (strings[i])
 	{
 		ft_putstr_fd(strings[i], STDOUT_FILENO);

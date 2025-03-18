@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 12:07:43 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:35:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_input_pid_heredoc(t_shell *mini_sh)
 		current = current->next;
 	}
 	mini_sh->input->pid = (pid_t *)ft_calloc(mini_sh->input->pipe_count + 1,
-		sizeof(pid_t));
+			sizeof(pid_t));
 	if (!mini_sh->input->pid)
 		(free_shell(mini_sh), my_perr("input pid", 1, errno));
 	if (mini_sh->input->hdoc_count > 0)

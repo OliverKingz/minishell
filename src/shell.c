@@ -6,11 +6,50 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:26:17 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 23:57:13 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	loop_shell(t_shell *mini_sh)
+{
+	char	*read_line;
+	int		loop_status;
+
+	set_signals();
+	while (1)
+	{
+		if (g_signal == SIGINT)
+			ft_putchar_fd('\r', 1);
+		read_line = readline(PROMPT);
+		set_signal_errors(mini_sh);
+		loop_status = handle_readline_input(mini_sh, &read_line);
+		if (loop_status == BREAK_LOOP)
+			break ;
+		else if (loop_status == CONTINUE_LOOP)
+			continue ;
+		execution(mini_sh);
+		(my_free((void **)&read_line), free_input(&mini_sh));
+	}
+	return (mini_sh->exit_code);
+}
+
+int	handle_readline_input(t_shell *mini_sh, char **readline)
+{
+	if (!readline || !*readline)
+		return (BREAK_LOOP);
+	if (ft_strncmp(*readline, "", -1) == 0)
+		return (CONTINUE_LOOP);
+	else
+		add_history(*readline);
+	if (!validate_rline_syntax(*readline))
+		return (my_free((void **)readline), CONTINUE_LOOP);
+	mini_sh->input = init_input(mini_sh, *readline);
+	if (!mini_sh->input)
+		return (my_free((void **)readline), CONTINUE_LOOP);
+	return (OKAY_LOOP);
+}
 
 t_shell	*create_shell(char **env)
 {
@@ -23,52 +62,6 @@ t_shell	*create_shell(char **env)
 	mini_sh->exit_code = 0;
 	mini_sh->input = NULL;
 	return (mini_sh);
-}
-
-int	process_readline_toinput(t_shell *mini_sh, char **readline)
-{
-	if (!readline || !*readline)
-		return (BREAK_LOOP);
-	if (ft_strncmp(*readline, "", -1) == 0)
-		return (CONTINUE_LOOP);
-	else
-		add_history(*readline);
-	if (!validate_rline_syntax(*readline))
-	{
-		my_free((void **)readline);
-		return (CONTINUE_LOOP);
-	}
-	mini_sh->input = init_input(mini_sh, *readline);
-	if (!mini_sh->input)
-	{
-		my_free((void **)readline);
-		return (CONTINUE_LOOP);
-	}
-	return (OKAY_LOOP);
-}
-
-
-int	loop_shell(t_shell *mini_sh)
-{
-	char	*read_line;
-	int		result;
-
-	set_signals();
-	while (1)
-	{
-		if (g_signal == SIGINT)
-			ft_putchar_fd('\r', 1);
-		read_line = readline(PROMPT);
-		set_signal_errors(mini_sh);
-		result = process_readline_toinput(mini_sh, &read_line);
-		if (result == BREAK_LOOP)
-			break ;
-		else if (result == CONTINUE_LOOP)
-			continue ;
-		execution(mini_sh);
-		(my_free((void **)&read_line), free_input(&mini_sh));
-	}
-	return (mini_sh->exit_code);
 }
 
 void	free_shell(t_shell *mini_sh)

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:33:11 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/19 00:31:10 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,28 @@
 
 int	is_bi(t_token *node)
 {
-	size_t	len;
-
-	len = ft_strlen(node->content);
-	if (ft_strlen("echo") == len && ft_strncmp(node->content, "echo", len) == 0)
+	if (ft_strncmp(node->content, "echo", -1) == 0)
 		return (BI_ECHO);
-	else if (ft_strlen("pwd") == len && ft_strncmp(node->content, "pwd", len) == 0)
+	else if (ft_strncmp(node->content, "pwd", -1) == 0)
 		return (BI_PWD);
-	if (ft_strlen("env") == len && ft_strncmp(node->content, "env", len) == 0)
+	if (ft_strncmp(node->content, "env", -1) == 0)
 		return (BI_ENV);
-	if (ft_strlen("cd") == len && ft_strncmp(node->content, "cd", len) == 0)
+	if (ft_strncmp(node->content, "cd", -1) == 0)
 		return (BI_CD);
-	if (ft_strlen("export") == len && ft_strncmp(node->content, "export",
-			len) == 0)
+	if (ft_strncmp(node->content, "export", -1) == 0)
 		return (BI_EXPORT);
-	if (ft_strlen("unset") == len && ft_strncmp(node->content, "unset",
-			len) == 0)
+	if (ft_strncmp(node->content, "unset", -1) == 0)
 		return (BI_UNSET);
-	if (ft_strlen("exit") == len && ft_strncmp(node->content, "exit", len) == 0)
+	if (ft_strncmp(node->content, "exit", -1) == 0)
 		return (BI_EXIT);
 	return (NO_BI);
 }
 
 int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 {
-	int exit_code;
+	int	exit_code;
 
-	exit_code = 0;
+	exit_code = EXIT_SUCCESS;
 	if (bi_cmd == BI_ECHO)
 		exit_code = bi_echo(mini_sh, cmd);
 	else if (bi_cmd == BI_PWD)
