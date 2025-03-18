@@ -159,8 +159,12 @@ bash: echo: write error: No space left on device
 - Export
   - Preguntar export, si es igual que env pero poniendo declare -x, ordenando la lista y poniendo el value entre comillas ""✅
   - export 0a a b= c="" d="ho""la" e?✅
+  - Preguntar si poner deckare -x. @tischmid en Slack pone que no
   - Necesario ordenar? Para eso necesito duplicar primero y luego ordenar el rep. Saber como esta ordenado env as well
 - Unset
+  - No falla nunca, solo con casos readonly (Que no hace falta)
+- Pwd
+- Cd
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
@@ -180,5 +184,9 @@ bash: echo: write error: No space left on device
 
 - Quitar replace all?
 # RAUL
+
+# SLACK
+- Segun vbengea, no hay hacer en hdoc <<'eof'
+- Preguntar si poner deckare -x. @tischmid en Slack pone que no, que lo tiraria
 
 ---

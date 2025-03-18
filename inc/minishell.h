@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 19:49:16 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:04:15 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,8 @@ int					count_token_type(t_token *node, t_type type);
 t_env				*create_envnode(char *name, char *value);
 t_env				*init_envlist(char **env);
 void				addback_envnode(t_env **start, t_env *node);
-void				clear_envnode(t_env *node);
 void				clear_envlist(t_env **start);
+void				remove_envnode(t_env **env, char *name);
 
 // execution.c
 
@@ -242,7 +242,6 @@ void				exec_one_bi(t_shell *mini_sh, t_builtin is_bi);
 
 int					bi_pwd(t_shell *mini_sh, t_cmd *cmd);
 int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
-int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 
 // bi_echo.c
 
@@ -268,6 +267,10 @@ int					is_valid_var(const char *argv);
 void				add_new_var(t_shell *mini_sh, const char *argv);
 void				handle_export_error(char *args);
 int					bi_export(t_shell *mini_sh, t_cmd *cmd);
+
+// bi_unset.c
+
+int					bi_unset(t_shell *mini_sh, t_cmd *cmd);
 
 // utils.c
 

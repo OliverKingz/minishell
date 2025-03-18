@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:39:37 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:06:11 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	exec_bi(t_shell *mini_sh, t_cmd *cmd, t_builtin bi_cmd)
 	// 	exit_code = bi_cd(mini_sh, cmd);
 	else if (bi_cmd == BI_EXPORT)
 		exit_code = bi_export(mini_sh, cmd);
-	// else if (bi_cmd == BI_UNSET)
-	// 	exit_code = bi_unset(mini_sh, cmd);
+	else if (bi_cmd == BI_UNSET)
+		exit_code = bi_unset(mini_sh, cmd);
 	else if (bi_cmd == BI_EXIT)
 		exit_code = bi_exit(mini_sh, cmd);
 	return (exit_code);
@@ -90,13 +90,6 @@ int	bi_pwd(t_shell *mini_sh, t_cmd *cmd)
 }
 
 int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
-{
-	(void)mini_sh;
-	(void)cmd;
-	return (EXIT_FAILURE);
-}
-
-int	bi_unset(t_shell *mini_sh, t_cmd *cmd)
 {
 	(void)mini_sh;
 	(void)cmd;

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/16 12:39:46 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:08:51 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,6 @@ t_env	*init_envlist(char **env)
 	return (start);
 }
 
-void	clear_envnode(t_env *node)
-{
-	if (!node)
-		return ;
-	my_free((void **)&(node->name));
-	my_free((void **)&(node->value));
-}
-
 void	clear_envlist(t_env **start)
 {
 	t_env	*node;
@@ -86,9 +78,35 @@ void	clear_envlist(t_env **start)
 	while (node)
 	{
 		next_node = node->next;
-		clear_envnode(node);
+		my_free((void **)&(node->name));
+		my_free((void **)&(node->value));	
 		my_free((void **)&node);
 		node = next_node;
 	}
 	*start = NULL;
+}
+
+void	remove_envnode(t_env **start, char *name)
+{
+	t_env	*current;
+	t_env	*previous;
+
+	current = *start;
+	previous = NULL;
+	while (current != NULL)
+	{
+		if (ft_strncmp(current->name, name, -1) == 0)
+		{
+			if (previous == NULL)
+				*start = current->next;
+			else
+				previous->next = current->next;
+			my_free((void **)&(current->name));
+			my_free((void **)&(current->value));
+			my_free((void **)&current);
+			return ;
+		}
+		previous = current;
+		current = current->next;
+	}
 }

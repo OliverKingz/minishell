@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:03:23 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 20:00:31 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:11:13 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,17 @@ int	bi_export(t_shell *mini_sh, t_cmd *cmd)
 	exit_code = EXIT_SUCCESS;
 	if (!cmd->cmd_args[1])
 		return (print_export(mini_sh->env), exit_code);
-	else
+	i = 1;
+	while (cmd->cmd_args[i])
 	{
-		i = 1;
-		while (i < cmd->cmd_argc)
+		if (is_valid_var(cmd->cmd_args[i]))
+			add_new_var(mini_sh, cmd->cmd_args[i]);
+		else
 		{
-			if (is_valid_var(cmd->cmd_args[i]))
-				add_new_var(mini_sh, cmd->cmd_args[i]);
-			else
-			{
-				handle_export_error(cmd->cmd_args[i]);
-				exit_code = EXIT_FAILURE;
-			}
-			i++;
+			handle_export_error(cmd->cmd_args[i]);
+			exit_code = EXIT_FAILURE;
 		}
+		i++;
 	}
 	return (exit_code);
 }
