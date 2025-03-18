@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 18:11:20 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:48:55 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void				clear_envlist(t_env **start);
 
 pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 void				execute_cmds(t_shell *mini_sh);
+int					man_redirections(t_token *node, t_cmd *cmd);
 
 // cmd_utils.c
 int					is_file(char *route);
@@ -228,6 +229,10 @@ char				*locate_cmd(t_shell *mini_sh, t_token *node);
 t_cmd				init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
 void				clear_cmd(t_cmd *cmd);
 void				cmd_not_found(t_shell *mini_sh, t_cmd *cmd);
+
+// cmd_utils2.c
+void				cmd_exit_and_clean(t_shell *shell, t_cmd *cmd, int exit_status);
+void				cmd_close_all_fd(t_cmd *cmd);
 
 //builtin.c
 int					check_if_bi(t_token *node);

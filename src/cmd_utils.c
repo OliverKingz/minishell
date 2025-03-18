@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 14:07:19 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:48:08 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,10 @@ void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd)
 {
 	char	*s;
 
+	if (cmd->cmd_path)
+		return ;
 	s = ft_strjoin(cmd->cmd_args[0], ERR_COMMAND);
 	ft_putstr_fd(s, STDERR_FILENO);
 	my_free((void **)&s);
-	clear_cmd(cmd);
-	free_shell(mini_sh);
-	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
-	exit(127);
+	cmd_exit_and_clean(mini_sh, cmd, 127);
 }

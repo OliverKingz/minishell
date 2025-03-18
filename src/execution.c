@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 19:15:56 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:53:17 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	wait_children(t_input *input)
 	return (WEXITSTATUS(status));
 }
 
-void	man_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd)
+int	man_redirections(t_token *node, t_cmd *cmd)
 {
 	while (node && node->type != OP_PIPE)
 	{
@@ -47,14 +47,10 @@ void	man_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 				cmd->in_fd = open(node->next->content, O_RDONLY);
 		}
 		if (cmd->in_fd < 0 || cmd->out_fd < 0)
-		{
-			perror(node->next->content);
-			free_shell(mini_sh);
-			clear_cmd(cmd);
-			exit (1);
-		}
+			return (perror(node->next->content), 1);
 		node = node->next;
 	}
+	return (0);
 }
 
 pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
@@ -66,23 +62,21 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	pid = fork();
 	if (pid != 0)
 		return (pid);
-	my_close(&(cmd->close_fd));
-	man_redirections(mini_sh, node, cmd);
+	if (man_redirections(node, cmd))
+		cmd_exit_and_clean(mini_sh, cmd, 1);
 	dup2(cmd->in_fd, STDIN_FILENO);
 	dup2(cmd->out_fd, STDOUT_FILENO);
-	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
+	cmd_close_all_fd(cmd);
 	cmd_node = get_token_type(node, COMMAND);
 	if (!cmd_node)
 		(clear_cmd(cmd), free_shell(mini_sh), exit(0));
-	if (!cmd->cmd_path)
-		cmd_not_found(mini_sh, cmd);
+	cmd_not_found(mini_sh, cmd);
 	bi = check_if_bi(cmd_node);
 	if (bi)
 		bi = exec_bi(mini_sh, cmd_node, bi);
 	else
 		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
-	(my_close(&(cmd->in_fd)), my_close(&(cmd->out_fd)));
-	(clear_cmd(cmd), free_shell(mini_sh), exit(bi));
+	cmd_exit_and_clean(mini_sh, cmd, bi);
 	return (bi);
 }
 
