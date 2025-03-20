@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 19:22:44 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:30:59 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,24 @@ t_shell	*create_shell(char **env)
 	mini_sh->env = init_envlist(env);
 	mini_sh->exit_code = 0;
 	mini_sh->input = NULL;
+	increase_shlvl(mini_sh);
 	return (mini_sh);
+}
+
+void	increase_shlvl(t_shell *mini_sh)
+{
+	int		shlvl;
+	char	*shlvl_str;
+
+	shlvl_str = my_getenv(mini_sh->env, "SHLVL");
+	if (!shlvl_str)
+		add_var(mini_sh, "SHLVL", "1");
+	shlvl = ft_atoi(shlvl_str);
+	if (shlvl < 0)
+		shlvl = 0;
+	else
+		shlvl = shlvl + 1;
+	update_var(mini_sh, ft_strdup("SHLVL"), ft_itoa(shlvl));
 }
 
 void	free_shell(t_shell *mini_sh)
