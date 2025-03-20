@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:23:12 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:12:31 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,13 @@ void				addback_envnode(t_env **start, t_env *node);
 void				clear_envlist(t_env **start);
 void				remove_envnode(t_env **env, char *name);
 
+// env_var.c
+
+int					is_valid_var_name(const char *argv);
+void				register_new_var(t_shell *mini_sh, const char *argv);
+bool				update_var(t_shell *mini_sh, char *name, char *value);
+void				add_var(t_shell *mini_sh, char *name, char *value);
+
 // execution.c
 
 void				execution(t_shell *mini_sh);
@@ -270,10 +277,6 @@ void				handle_exit_error(char **args, int x);
 
 int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 void				print_export(t_env *start);
-int					is_valid_var_name(const char *argv);
-void				register_new_var(t_shell *mini_sh, const char *argv);
-void				update_or_add_var(t_shell *mini_sh, char *name,
-						char *value);
 
 // bi_pwd.c
 
