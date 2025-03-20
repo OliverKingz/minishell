@@ -22,7 +22,8 @@
 		"cstdlib": "c",
 		"typeinfo": "c",
 		"system_error": "c",
-		"initializer_list": "c"
+		"initializer_list": "c",
+		"limits.h": "c"
 	}
 	// "files.exclude": {
 	// 	"**/old": true

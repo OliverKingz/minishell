@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:44:39 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:14:22 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 // isatty, ttyname, ttyslot, getenv
 
 # include <errno.h>             // errno
+# include <linux/limits.h>      // PATH_MAX
+
 # include <readline/history.h>  // add_history
 # include <readline/readline.h> // readline, rl_clear_history
 # include <string.h>            // strerror

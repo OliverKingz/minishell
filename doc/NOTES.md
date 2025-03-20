@@ -165,6 +165,16 @@ bash: echo: write error: No space left on device
   - No falla nunca, solo con casos readonly (Que no hace falta)
 - Pwd
 - Cd
+  - Sin argumentos, cd a home
+  - Ruta que no exista, error
+  - Ruta a un archivo, error
+  - No permission, error
+  - Ruta vacia, error
+  - Ruta con espacios
+  - Ruta con variables entorno
+  - Ruta con ~, expansion
+  - Ruta con -, cambia al directorio anterior
+  - Multiple args
 
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.

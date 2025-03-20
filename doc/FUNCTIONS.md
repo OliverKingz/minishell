@@ -85,12 +85,14 @@
   ```
 
 - **Directory operations**
+  - `chdir`: change working directory.
   - `getcwd`: Gets the current working directory.
   - `opendir`: Opens a directory stream.
   - `readdir`: Reads a directory entry.
   - `closedir`: Closes a directory stream.
 
   ```c
+  int chdir(const char *path);
   char *getcwd(char *buf, size_t size);
   DIR *opendir(const char *name);
   struct dirent *readdir(DIR *dirp);
@@ -174,7 +176,6 @@ void (*signal(int signum, void (*handler)(int)))(int);
 int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
 int kill(pid_t pid, int sig);
 
-int chdir(const char *path);
 int stat(const char *pathname, struct stat *statbuf);
 int lstat(const char *pathname, struct stat *statbuf);
 int fstat(int fd, struct stat *statbuf);
@@ -184,6 +185,7 @@ int dup2(int oldfd, int newfd);
 int pipe(int pipefd[2]);
 
 char *getcwd(char *buf, size_t size);
+int chdir(const char *path);
 DIR *opendir(const char *name);
 struct dirent *readdir(DIR *dirp);
 int closedir(DIR *dirp);
