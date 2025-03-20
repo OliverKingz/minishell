@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 23:14:22 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:37:38 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,12 +152,14 @@ typedef struct s_shell
 void				handle_ctrl_c(int signal_sigint);
 void				set_signals(void);
 void				set_signal_errors(t_shell *mini_sh);
+void				hdoc_ctrl_c(int signal);
 
 // shell.c
 
 t_shell				*create_shell(char **env);
 int					handle_readline_input(t_shell *mini_sh, char **readline);
 int					loop_shell(t_shell *mini_sh);
+void				increase_shlvl(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
@@ -193,6 +195,7 @@ void				rm_external_quotes(char *s);
 
 // var_expansion.c
 
+void				mark_variables(char *s);
 char				*extract_first_var(char *s);
 char				*expand_vars(char *og, t_shell *mini_sh);
 
@@ -219,12 +222,24 @@ void				addback_envnode(t_env **start, t_env *node);
 void				clear_envlist(t_env **start);
 void				remove_envnode(t_env **env, char *name);
 
+// env_var.c
+
+int					is_valid_var_name(const char *argv);
+void				register_new_var(t_shell *mini_sh, const char *argv);
+bool				update_var(t_shell *mini_sh, char *name, char *value);
+void				add_var(t_shell *mini_sh, char *name, char *value);
+
 // execution.c
+
 void				execution(t_shell *mini_sh);
 void				execute_cmds(t_shell *mini_sh);
 pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
-int					man_redirections(t_token *node, t_cmd *cmd);
 int					wait_children(t_input *input);
+
+// redirections.c
+
+int					man_redirections(t_token *node, t_cmd *cmd);
+void				man_heredocs(t_shell *mini_sh);
 
 // cmd_utils.c
 int					is_file(char *route);
@@ -251,6 +266,7 @@ int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
 // bi_echo.c
 
 int					bi_echo(t_shell *mini_sh, t_cmd *cmd);
+bool				is_nflag(char *arg);
 
 // bi_env.c
 
@@ -269,10 +285,6 @@ void				handle_exit_error(char **args, int x);
 
 int					bi_export(t_shell *mini_sh, t_cmd *cmd);
 void				print_export(t_env *start);
-int					is_valid_var_name(const char *argv);
-void				register_new_var(t_shell *mini_sh, const char *argv);
-void				update_or_add_var(t_shell *mini_sh, char *name,
-						char *value);
 
 // bi_pwd.c
 
@@ -295,7 +307,6 @@ int					my_strchr_pos(const char *s, char c);
 int					my_strnstr_pos(const char *big, const char *little,
 						size_t len);
 char				*my_replace_first(char *og, char *target, char *rep);
-char				*my_replace(char *og, char *target, char *rep); // LEAKS
 void				my_skip(char **s, char c);
 
 // utils3.c

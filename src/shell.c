@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:57:13 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:30:59 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	loop_shell(t_shell *mini_sh)
 	set_signals();
 	while (1)
 	{
-		if (g_signal == SIGINT)
-			ft_putchar_fd('\r', 1);
 		read_line = readline(PROMPT);
 		set_signal_errors(mini_sh);
 		loop_status = handle_readline_input(mini_sh, &read_line);
@@ -29,6 +27,7 @@ int	loop_shell(t_shell *mini_sh)
 			break ;
 		else if (loop_status == CONTINUE_LOOP)
 			continue ;
+		//man_heredocs(mini_sh);
 		execution(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
@@ -61,7 +60,24 @@ t_shell	*create_shell(char **env)
 	mini_sh->env = init_envlist(env);
 	mini_sh->exit_code = 0;
 	mini_sh->input = NULL;
+	increase_shlvl(mini_sh);
 	return (mini_sh);
+}
+
+void	increase_shlvl(t_shell *mini_sh)
+{
+	int		shlvl;
+	char	*shlvl_str;
+
+	shlvl_str = my_getenv(mini_sh->env, "SHLVL");
+	if (!shlvl_str)
+		add_var(mini_sh, "SHLVL", "1");
+	shlvl = ft_atoi(shlvl_str);
+	if (shlvl < 0)
+		shlvl = 0;
+	else
+		shlvl = shlvl + 1;
+	update_var(mini_sh, ft_strdup("SHLVL"), ft_itoa(shlvl));
 }
 
 void	free_shell(t_shell *mini_sh)

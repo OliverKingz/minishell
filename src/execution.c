@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:40:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:57:28 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 {
 	pid_t	pid;
 	t_token	*cmd_node;
-	int		bi_cmd;
 	int		bi_exit_code;
 
 	pid = fork();
@@ -71,53 +70,36 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	if (!cmd_node)
 		(clear_cmd(cmd), free_shell(mini_sh), exit(0));
 	cmd_not_found(mini_sh, cmd);
-	bi_cmd = is_bi(cmd_node);
-	if (!bi_cmd)
+	cmd->is_bi = is_bi(cmd_node);
+	if (!cmd->is_bi)
 		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
-	bi_exit_code = exec_bi(mini_sh, cmd, bi_cmd);
+	bi_exit_code = exec_bi(mini_sh, cmd, cmd->is_bi);
 	cmd_exit_and_clean(mini_sh, cmd, bi_exit_code);
 	return (bi_exit_code);
 }
 
-int	man_redirections(t_token *node, t_cmd *cmd)
-{
-	while (node && node->type != OP_PIPE)
-	{
-		if (node->type == REDIR_OUT || node->type == REDIR_APP)
-		{
-			my_close(&(cmd->out_fd));
-			if (node->type == REDIR_OUT)
-				cmd->out_fd = open(node->next->content,
-						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			else
-				cmd->out_fd = open(node->next->content,
-						O_CREAT | O_WRONLY | O_APPEND, 0644);
-		}
-		else if (node->type == REDIR_IN || node->type == REDIR_APP)
-		{
-			my_close(&(cmd->in_fd));
-			if (node->type == REDIR_IN)
-				cmd->in_fd = open(node->next->content, O_RDONLY);
-		}
-		if (cmd->in_fd < 0 || cmd->out_fd < 0)
-			return (perror(node->next->content), 1);
-		node = node->next;
-	}
-	return (0);
-}
-
 int	wait_children(t_input *input)
 {
+	int	exit_code;
 	int	status;
 	int	i;
 
 	i = 0;
 	status = 0;
+	signal(SIGINT, SIG_IGN);
 	while (i < input->pipe_count + 1)
 	{
 		if (input->pid[i] != -1)
 			waitpid(input->pid[i], &status, 0);
 		i++;
 	}
-	return (WEXITSTATUS(status));
+	signal(SIGINT, handle_ctrl_c);
+	if (WIFSIGNALED(status))
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		exit_code = WTERMSIG(status) + 128;
+		return (exit_code);
+	}
+	exit_code = WEXITSTATUS(status);
+	return (exit_code);
 }
