@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 16:21:10 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:26:42 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void				set_signal_errors(t_shell *mini_sh);
 t_shell				*create_shell(char **env);
 int					handle_readline_input(t_shell *mini_sh, char **readline);
 int					loop_shell(t_shell *mini_sh);
+void				increase_shlvl(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
