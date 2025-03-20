@@ -3,46 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:03:23 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:27:35 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:59:57 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-	current = mini_sh->env;
+void	print_export(t_env *start)
+{
+	t_env	*current;
+
+	current = start;
 	while (current)
 	{
 		if (current->value != NULL)
-			printf("declare -x %s=\"%s\"\n", current->name, current->value);
+			printf("%s=\"%s\"\n", current->name, current->value);
 		else
-			printf("declare -x %s\n", current->name);
+			printf("%s\n", current->name);
 		current = current->next;
-	}
-*/
-void	print_export(t_env *start)
-{
-	char	*line;
-	char	*quoted_value;
-
-	line = NULL;
-	quoted_value = NULL;
-	while (start)
-	{
-		if (start->value != NULL)
-		{
-			quoted_value = my_strjoin3("\"", start->value, "\"");
-			line = my_strjoin4("declare -x ", start->name, "=", quoted_value);
-		}
-		else
-			line = ft_strjoin("declare -x ", start->name);
-		ft_putendl_fd(line, STDOUT_FILENO);
-		my_free((void **)&line);
-		my_free((void **)&quoted_value);
-		start = start->next;
 	}
 }
 
@@ -86,7 +67,6 @@ void	register_new_var(t_shell *mini_sh, const char *argv)
 	{
 		name = ft_substr(argv, 0, eq_pos);
 		value = ft_substr(argv, eq_pos + 1, -1);
-		rm_external_quotes(value);
 	}
 	update_or_add_var(mini_sh, name, value);
 }

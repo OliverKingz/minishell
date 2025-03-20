@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:44:39 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:23:12 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void				rm_external_quotes(char *s);
 
 // var_expansion.c
 
+void				mark_variables(char *s);
 char				*extract_first_var(char *s);
 char				*expand_vars(char *og, t_shell *mini_sh);
 
@@ -218,6 +219,7 @@ void				clear_envlist(t_env **start);
 void				remove_envnode(t_env **env, char *name);
 
 // execution.c
+
 void				execution(t_shell *mini_sh);
 void				execute_cmds(t_shell *mini_sh);
 pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
@@ -249,6 +251,7 @@ int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
 // bi_echo.c
 
 int					bi_echo(t_shell *mini_sh, t_cmd *cmd);
+bool				is_nflag(char *arg);
 
 // bi_env.c
 

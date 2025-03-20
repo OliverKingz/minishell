@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/20 12:17:47 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:05:01 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	mark_variables(char *s)
 	if (!s)
 		return ;
 	is_double_quote = false;
-	while(*s)
+	while (*s)
 	{
 		if (*s == '\'' && !is_double_quote)
 		{

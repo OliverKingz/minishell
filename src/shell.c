@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 23:57:13 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:49:24 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	loop_shell(t_shell *mini_sh)
 	set_signals();
 	while (1)
 	{
-		if (g_signal == SIGINT)
-			ft_putchar_fd('\r', 1);
 		read_line = readline(PROMPT);
 		set_signal_errors(mini_sh);
 		loop_status = handle_readline_input(mini_sh, &read_line);

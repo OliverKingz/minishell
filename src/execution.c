@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:40:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:36:00 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,26 @@ int	man_redirections(t_token *node, t_cmd *cmd)
 
 int	wait_children(t_input *input)
 {
+	int	exit_code;
 	int	status;
 	int	i;
 
 	i = 0;
 	status = 0;
+	signal(SIGINT, SIG_IGN);
 	while (i < input->pipe_count + 1)
 	{
 		if (input->pid[i] != -1)
 			waitpid(input->pid[i], &status, 0);
 		i++;
 	}
-	return (WEXITSTATUS(status));
+	signal(SIGINT, handle_ctrl_c);
+	if (WIFSIGNALED(status))
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		exit_code = WTERMSIG(status) + 128;
+		return (exit_code);
+	}
+	exit_code = WEXITSTATUS(status);
+	return (exit_code);
 }
