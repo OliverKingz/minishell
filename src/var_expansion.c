@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:05:01 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:33:16 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 		else
 			value = ft_strdup(my_getenv(mini_sh->env, &var[1]));
 		temp = str;
-		str = my_replace_first(temp, var, value);
-		my_free((void **)&temp);
-		my_free((void **)&var);
+		if (value)
+			str = my_replace_first(temp, var, value);
+		else
+			str = my_replace_first(temp, var, "");
+		(my_free((void **)&temp), my_free((void **)&var));
 		my_free((void **)&value);
 	}
 	return (str);

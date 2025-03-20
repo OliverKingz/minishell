@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 16:12:31 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:21:10 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,6 @@ int					my_strchr_pos(const char *s, char c);
 int					my_strnstr_pos(const char *big, const char *little,
 						size_t len);
 char				*my_replace_first(char *og, char *target, char *rep);
-char				*my_replace(char *og, char *target, char *rep); // LEAKS
 void				my_skip(char **s, char c);
 
 // utils3.c

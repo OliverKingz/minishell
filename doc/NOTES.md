@@ -166,6 +166,10 @@ bash: echo: write error: No space left on device
 - Pwd
 - Cd
 
+- Revisar bi por casos flags multiples. Mirar solo si el char es una flag uno a uno. 
+- Fix export ''
+- Hacer SHLVL en create_shell
+
 # TO DO LEJANO OLIVER
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
   - Incluso si lo mato en otra ventana.
@@ -177,16 +181,24 @@ bash: echo: write error: No space left on device
 ---
 
 # TO DO/PREGUNTAR/DECIR A RAUL
-- Mirar env de emergencia y PATH de emergencia.
 - Mirar qué pasa cuando init_envlist devuelve NULL.
-- Hacer $? ✅
-- Integrar ejecución, haciendo los archivos ya con 5 funciones, y bien nombrados.
-
-- Quitar replace all?
-# RAUL
+  -> 
+- Getenv
+- Heredoc
+  - 
 
 # SLACK
-- Segun vbengea, no hay hacer en hdoc <<'eof'
-- Preguntar si poner deckare -x. @tischmid en Slack pone que no, que lo tiraria
+
+# DONE RAUL
+- Hacer $? ✅
+- Integrar ejecución, haciendo los archivos ya con 5 funciones, y bien nombrados.✅
+- Quitar replace all?✅
+- Mirar env de emergencia y PATH de emergencia.✅
+  -> No hacerlo. No lo hacen todas las shells, y tiene haters xq hardcodea el PATH
+- Segun vbengea, no hay hacer en hdoc <<'eof'✅
+  -> Tiene razon. Por el subject no lo menciona. 
+- Preguntar si poner declare -x. @tischmid en Slack pone que no, que lo tiraria✅
+  -> Lo hemos quitado. No queremos programar declare. 
+
 
 ---
