@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 15:27:56 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:52:43 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_shell
 void				handle_ctrl_c(int signal_sigint);
 void				set_signals(void);
 void				set_signal_errors(t_shell *mini_sh);
+void				hdoc_ctrl_c(int signal);
 
 // shell.c
 
@@ -223,8 +224,12 @@ void				remove_envnode(t_env **env, char *name);
 void				execution(t_shell *mini_sh);
 void				execute_cmds(t_shell *mini_sh);
 pid_t				exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
-int					man_redirections(t_token *node, t_cmd *cmd);
 int					wait_children(t_input *input);
+
+// redirections.c
+
+int					man_redirections(t_token *node, t_cmd *cmd);
+void				man_heredocs(t_shell *mini_sh);
 
 // cmd_utils.c
 int					is_file(char *route);

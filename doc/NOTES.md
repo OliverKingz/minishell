@@ -185,7 +185,8 @@ bash: echo: write error: No space left on device
   -> 
 - Getenv
 - Heredoc
-  - 
+- Chequear que tan probables es que falle dup/dup2
+- perror o personal err 
 
 # SLACK
 

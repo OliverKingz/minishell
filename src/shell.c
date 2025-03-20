@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:49:24 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:22:44 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	loop_shell(t_shell *mini_sh)
 			break ;
 		else if (loop_status == CONTINUE_LOOP)
 			continue ;
+		//man_heredocs(mini_sh);
 		execution(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
