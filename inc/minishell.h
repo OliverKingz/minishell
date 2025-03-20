@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:23:12 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:27:56 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,6 @@ int					my_strchr_pos(const char *s, char c);
 int					my_strnstr_pos(const char *big, const char *little,
 						size_t len);
 char				*my_replace_first(char *og, char *target, char *rep);
-char				*my_replace(char *og, char *target, char *rep); // LEAKS
 void				my_skip(char **s, char c);
 
 // utils3.c

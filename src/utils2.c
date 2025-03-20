@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:15:01 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/16 12:44:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:55:13 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,6 @@ char	*my_replace_first(char *og, char *target, char *rep)
 	ft_memcpy(&s[pos], rep, ft_strlen(rep));
 	ft_memcpy(&s[pos + ft_strlen(rep)], &og[pos + ft_strlen(target)],
 		ft_strlen(&og[pos + ft_strlen(target)]));
-	return (s);
-}
-
-char	*my_replace(char *og, char *target, char *rep)
-{
-	char	*s;
-	char	*temp;
-
-	if (!og || !target || !rep)
-		return (NULL);
-	s = ft_strdup(og);
-	while (s && ft_strnstr(s, target, ft_strlen(s)))
-	{
-		temp = s;
-		s = my_replace_first(temp, target, rep);
-		my_free((void **)&temp);
-	}
 	return (s);
 }
 
