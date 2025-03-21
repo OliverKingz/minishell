@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 17:40:34 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:44:47 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 # define ERR_ARGS ": too many arguments\n"
 # define ERR_ARG_INT ": numeric argument required\n"
 # define ERR_ID ": not a valid identifier\n"
+# define ERR_LIM "warning: here-document delimited by end-of-file\n"
 
 /* ************************************************************************** */
 
@@ -127,7 +128,7 @@ typedef struct s_input
 	t_token			*token_lst;
 	int				pipe_count;
 	int				hdoc_count;
-	int				*heredocs;
+	int				hdoc_used;
 	pid_t			*pid;
 }					t_input;
 
@@ -239,8 +240,14 @@ int					wait_children(t_input *input);
 
 // redirections.c
 
-int					handle_redirections(t_token *node, t_cmd *cmd);
+int					handle_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd);
+
+// heredoc.c
+
+int					create_hdoc_file(int id);
+void				hdoc_child(t_shell *mini_sh, char *limiter, int id);
 void				handle_heredocs(t_shell *mini_sh);
+void				rm_hdoc_files(t_shell *mini_sh);
 
 // cmd_utils.c
 int					is_file(char *route);

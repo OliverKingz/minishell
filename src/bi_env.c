@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 17:26:09 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:49:42 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	init_emergency_env(t_shell *mini_sh)
 	else
 		perror("env: getcwd");
 }
-
 
 void	print_envlist(t_env *start)
 {

@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:13:25 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 14:58:52 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:58:07 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd)
 	int		savefd[2];
 
 	cmd = init_cmd(mini_sh, mini_sh->input->token_lst, NULL, NULL);
-	if (!handle_redirections(mini_sh->input->token_lst, &cmd))
+	if (!handle_redirections(mini_sh, mini_sh->input->token_lst, &cmd))
 	{
 		savefd[0] = dup(STDIN_FILENO);
 		savefd[1] = dup(STDOUT_FILENO);

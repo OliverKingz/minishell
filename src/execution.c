@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/21 14:58:52 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:52:03 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@ void	execution(t_shell *mini_sh)
 {
 	t_builtin	bi_cmd;
 
+	if (g_signal == SIGINT)
+		return ;
 	print_tokenslist_short(mini_sh->input->token_lst);
 	bi_cmd = is_bi(mini_sh->input->token_lst);
 	if (mini_sh->input->pipe_count == 0 && bi_cmd)
 		exec_one_bi(mini_sh, bi_cmd);
 	else
 		execute_cmds(mini_sh);
+}
+
+static void	init_pipes(int *pipe1, int *pipe2)
+{
+	pipe1 = -1;
+	pipe2[READ_END] = -1;
+	pipe2[WRITE_END] = -1;
 }
 
 void	execute_cmds(t_shell *mini_sh)
@@ -32,9 +41,7 @@ void	execute_cmds(t_shell *mini_sh)
 	int		pipe2[2];
 	int		i;
 
-	pipe1 = -1;
-	pipe2[READ_END] = -1;
-	pipe2[WRITE_END] = -1;
+	init_pipes(&pipe1, pipe2);
 	node = mini_sh->input->token_lst;
 	i = 0;
 	while (node)
@@ -43,6 +50,7 @@ void	execute_cmds(t_shell *mini_sh)
 		if (node->type == OP_PIPE)
 			node = node->next;
 		mini_sh->input->pid[i++] = exe_in_child(mini_sh, node, &cmd);
+		mini_sh->input->hdoc_used += count_token_type(node, REDIR_HD);
 		while (node && node->type != OP_PIPE)
 			node = node->next;
 		(clear_cmd(&cmd), my_close(&pipe1), my_close(&pipe2[WRITE_END]));
@@ -61,7 +69,7 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	pid = fork();
 	if (pid != 0)
 		return (pid);
-	if (handle_redirections(node, cmd))
+	if (handle_redirections(mini_sh, node, cmd))
 		cmd_exit_and_clean(mini_sh, cmd, 1);
 	dup2(cmd->in_fd, STDIN_FILENO);
 	dup2(cmd->out_fd, STDOUT_FILENO);

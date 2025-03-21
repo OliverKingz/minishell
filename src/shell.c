@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 17:26:23 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:36:22 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	loop_shell(t_shell *mini_sh)
 			continue ;
 		handle_heredocs(mini_sh);
 		execution(mini_sh);
+		rm_hdoc_files(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
 	return (mini_sh->exit_code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:35:42 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:24:11 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,7 @@ void	init_input_pid_heredoc(t_shell *mini_sh)
 			sizeof(pid_t));
 	if (!mini_sh->input->pid)
 		(free_shell(mini_sh), my_perr("input pid", 1, errno));
-	if (mini_sh->input->hdoc_count > 0)
-	{
-		mini_sh->input->heredocs = (int *)ft_calloc(mini_sh->input->hdoc_count,
-				sizeof(int));
-		if (!mini_sh->input->heredocs)
-			(free_shell(mini_sh), my_perr("input hdoc", 1, errno));
-	}
+	mini_sh->input->hdoc_used = 0;
 }
 
 void	free_input(t_shell **mini_sh)
@@ -65,7 +59,5 @@ void	free_input(t_shell **mini_sh)
 		clear_tokenlist(&(*mini_sh)->input->token_lst);
 	if ((*mini_sh)->input->pid)
 		my_free((void **)&((*mini_sh)->input->pid));
-	if ((*mini_sh)->input->heredocs)
-		my_free((void **)&((*mini_sh)->input->heredocs));
 	my_free((void **)&((*mini_sh)->input));
 }
