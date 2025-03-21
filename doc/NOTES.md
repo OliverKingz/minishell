@@ -188,7 +188,8 @@ bash: echo: write error: No space left on device
 - History file (no es obligatorio)
   - Create with open, append. 
   - Como pongo limite? 
----
+
+- Modo interactivo. Hacer infile con varios comandos. Quitar promp, hacer otro loop
 
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar qué pasa cuando init_envlist devuelve NULL.

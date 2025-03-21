@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 15:38:25 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:35:22 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,9 @@ int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		pwd = my_getenv(mini_sh->env, "PWD");
-		if (!pwd)
-			pwd = ft_strjoin("PWD=", cwd);
 		oldpwd = ft_strjoin("OLDPWD=", pwd);
 		register_var(mini_sh, oldpwd);
-		register_var(mini_sh, pwd);
+		update_var(mini_sh, ft_strdup("PWD"), ft_strdup(cwd));
 	}
 	else
 		(my_perr("cd: getcwd", false, 1), exit_code = EXIT_FAILURE);
