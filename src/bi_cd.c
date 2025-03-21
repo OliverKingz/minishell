@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 16:35:22 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:35:57 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,37 @@ void	expand_tilde(t_shell *mini_sh, char **og_path)
 	my_free((void **)&temp);
 }
 
+int	change_update_dir(t_shell *mini_sh, char *path)
+{
+	int		exit_code;
+	char	cwd[PATH_MAX];
+	char	*oldpwd;
+	char	*pwd;
+
+	oldpwd = NULL;
+	pwd = NULL;
+	exit_code = EXIT_SUCCESS;
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		oldpwd = ft_strjoin("OLDPWD=", cwd);
+	else
+		(perror("cd: getcwd"), exit_code = EXIT_FAILURE);
+	if (chdir(path) < 0)
+		(perror("cd"), exit_code = EXIT_FAILURE);
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	{
+		register_var(mini_sh, oldpwd);
+		pwd = ft_strjoin("PWD=", cwd);
+		register_var(mini_sh, pwd);
+	}
+	else
+		(perror("cd: getcwd"), exit_code = EXIT_FAILURE);
+	return (my_free((void **)&oldpwd), my_free((void **)&pwd), exit_code);
+}
+
 int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 {
 	int		exit_code;
 	char	*path;
-	char	cwd[PATH_MAX];
-	char	*oldpwd;
-	char	*pwd;
 
 	exit_code = EXIT_SUCCESS;
 	path = ft_strdup(cd_set_path(mini_sh, cmd));
@@ -76,16 +100,6 @@ int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 		return (EXIT_FAILURE);
 	if (path[0] == '~')
 		expand_tilde(mini_sh, &path);
-	if (chdir(path) < 0)
-		return (my_free((void **)&path), my_perr("cd", false, 1), EXIT_FAILURE);
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
-		pwd = my_getenv(mini_sh->env, "PWD");
-		oldpwd = ft_strjoin("OLDPWD=", pwd);
-		register_var(mini_sh, oldpwd);
-		update_var(mini_sh, ft_strdup("PWD"), ft_strdup(cwd));
-	}
-	else
-		(my_perr("cd: getcwd", false, 1), exit_code = EXIT_FAILURE);
-	return (my_free((void **)&oldpwd), my_free((void **)&path), exit_code);
+	exit_code = change_update_dir(mini_sh, path);
+	return (my_free((void **)&path), exit_code);
 }

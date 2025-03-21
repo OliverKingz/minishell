@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 15:51:45 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:40:34 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
 char				*cd_set_path(t_shell *mini_sh, t_cmd *cmd);
 int					is_directory(char *route);
 void				expand_tilde(t_shell *mini_sh, char **og_path);
+int					change_update_dir(t_shell *mini_sh, char *path);
 
 // bi_echo.c
 
@@ -278,6 +279,7 @@ int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 void				print_envlist(t_env *start);
 char				*my_getenv(t_env *start, char *name);
 char				**envlist_to_str(t_env *start);
+void				init_emergency_env(t_shell *mini_sh);
 
 // bi_exit.c
 

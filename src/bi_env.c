@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:47:48 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:26:09 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ char	**envlist_to_str(t_env *start)
 	}
 	return (env);
 }
+
+void	init_emergency_env(t_shell *mini_sh)
+{
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		add_var(mini_sh, ft_strdup("PWD"), ft_strdup(cwd));
+	else
+		perror("env: getcwd");
+}
+
 
 void	print_envlist(t_env *start)
 {
