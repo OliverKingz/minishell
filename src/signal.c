@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:52:55 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/17 12:28:46 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:26:35 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,16 @@ void	set_signal_errors(t_shell *mini_sh)
 	if (g_signal == SIGINT)
 		mini_sh->exit_code = 128 + SIGINT;
 	g_signal = 0;
+}
+
+void	hdoc_parent_ctrl_c(int sign)
+{
+	g_signal = sign;
+}
+
+void	hdoc_child_ctrl_c(int sign)
+{
+	g_signal = sign;
+	ft_putstr_fd("^C", STDOUT_FILENO);
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 }

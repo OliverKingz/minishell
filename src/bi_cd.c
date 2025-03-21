@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 01:02:24 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:38:25 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_directory(char *route)
 	return (S_ISDIR(info.st_mode));
 }
 
-char	*set_path(t_shell *mini_sh, t_cmd *cmd)
+char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd)
 {
 	char	*path;
 
@@ -71,7 +71,7 @@ int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 	char	*pwd;
 
 	exit_code = EXIT_SUCCESS;
-	path = ft_strdup(set_path(mini_sh, cmd));
+	path = ft_strdup(cd_set_path(mini_sh, cmd));
 	if (!path)
 		return (EXIT_FAILURE);
 	if (path[0] == '~')
@@ -81,9 +81,11 @@ int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		pwd = my_getenv(mini_sh->env, "PWD");
+		if (!pwd)
+			pwd = ft_strjoin("PWD=", cwd);
 		oldpwd = ft_strjoin("OLDPWD=", pwd);
 		register_var(mini_sh, oldpwd);
-		update_var(mini_sh, ft_strdup("PWD"), ft_strdup(cwd));
+		register_var(mini_sh, pwd);
 	}
 	else
 		(my_perr("cd: getcwd", false, 1), exit_code = EXIT_FAILURE);

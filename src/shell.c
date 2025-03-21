@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 19:30:59 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:50:06 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	loop_shell(t_shell *mini_sh)
 			break ;
 		else if (loop_status == CONTINUE_LOOP)
 			continue ;
-		//man_heredocs(mini_sh);
+		handle_heredocs(mini_sh);
 		execution(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
@@ -71,7 +71,7 @@ void	increase_shlvl(t_shell *mini_sh)
 
 	shlvl_str = my_getenv(mini_sh->env, "SHLVL");
 	if (!shlvl_str)
-		add_var(mini_sh, "SHLVL", "1");
+		return (add_var(mini_sh, ft_strdup("SHLVL"), ft_strdup("1")));
 	shlvl = ft_atoi(shlvl_str);
 	if (shlvl < 0)
 		shlvl = 0;
@@ -86,6 +86,7 @@ void	free_shell(t_shell *mini_sh)
 		return ;
 	if (mini_sh->input)
 		free_input(&mini_sh);
-	clear_envlist(&(mini_sh->env));
+	if (mini_sh->env)
+		clear_envlist(&(mini_sh->env));
 	my_free((void **)&mini_sh);
 }

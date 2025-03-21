@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:59 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/20 19:22:11 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:08:20 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	man_redirections(t_token *node, t_cmd *cmd)
+int	handle_redirections(t_token *node, t_cmd *cmd)
 {
 	while (node && node->type != OP_PIPE)
 	{
@@ -55,7 +55,7 @@ int	create_hdoc_file(int id)
 	return (fd);
 }
 
-pid_t	hdoc_child(t_shell *mini_sh, char *limiter, int id)
+void	hdoc_child(t_shell *mini_sh, char *limiter, int id)
 {
 	int		fd;
 	char	*line;
@@ -63,16 +63,17 @@ pid_t	hdoc_child(t_shell *mini_sh, char *limiter, int id)
 
 	pid = fork();
 	if (pid != 0)
-		return (pid);
-	signal(SIGINT, SIG_DFL);
+		return ;
+	rl_catch_signals = 0;
+	signal(SIGINT, hdoc_child_ctrl_c);
 	fd = create_hdoc_file(id);
-	while (1)
+	while (g_signal != SIGINT)
 	{
 		line = readline("> ");
-		if (ft_strncmp(limiter, line, -1) == 0)
-			break;
-		else if (!line)
-			break; //Falta warning
+		if (!line)
+			break ;
+		else if (ft_strncmp(limiter, line, -1) == 0)
+			break ;
 		else
 			ft_putendl_fd(line, fd);
 		my_free((void **)&line);
@@ -80,24 +81,24 @@ pid_t	hdoc_child(t_shell *mini_sh, char *limiter, int id)
 	free_shell(mini_sh);
 	my_close(&fd);
 	exit(0);
-	return (0);
 }
 
-void	man_heredocs(t_shell *mini_sh)
+void	handle_heredocs(t_shell *mini_sh)
 {
 	int		id;
 	t_token	*node;
-	pid_t	pid;
 	
 	id = 0;
 	node = mini_sh->input->token_lst;
-	while (node)
+	signal(SIGINT, hdoc_parent_ctrl_c);
+	while (node && g_signal != SIGINT)
 	{
 		if (node->type == REDIR_HD)
 		{
-			pid = hdoc_child(mini_sh, node->next->content, id++);
-			waitpid(pid, NULL, 0);
+			hdoc_child(mini_sh, node->next->content, id++);
+			wait(NULL);
 		}
 		node = node->next;
 	}
+	signal(SIGINT, handle_ctrl_c);
 }

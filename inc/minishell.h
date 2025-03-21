@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 01:03:53 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:51:45 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@ typedef struct s_shell
 void				handle_ctrl_c(int signal_sigint);
 void				set_signals(void);
 void				set_signal_errors(t_shell *mini_sh);
-void				hdoc_ctrl_c(int signal);
+void				hdoc_parent_ctrl_c(int sign);
+void				hdoc_child_ctrl_c(int sign);
 
 // shell.c
 
@@ -238,8 +239,8 @@ int					wait_children(t_input *input);
 
 // redirections.c
 
-int					man_redirections(t_token *node, t_cmd *cmd);
-void				man_heredocs(t_shell *mini_sh);
+int					handle_redirections(t_token *node, t_cmd *cmd);
+void				handle_heredocs(t_shell *mini_sh);
 
 // cmd_utils.c
 int					is_file(char *route);
@@ -262,7 +263,7 @@ void				exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
 // bi_cd.c
 
 int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
-char				*set_path(t_shell *mini_sh, t_cmd *cmd);
+char				*cd_set_path(t_shell *mini_sh, t_cmd *cmd);
 int					is_directory(char *route);
 void				expand_tilde(t_shell *mini_sh, char **og_path);
 
