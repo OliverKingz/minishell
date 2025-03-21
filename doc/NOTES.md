@@ -170,11 +170,11 @@ bash: echo: write error: No space left on device
   - Ruta a un archivo, error
   - No permission, error
   - Ruta vacia, error
+  - Multiple args, error
   - Ruta con espacios
   - Ruta con variables entorno
   - Ruta con ~, expansion
   - Ruta con -, cambia al directorio anterior
-  - Multiple args
 
 - Revisar bi por casos flags multiples. Mirar solo si el char es una flag uno a uno. 
 - Fix export ''

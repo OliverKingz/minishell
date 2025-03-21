@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 23:37:38 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/21 01:03:53 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void				remove_envnode(t_env **env, char *name);
 // env_var.c
 
 int					is_valid_var_name(const char *argv);
-void				register_new_var(t_shell *mini_sh, const char *argv);
+void				register_var(t_shell *mini_sh, const char *argv);
 bool				update_var(t_shell *mini_sh, char *name, char *value);
 void				add_var(t_shell *mini_sh, char *name, char *value);
 
@@ -262,6 +262,9 @@ void				exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
 // bi_cd.c
 
 int					bi_cd(t_shell *mini_sh, t_cmd *cmd);
+char				*set_path(t_shell *mini_sh, t_cmd *cmd);
+int					is_directory(char *route);
+void				expand_tilde(t_shell *mini_sh, char **og_path);
 
 // bi_echo.c
 

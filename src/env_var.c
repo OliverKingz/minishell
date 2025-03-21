@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:48:00 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 16:13:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/20 23:42:04 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_valid_var_name(const char *argv)
 	return (true);
 }
 
-void	register_new_var(t_shell *mini_sh, const char *argv)
+void	register_var(t_shell *mini_sh, const char *argv)
 {
 	char	*name;
 	char	*value;
