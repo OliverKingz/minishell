@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/21 20:52:03 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/21 22:26:40 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execution(t_shell *mini_sh)
 
 static void	init_pipes(int *pipe1, int *pipe2)
 {
-	pipe1 = -1;
+	*pipe1 = -1;
 	pipe2[READ_END] = -1;
 	pipe2[WRITE_END] = -1;
 }
