@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 18:24:00 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:56:31 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,16 @@ int	handle_readline_input(t_shell *mini_sh, char **readline)
 int	loop_shell_non_interactive(t_shell *mini_sh)
 {
 	char	*read_line;
+	char	*temp;
 	int		loop_status;
 
 	while (1)
 	{
-		read_line = readline(NULL);
+		temp = get_next_line(STDIN_FILENO);
+		read_line = my_replace_first(temp, "\n", "\0");
+		my_free((void **)&temp);
 		loop_status = handle_readline_input(mini_sh, &read_line);
+		my_free((void **)&read_line);
 		if (loop_status == BREAK_LOOP)
 			break ;
 		else if (loop_status == CONTINUE_LOOP)

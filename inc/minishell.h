@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:31:08 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:58:49 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ typedef struct s_shell
 void				handle_ctrl_c(int signal_sigint);
 void				set_signals(void);
 void				set_signal_errors(t_shell *mini_sh);
-void				hdoc_parent_ctrl_c(int sign);
+void				just_save_signal(int sign);
 void				hdoc_child_ctrl_c(int sign);
 
 // shell.c
@@ -247,7 +247,8 @@ int					wait_children(t_input *input);
 
 // redirections.c
 
-int					handle_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd);
+int					handle_redirections(t_shell *mini_sh, t_token *node,
+						t_cmd *cmd);
 
 // heredoc.c
 
@@ -255,6 +256,7 @@ int					create_hdoc_file(int id);
 void				hdoc_child(t_shell *mini_sh, char *limiter, int id);
 void				handle_heredocs(t_shell *mini_sh);
 void				rm_hdoc_files(t_shell *mini_sh);
+void				hdoc_gnl(char *limiter, int id);
 
 // cmd_utils.c
 int					is_file(char *route);

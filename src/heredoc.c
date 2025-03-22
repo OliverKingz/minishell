@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/21 20:49:58 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:58:49 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,33 @@ int	create_hdoc_file(int id)
 	my_free((void **)&num);
 	my_free((void **)&file);
 	return (fd);
+}
+
+void	hdoc_gnl(char *limiter, int id)
+{
+	int		fd;
+	char	*temp;
+	char	*line;
+
+	fd = create_hdoc_file(id);
+	while (g_signal != SIGINT)
+	{
+		temp = get_next_line(STDIN_FILENO);
+		if (!temp)
+		{
+			ft_putstr_fd(ERR_LIM, 2);
+			break ;
+		}
+		line = my_replace_first(temp, "\n", "\0");
+		my_free((void **)&temp);
+		if (ft_strncmp(limiter, line, -1) == 0)
+			break ;
+		else
+			ft_putendl_fd(line, fd);
+		my_free((void **)&line);
+	}
+	my_free((void **)&line);
+	my_close(&fd);
 }
 
 void	hdoc_child(t_shell *mini_sh, char *limiter, int id)
@@ -61,20 +88,28 @@ void	handle_heredocs(t_shell *mini_sh)
 {
 	int		id;
 	t_token	*node;
+	bool	interactive;
 
 	id = 0;
 	node = mini_sh->input->token_lst;
-	signal(SIGINT, hdoc_parent_ctrl_c);
+	interactive = isatty(STDIN_FILENO);
+	signal(SIGINT, just_save_signal);
 	while (node && g_signal != SIGINT)
 	{
 		if (node->type == REDIR_HD)
 		{
-			hdoc_child(mini_sh, node->next->content, id++);
-			wait(NULL);
+			if (interactive)
+			{
+				hdoc_child(mini_sh, node->next->content, id++);
+				wait(NULL);
+			}
+			else
+				hdoc_gnl(node->next->content, id++);
 		}
 		node = node->next;
 	}
-	signal(SIGINT, handle_ctrl_c);
+	if (interactive)
+		signal(SIGINT, handle_ctrl_c);
 }
 
 void	rm_hdoc_files(t_shell *mini_sh)

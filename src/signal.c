@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 12:52:55 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 13:26:35 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 22:58:49 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_signal_errors(t_shell *mini_sh)
 	g_signal = 0;
 }
 
-void	hdoc_parent_ctrl_c(int sign)
+void	just_save_signal(int sign)
 {
 	g_signal = sign;
 }
