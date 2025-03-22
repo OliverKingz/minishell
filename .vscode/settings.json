@@ -25,7 +25,8 @@
 		"initializer_list": "c",
 		"limits.h": "c",
 		"curses.h": "c",
-		"dirent.h": "c"
+		"dirent.h": "c",
+		"stat.h": "c"
 	}
 	// "files.exclude": {
 	// 	"**/old": true

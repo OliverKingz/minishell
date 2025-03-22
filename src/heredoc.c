@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/22 22:58:49 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/23 00:22:58 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	hdoc_gnl(char *limiter, int id)
 		temp = get_next_line(STDIN_FILENO);
 		if (!temp)
 		{
-			ft_putstr_fd(ERR_LIM, 2);
+			ft_putstr_fd(WARNING_LIM, 2);
 			break ;
 		}
 		line = my_replace_first(temp, "\n", "\0");
@@ -72,7 +72,7 @@ void	hdoc_child(t_shell *mini_sh, char *limiter, int id)
 		line = readline("> ");
 		if (!line)
 		{
-			ft_putstr_fd(ERR_LIM, 2);
+			ft_putstr_fd(WARNING_LIM, 2);
 			break ;
 		}
 		else if (ft_strncmp(limiter, line, -1) == 0)
