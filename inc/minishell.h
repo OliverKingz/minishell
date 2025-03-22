@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 20:44:47 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:30:18 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ void				hdoc_child_ctrl_c(int sign);
 t_shell				*create_shell(char **env);
 int					handle_readline_input(t_shell *mini_sh, char **readline);
 int					loop_shell(t_shell *mini_sh);
-void				increase_shlvl(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
@@ -231,6 +230,13 @@ void				register_var(t_shell *mini_sh, const char *argv);
 bool				update_var(t_shell *mini_sh, char *name, char *value);
 void				add_var(t_shell *mini_sh, char *name, char *value);
 
+// env.c
+
+char				*my_getenv(t_env *start, char *name);
+char				**envlist_to_str(t_env *start);
+void				init_emergency_env(t_shell *mini_sh);
+void				increase_shlvl(t_shell *mini_sh);
+
 // execution.c
 
 void				execution(t_shell *mini_sh);
@@ -284,9 +290,6 @@ bool				is_nflag(char *arg);
 
 int					bi_env(t_shell *mini_sh, t_cmd *cmd);
 void				print_envlist(t_env *start);
-char				*my_getenv(t_env *start, char *name);
-char				**envlist_to_str(t_env *start);
-void				init_emergency_env(t_shell *mini_sh);
 
 // bi_exit.c
 

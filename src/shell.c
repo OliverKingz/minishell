@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 20:36:22 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:26:28 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,6 @@ t_shell	*create_shell(char **env)
 		init_emergency_env(mini_sh);
 	increase_shlvl(mini_sh);
 	return (mini_sh);
-}
-
-void	increase_shlvl(t_shell *mini_sh)
-{
-	int		shlvl;
-	char	*shlvl_str;
-
-	shlvl_str = my_getenv(mini_sh->env, "SHLVL");
-	if (!shlvl_str)
-		return (add_var(mini_sh, ft_strdup("SHLVL"), ft_strdup("1")));
-	shlvl = ft_atoi(shlvl_str);
-	if (shlvl < 0)
-		shlvl = 0;
-	else
-		shlvl = shlvl + 1;
-	update_var(mini_sh, ft_strdup("SHLVL"), ft_itoa(shlvl));
 }
 
 void	free_shell(t_shell *mini_sh)

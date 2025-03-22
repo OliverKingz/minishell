@@ -3,79 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 20:49:42 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:26:17 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*my_getenv(t_env *start, char *name)
-{
-	if (!name)
-		return (NULL);
-	while (start)
-	{
-		if (ft_strncmp(start->name, name, -1) == 0)
-			return (start->value);
-		start = start->next;
-	}
-	return (NULL);
-}
-
-char	**envlist_to_str(t_env *start)
-{
-	char	**env;
-	t_env	*node;
-	int		i;
-
-	if (!start)
-		return (NULL);
-	i = 0;
-	node = start;
-	while (node)
-	{
-		i++;
-		node = node->next;
-	}
-	env = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (!env)
-		return (NULL);
-	i = 0;
-	node = start;
-	while (node)
-	{
-		env[i++] = ft_strjoin_char(node->name, node->value, '=');
-		node = node->next;
-	}
-	return (env);
-}
-
-void	init_emergency_env(t_shell *mini_sh)
-{
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		add_var(mini_sh, ft_strdup("PWD"), ft_strdup(cwd));
-	else
-		perror("env: getcwd");
-}
-
-void	print_envlist(t_env *start)
-{
-	while (start)
-	{
-		if (start->value != NULL)
-		{
-			ft_putstr_fd(start->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putendl_fd(start->value, STDOUT_FILENO);
-		}
-		start = start->next;
-	}
-}
 
 int	bi_env(t_shell *mini_sh, t_cmd *cmd)
 {
@@ -95,4 +30,18 @@ int	bi_env(t_shell *mini_sh, t_cmd *cmd)
 		my_free((void **)&err);
 	}
 	return (exit_code);
+}
+
+void	print_envlist(t_env *start)
+{
+	while (start)
+	{
+		if (start->value != NULL)
+		{
+			ft_putstr_fd(start->name, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putendl_fd(start->value, STDOUT_FILENO);
+		}
+		start = start->next;
+	}
 }

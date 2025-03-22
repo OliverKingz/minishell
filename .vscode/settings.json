@@ -23,7 +23,9 @@
 		"typeinfo": "c",
 		"system_error": "c",
 		"initializer_list": "c",
-		"limits.h": "c"
+		"limits.h": "c",
+		"curses.h": "c",
+		"dirent.h": "c"
 	}
 	// "files.exclude": {
 	// 	"**/old": true
