@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:54:45 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/17 18:11:10 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:54:47 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*my_strjoin3(char const *s1, char const *s2, char const *s3)
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	s3_len = ft_strlen(s3);
-	joined = (char *)malloc((s1_len + s2_len + s3_len + 1) * sizeof(char));
+	joined = (char *)ft_calloc((s1_len + s2_len + s3_len + 1), sizeof(char));
 	if (!joined)
-		return (NULL);
+		return (ft_puterr("str calloc"), NULL);
 	i = -1;
 	while (++i < s1_len)
 		joined[i] = s1[i];

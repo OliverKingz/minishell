@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/20 15:33:16 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/23 00:02:08 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,3 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 	}
 	return (str);
 }
-
-// int	main(int argc, char **args, char **env)
-// {
-// 	char	*s;
-// 	t_env	*node;
-
-// 	(void)argc;
-// 	(void)args;
-// 	node = init_envlist(env);
-// 	s = expand_vars("hola '$USER'$USER :) \n", node);
-// 	ft_putstr_fd(s, STDOUT_FILENO);
-// 	my_free((void **)&s);
-// 	clear_envlist(&node);
-// 	return (0);
-// }

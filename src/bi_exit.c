@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 19:33:36 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:57:45 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ int	my_atoi_circular(const char *nptr, int min, int max)
 
 void	handle_exit_error(char **args, int x)
 {
-	char	*s;
+	char	*err;
 
-	s = NULL;
+	err = NULL;
 	if (x == 1)
-		s = my_strjoin3("exit: ", args[1], ERR_ARG_INT);
+		err = my_strjoin3("exit: ", args[1], ERR_ARG_INT);
 	else if (x == 2)
-		s = ft_strjoin("exit", ERR_ARGS);
-	ft_putstr_fd(s, STDERR_FILENO);
-	my_free((void **)&s);
+		err = ft_strjoin("exit", ERR_ARGS);
+	ft_puterr(err);
+	my_free((void **)&err);
 }
 
 int	bi_exit(t_shell *mini_sh, t_cmd *cmd)
@@ -55,7 +55,7 @@ int	bi_exit(t_shell *mini_sh, t_cmd *cmd)
 		if (!ft_issigned_nbr(cmd->cmd_args[1]))
 			handle_exit_error(cmd->cmd_args, 1);
 		else
-			return (handle_exit_error(cmd->cmd_args, 2), 1);
+			return (handle_exit_error(cmd->cmd_args, 2), EXIT_FAILURE);
 	}
 	cmd_exit_and_clean(mini_sh, cmd, exit_code);
 	return (exit_code);

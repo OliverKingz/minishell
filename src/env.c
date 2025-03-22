@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:22:30 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:27:27 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:49:16 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**envlist_to_str(t_env *start)
 	}
 	env = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (!env)
-		return (NULL);
+		return (ft_puterr("env calloc"), NULL);
 	i = 0;
 	node = start;
 	while (node)

@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:03:23 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 23:42:04 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:35:12 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	bi_export(t_shell *mini_sh, t_cmd *cmd)
 		else
 		{
 			err = my_strjoin3("export: ", cmd->cmd_args[i], ERR_ID);
-			ft_putstr_fd(err, STDERR_FILENO);
+			ft_puterr(err);
 			my_free((void **)&err);
 			exit_code = EXIT_FAILURE;
 		}

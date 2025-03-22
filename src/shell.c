@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 22:56:31 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:50:00 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_shell	*create_shell(char **env)
 
 	mini_sh = (t_shell *)ft_calloc(1, sizeof(t_shell));
 	if (!mini_sh)
-		return (my_perr("create mini_sh", false, errno), NULL);
+		return (ft_puterr("shell calloc"), NULL);
 	mini_sh->exit_code = 0;
 	mini_sh->input = NULL;
 	mini_sh->env = init_envlist(env);

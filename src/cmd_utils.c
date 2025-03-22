@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/20 15:56:25 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:35:39 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	clear_cmd(t_cmd *cmd)
 
 void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd)
 {
-	char	*s;
+	char	*err;
 
 	if (cmd->cmd_path)
 		return ;
-	s = ft_strjoin(cmd->cmd_args[0], ERR_COMMAND);
-	ft_putstr_fd(s, STDERR_FILENO);
-	my_free((void **)&s);
+	err = ft_strjoin(cmd->cmd_args[0], ERR_COMMAND);
+	ft_puterr(err);
+	my_free((void **)&err);
 	cmd_exit_and_clean(mini_sh, cmd, 127);
 }

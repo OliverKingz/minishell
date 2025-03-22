@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:23:31 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/18 16:22:38 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:51:19 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	**get_args(t_token *node)
 	if (argc == 0 && !get_token_type(node, COMMAND))
 		return (NULL);
 	args = ft_calloc(argc + 2, sizeof(char *));
+	if (!args)
+		return (ft_puterr("get_args calloc"), NULL);
 	i = 0;
 	while (node && node->type != OP_PIPE)
 	{

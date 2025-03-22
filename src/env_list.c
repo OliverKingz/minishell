@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:08:08 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:41:41 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:48:41 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*create_envnode(char *name, char *value)
 
 	node = ft_calloc(1, sizeof(t_env));
 	if (!node)
-		return (my_perr("create_envnode", false, errno), NULL);
+		return (ft_puterr("env node calloc"), NULL);
 	node->name = name;
 	node->value = value;
 	node->next = NULL;

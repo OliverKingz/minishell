@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:25:14 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:26:17 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:34:08 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	bi_env(t_shell *mini_sh, t_cmd *cmd)
 	{
 		exit_code = EXIT_FAILURE;
 		err = ft_strjoin("env", ERR_ARGS);
-		ft_putstr_fd(err, STDERR_FILENO);
+		ft_puterr(err);
 		my_free((void **)&err);
 	}
 	return (exit_code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:15:01 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 14:55:13 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:55:05 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*my_replace_first(char *og, char *target, char *rep)
 	size = ft_strlen(og) - ft_strlen(target) + ft_strlen(rep);
 	s = ft_calloc(size + 1, sizeof(char));
 	if (!s)
-		return (NULL);
+		return (ft_puterr("str calloc"), NULL);
 	ft_memcpy(s, og, pos);
 	ft_memcpy(&s[pos], rep, ft_strlen(rep));
 	ft_memcpy(&s[pos + ft_strlen(rep)], &og[pos + ft_strlen(target)],

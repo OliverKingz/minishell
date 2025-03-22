@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:32:05 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/16 12:44:09 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:48:21 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*create_token(char *content, t_type token_type)
 
 	node = ft_calloc(1, sizeof(t_token));
 	if (!node)
-		return (my_perr("create_tokennode", false, errno), NULL);
+		return (ft_puterr("token node calloc"), NULL);
 	node->content = content;
 	node->type = token_type;
 	node->index = 0;
