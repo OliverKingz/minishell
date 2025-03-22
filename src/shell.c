@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:26:28 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:24:00 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	loop_shell(t_shell *mini_sh)
 		else if (loop_status == CONTINUE_LOOP)
 			continue ;
 		handle_heredocs(mini_sh);
+		print_tokenslist_short(mini_sh->input->token_lst);
 		execution(mini_sh);
 		rm_hdoc_files(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
 	}
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	return (mini_sh->exit_code);
 }
 
@@ -49,6 +51,27 @@ int	handle_readline_input(t_shell *mini_sh, char **readline)
 	if (!mini_sh->input)
 		return (my_free((void **)readline), CONTINUE_LOOP);
 	return (OKAY_LOOP);
+}
+
+int	loop_shell_non_interactive(t_shell *mini_sh)
+{
+	char	*read_line;
+	int		loop_status;
+
+	while (1)
+	{
+		read_line = readline(NULL);
+		loop_status = handle_readline_input(mini_sh, &read_line);
+		if (loop_status == BREAK_LOOP)
+			break ;
+		else if (loop_status == CONTINUE_LOOP)
+			continue ;
+		handle_heredocs(mini_sh);
+		execution(mini_sh);
+		rm_hdoc_files(mini_sh);
+		(my_free((void **)&read_line), free_input(&mini_sh));
+	}
+	return (mini_sh->exit_code);
 }
 
 t_shell	*create_shell(char **env)

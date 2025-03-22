@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/21 22:26:40 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:32:14 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	execution(t_shell *mini_sh)
 
 	if (g_signal == SIGINT)
 		return ;
-	print_tokenslist_short(mini_sh->input->token_lst);
 	bi_cmd = is_bi(mini_sh->input->token_lst);
 	if (mini_sh->input->pipe_count == 0 && bi_cmd)
 		exec_one_bi(mini_sh, bi_cmd);

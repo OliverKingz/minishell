@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 17:30:18 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:31:08 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void				hdoc_child_ctrl_c(int sign);
 t_shell				*create_shell(char **env);
 int					handle_readline_input(t_shell *mini_sh, char **readline);
 int					loop_shell(t_shell *mini_sh);
+int					loop_shell_non_interactive(t_shell *mini_sh);
 void				free_shell(t_shell *mini_sh);
 
 // input.c
