@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:48:00 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 23:42:04 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:51:41 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	register_var(t_shell *mini_sh, const char *argv)
 	char	*value;
 	int		eq_pos;
 
+	if (!argv)
+		return ;
 	eq_pos = my_strchr_pos(argv, '=');
 	if (eq_pos == -1)
 	{
