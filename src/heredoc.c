@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 12:40:46 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:32:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void process_and_put(t_shell *mini_sh, char *s, int fd)
 	char	*temp;
 
 	mark_variables(s, 0);
-	temp = expand_vars(s, mini_sh);
+	temp = expand_vars(s, mini_sh, 0);
 	if (temp)
 		ft_putendl_fd(temp, fd);
 	my_free((void **)&temp);

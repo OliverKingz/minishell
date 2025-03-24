@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:15:01 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:55:05 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:19:18 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,15 @@ int	my_strnstr_pos(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	little_length;
-	bool	is_double_quote;
 
 	little_length = ft_strlen(little);
 	if (little_length == 0)
 		return (0);
 	i = 0;
-	is_double_quote = false;
 	while (big[i] && i + little_length <= len)
 	{
-		if (big[i] == '\'' && !is_double_quote)
-		{
-			i++;
-			while (big[i] && big[i] != '\'')
-				i++;
-		}
-		else if (ft_strncmp(&big[i], little, little_length) == 0)
+		if (ft_strncmp(&big[i], little, little_length) == 0)
 			return (i);
-		else if (big[i] == '\"')
-			is_double_quote = !is_double_quote;
 		i++;
 	}
 	return (-1);

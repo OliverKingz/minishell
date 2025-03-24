@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/18 19:48:41 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:42:30 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	classify_word_token(t_shell *mini_sh)
 	while (current != NULL)
 	{
 		rm_external_quotes(current->content);
+		revert_security_mark(current->content);
 		classify_condition(current, &last_type, &single_cmd);
 		current = current->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 13:05:52 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:41:17 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ void	rm_external_quotes(char *s);
 
 void	mark_variables(char *s, int skip_quote);
 char	*extract_first_var(char *s);
-char	*expand_vars(char *og, t_shell *mini_sh);
+void	revert_security_mark(char *s);
+char	*expand_vars(char *og, t_shell *mini_sh, bool safe_exp);
 
 // token_list.c
 
