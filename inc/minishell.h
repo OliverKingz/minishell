@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 13:05:52 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:09:17 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_token
 	char			*content;
 	t_type			type;
 	int				index;
+	bool			had_quotes;
 	struct s_token	*next;
 }					t_token;
 
@@ -176,8 +177,10 @@ bool	validate_tokens_syntax(t_shell *mini_sh);
 // parser.c
 
 void	tokenize(t_shell *mini_sh);
-void	classify_word_token(t_shell *mini_sh);
+void	classify_word_in_tokens(t_shell *mini_sh);
 void	classify_condition(t_token *current, int *last_type, bool *single_cmd);
+void	rm_quotes_in_tokens(t_shell *mini_sh);
+void	retokenize(t_shell *mini_sh);
 
 // parser_utils.c
 
@@ -192,6 +195,7 @@ void	rm_external_quotes(char *s);
 void	mark_variables(char *s, int skip_quote);
 char	*extract_first_var(char *s);
 char	*expand_vars(char *og, t_shell *mini_sh);
+void	expand_vars_in_tokens(t_shell *mini_sh);
 
 // token_list.c
 
@@ -199,6 +203,7 @@ t_token	*create_token(char *content, t_type token_type);
 t_token	*init_tokenlist(t_shell *mini_sh);
 void	addback_token(t_shell *mini_sh, char *content, t_type token_type);
 void	clear_tokenlist(t_token **token_lst);
+void	insert_token(t_shell *mini_sh, t_token *prev_node, char *content, t_type token_type);
 
 // token_utils.c
 

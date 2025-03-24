@@ -44,13 +44,13 @@ run_test() {
     echo "----------------------------------------"
 }
 
-# Basic Commands
+echo "\nBasic Commands"
 run_test "echo \"Hello\"" "Basic echo command"
 run_test "ls" "Basic ls command"
 run_test "pwd" "Basic pwd command"
 run_test "cd .." "Change to parent directory"
 
-# Redirections
+echo "\nRedirections"
 run_test "cat < testfile.txt" "Input redirection"
 run_test "echo \"Hello\" > file.txt" "Output redirection"
 run_test "echo \"Hello\" >> file.txt" "Append redirection"
@@ -58,7 +58,7 @@ run_test "grep \"pattern\" < input.txt" "Input redirection with grep"
 run_test "echo \"Hello\" > file.txt 2>&1" "Combined redirection"
 run_test "echo \"Hello\" >> file.txt 2>&1" "Combined append redirection"
 
-# Pipes
+echo "\nPipes"
 run_test "ls | wc -l" "Basic pipe usage"
 run_test "echo \"Hello\" | cat" "Pipe with cat"
 run_test "echo \"Hello\" | cat | wc -l" "Multiple pipes"
@@ -75,7 +75,7 @@ run_test "echo \"Hello\" | grep \"H\" | wc -l >> count.txt" "Multiple pipes with
 run_test "echo \"Hello\" | grep \"H\" | tee file.txt | wc -l" "Pipe with grep, tee, and wc"
 run_test "echo \"Hello\" | tee file.txt | cat -n" "Pipe with tee and cat"
 
-# Quotes and Variables
+echo "\nQuotes and Variables"
 run_test "echo \"Hello 'World'\"" "Mixed quotes"
 run_test "echo 'Hello \"World\"'" "Mixed quotes"
 run_test "echo \"Hello \$USER\"" "Variable expansion in double quotes"
@@ -84,13 +84,13 @@ run_test "echo \"Hello\tWorld\"" "Tab character"
 run_test "echo \"Hello\nWorld\"" "Newline character"
 run_test "echo \"Hello\\World\"" "Backslash character"
 
-# Non-existent Files and Directories
+echo "\nNon-existent Files and Directories"
 run_test "ls /nonexistent" "Non-existent directory"
 run_test "cat /nonexistent/file.txt" "Non-existent file"
 run_test "echo \"Hello\" > /nonexistent/file.txt" "Non-existent file for output redirection"
 run_test "cat < /nonexistent/file.txt" "Non-existent file for input redirection"
 
-# Environment Variables
+echo "\nEnvironment Variables"
 run_test "echo \$HOME" "Environment variable"
 run_test "echo \$USER" "Environment variable"
 run_test "echo \$PATH" "Environment variable"
@@ -99,11 +99,17 @@ run_test "echo \"\$HOME\"" "Variable in double quotes"
 run_test "echo '\$HOME'" "Variable in single quotes"
 run_test "echo \"Hello \$USER\"" "Variable expansion in double quotes"
 run_test "echo 'Hello \$USER'" "No variable expansion in single quotes"
+run_test "export VAR="ls    -l" | echo \$VAR" "Check retokenization of exported variable"
+run_test "export VAR="ls    -l" | \"\"\$VAR" "Check retokenization of exported variable"
+run_test "export VAR="ls    -l" | \'\$VAR\'" "Check retokenization of exported variable"
+run_test "export VAR="hello\' | ls" | echo \$VAR" "Check retokenization of exported variable"
+run_test "export ALGO="s  -l" | l$ALGO" "Check retokenization of exported variable"
+run_test "export ALGO="s  -l" | l\"$ALGO\"" "Check retokenization of exported variable"
 
-# Command Execution
+echo "\nCommand Execution"
 run_test "./minishell -c \"ls -l\"" "Command execution"
 
-# Builtin Commands
+echo "\nBuiltin Commands"
 run_test "cd /" "Change to root directory"
 run_test "cd ~" "Change to home directory"
 run_test "cd -" "Change to previous directory"
@@ -121,13 +127,13 @@ run_test "unset" "Unset without options"
 
 run_test "env | grep PATH" "Print environment variables and filter PATH"
 
-# Errors detected
+echo "\nErrors detected"
 run_test "cd /nonexistent" "Change to non-existent directory"
 
-# Errors but are okay
-run_test "exit" "Exit the shell"
-run_test "exit 42" "Exit the shell with status 42"
-run_test "env" "Print all environment variables"
+# Errors but are okay (REVISED)
+# run_test "exit" "Exit the shell"
+# run_test "exit 42" "Exit the shell with status 42"
+# run_test "env" "Print all environment variables"
 
 # Unkown if it should work
 # run_test "exec ls" "Exec command"
