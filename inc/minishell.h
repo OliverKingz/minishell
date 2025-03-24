@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:41:17 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:52:45 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ int		bi_cd(t_shell *mini_sh, t_cmd *cmd);
 char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd);
 int		is_directory(char *route);
 int		change_update_dir(t_shell *mini_sh, char *path);
+void	handle_cd_error(char *path);
 
 // bi_echo.c
 

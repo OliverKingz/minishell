@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 13:05:39 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:11:06 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd)
 	return (path);
 }
 
+void	handle_cd_error(char *path)
+{
+	char	*err;
+
+	err = NULL;
+	if (access(path, F_OK), X_OK != 0)
+		err = ft_strjoin("cd: ", path);
+	else if (access(path, R_OK) != 0)
+		err = ft_strdup("cd");
+	else if (is_file(path))
+		err = ft_strjoin("cd: ", path);
+	else if (is_directory(path))
+		err = ft_strdup("cd");
+	if (err)
+	{
+		perror(err);
+		my_free((void **)&err);
+	}
+}
+
 int	change_update_dir(t_shell *mini_sh, char *path)
 {
 	int		exit_code;
@@ -59,7 +79,7 @@ int	change_update_dir(t_shell *mini_sh, char *path)
 	else
 		(perror("cd: getcwd"), exit_code = EXIT_FAILURE);
 	if (chdir(path) < 0)
-		(perror("cd"), exit_code = EXIT_FAILURE);
+		(handle_cd_error(path), exit_code = EXIT_FAILURE);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		register_var(mini_sh, oldpwd);
