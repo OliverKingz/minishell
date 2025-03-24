@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/23 00:02:08 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:30:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mark_variables(char *s)
+void	mark_variables(char *s, int skip_quote)
 {
 	bool	is_double_quote;
 
@@ -21,7 +21,7 @@ void	mark_variables(char *s)
 	is_double_quote = false;
 	while (*s)
 	{
-		if (*s == '\'' && !is_double_quote)
+		if (skip_quote && *s == '\'' && !is_double_quote)
 		{
 			s++;
 			my_skip(&s, '\'');
@@ -37,27 +37,18 @@ void	mark_variables(char *s)
 char	*extract_first_var(char *s)
 {
 	size_t	size;
-	bool	is_double_quote;
 
 	if (!s)
 		return (NULL);
-	is_double_quote = false;
 	while (*s)
 	{
-		if (*s == '\'' && !is_double_quote)
-		{
-			s++;
-			my_skip(&s, '\'');
-		}
-		else if (*s == -1 && s[1] == '?')
+		if (*s == -1 && s[1] == '?')
 			return (ft_strdup("\xFF?"));
 		else if (*s == -1 && (ft_isalpha(s[1]) || s[1] == '_'))
 		{
 			size = my_strlen_idname(&s[1]);
 			return (ft_substr(s, 0, size + 1));
 		}
-		else if (*s == '\"')
-			is_double_quote = !is_double_quote;
 		s++;
 	}
 	return (NULL);
@@ -71,7 +62,7 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 	char	*temp;
 
 	str = ft_strdup(og);
-	mark_variables(str);
+	mark_variables(str, 1);
 	while (1)
 	{
 		var = extract_first_var(str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/23 00:22:58 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:37:13 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	rm_external_quotes(char *s);
 
 // var_expansion.c
 
-void	mark_variables(char *s);
+void	mark_variables(char *s, int skip_quote);
 char	*extract_first_var(char *s);
 char	*expand_vars(char *og, t_shell *mini_sh);
 
@@ -245,8 +245,10 @@ int		handle_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 int		create_hdoc_file(int id);
 void	hdoc_child(t_shell *mini_sh, char *limiter, int id);
 void	handle_heredocs(t_shell *mini_sh);
-void	rm_hdoc_files(t_shell *mini_sh);
 void	hdoc_gnl(char *limiter, int id);
+
+// heredoc2.c
+void	rm_hdoc_files(t_shell *mini_sh);
 
 // cmd_utils.c
 

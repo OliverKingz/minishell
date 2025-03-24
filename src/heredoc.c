@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 12:07:36 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:40:46 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int	create_hdoc_file(int id)
 	my_free((void **)&num);
 	my_free((void **)&file);
 	return (fd);
+}
+
+static void process_and_put(t_shell *mini_sh, char *s, int fd)
+{
+	char	*temp;
+
+	mark_variables(s, 0);
+	temp = expand_vars(s, mini_sh);
+	if (temp)
+		ft_putendl_fd(temp, fd);
+	my_free((void **)&temp);
 }
 
 void	hdoc_gnl(char *limiter, int id)
@@ -78,7 +89,7 @@ void	hdoc_child(t_shell *mini_sh, char *limiter, int id)
 		else if (ft_strncmp(limiter, line, -1) == 0)
 			break ;
 		else
-			ft_putendl_fd(line, fd);
+			process_and_put(mini_sh, line, fd);
 		my_free((void **)&line);
 	}
 	(free_shell(mini_sh), my_close(&fd), exit(0));
@@ -110,29 +121,4 @@ void	handle_heredocs(t_shell *mini_sh)
 	}
 	if (interactive)
 		signal(SIGINT, handle_ctrl_c);
-}
-
-void	rm_hdoc_files(t_shell *mini_sh)
-{
-	char	*file;
-	char	*num;
-	char	*err;
-	int		i;
-
-	i = 0;
-	while (i < mini_sh->input->hdoc_count)
-	{
-		num = ft_itoa(i);
-		file = ft_strjoin("hdoc_minish", num);
-		if (unlink(file) == -1 && g_signal != SIGINT)
-		{
-			err = ft_strjoin("Error deleting: ", file);
-			perror(err);
-			my_free((void **)&err);
-			mini_sh->exit_code = 1;
-		}
-		my_free((void **)&num);
-		my_free((void **)&file);
-		i++;
-	}
 }
