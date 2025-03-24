@@ -193,16 +193,16 @@ bash: echo: write error: No space left on device
 
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar qué pasa cuando init_envlist devuelve NULL.
-  -> 
+  -> No pasa nada (no se rompe). ✅
 - Getenv
 - Heredoc
 - Chequear que tan probables es que falle dup/dup2
 
 - perror o personal err (buscar STDERR, puterr, my_perr, perror, calloc, malloc)
 - Modificar:
-		handle_heredocs(mini_sh); -> if hdoc_count == 0, salir
-		execution(mini_sh); -> if mini_sh->input == NULL, salir (???), que pasa cuando falla malloc aqui
-		rm_hdoc_files(mini_sh); -> if hdoc_count == 0, salir
+		handle_heredocs(mini_sh); -> if hdoc_count == 0, salir✅
+		execution(mini_sh); -> if mini_sh->input == NULL, salir (???), que pasa cuando falla malloc aqui✅
+		rm_hdoc_files(mini_sh); -> if hdoc_count == 0, salir ✅
 
 
 # SLACK

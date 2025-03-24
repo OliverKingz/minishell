@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:07:03 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:18:57 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:46:48 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	if (argc != 1)
-		(ft_puterr("Usage: ./minishell"), exit(EXIT_FAILURE));
+		(ft_puterr("Usage: ./minishell\n"), exit(EXIT_FAILURE));
 	mini_sh = create_shell(env);
 	if (!mini_sh)
 		return (EXIT_FAILURE);

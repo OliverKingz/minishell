@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/23 00:22:58 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:07:36 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	handle_heredocs(t_shell *mini_sh)
 	node = mini_sh->input->token_lst;
 	interactive = isatty(STDIN_FILENO);
 	signal(SIGINT, just_save_signal);
-	while (node && g_signal != SIGINT)
+	while (mini_sh->input->hdoc_count > 0 && node && g_signal != SIGINT)
 	{
 		if (node->type == REDIR_HD)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:48:00 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 16:51:41 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:56:13 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	is_valid_var_name(const char *argv)
 	int		eq_pos;
 	int		i;
 
+	if (!argv || ft_strlen(argv) <= 0 || argv[0] == '=')
+		return (false);
 	eq_pos = my_strchr_pos(argv, '=');
 	if (eq_pos == -1)
 		name = ft_strdup(argv);
