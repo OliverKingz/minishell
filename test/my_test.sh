@@ -25,8 +25,8 @@ run_test() {
     local bash_exit_code=$?
 
     # Normalize the outputs by removing the prefix
-    sed -i 's/^bash: line 1: //' "$TMP_MINISHELL_OUTPUT"
-    sed -i 's/^bash: line 1: //' "$TMP_BASH_OUTPUT"
+    # sed -i 's/^bash: line 1: //' "$TMP_MINISHELL_OUTPUT"
+    # sed -i 's/^bash: line 1: //' "$TMP_BASH_OUTPUT"
 
     # Compare the outputs
     diff "$TMP_MINISHELL_OUTPUT" "$TMP_BASH_OUTPUT" > "$DIFF_OUTPUT"
@@ -123,10 +123,11 @@ run_test "env | grep PATH" "Print environment variables and filter PATH"
 
 # Errors detected
 run_test "cd /nonexistent" "Change to non-existent directory"
+
+# Errors but are okay
 run_test "exit" "Exit the shell"
 run_test "exit 42" "Exit the shell with status 42"
 run_test "env" "Print all environment variables"
-
 
 # Unkown if it should work
 # run_test "exec ls" "Exec command"
@@ -160,7 +161,7 @@ run_test "env" "Print all environment variables"
 
 # Clean up temporary files
 rm "$TMP_MINISHELL_OUTPUT" "$TMP_BASH_OUTPUT" "$DIFF_OUTPUT"
-rm file.txt output.txt count.txt
+rm file.txt output.txt count.txt "&1"
 
 echo "|          All tests completed         |"
 echo "----------------------------------------"

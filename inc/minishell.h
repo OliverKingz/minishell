@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 12:37:13 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:05:52 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,6 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
 int		bi_cd(t_shell *mini_sh, t_cmd *cmd);
 char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd);
 int		is_directory(char *route);
-void	expand_tilde(t_shell *mini_sh, char **og_path);
 int		change_update_dir(t_shell *mini_sh, char *path);
 
 // bi_echo.c

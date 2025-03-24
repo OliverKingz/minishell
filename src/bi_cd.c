@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/21 17:35:57 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:05:39 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,6 @@ char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd)
 	else
 		path = cmd->cmd_args[1];
 	return (path);
-}
-
-void	expand_tilde(t_shell *mini_sh, char **og_path)
-{
-	char	*var;
-	char	*temp;
-	char	*home;
-	char	*path;
-
-	temp = *og_path;
-	var = ft_strdup("~");
-	home = ft_strdup(my_getenv(mini_sh->env, "HOME"));
-	path = my_replace_first(temp, var, home);
-	my_free((void **)&temp);
-	my_free((void **)&var);
-	my_free((void **)&home);
-	*og_path = path;
-	my_free((void **)&temp);
 }
 
 int	change_update_dir(t_shell *mini_sh, char *path)
@@ -98,8 +80,6 @@ int	bi_cd(t_shell *mini_sh, t_cmd *cmd)
 	path = ft_strdup(cd_set_path(mini_sh, cmd));
 	if (!path)
 		return (EXIT_FAILURE);
-	if (path[0] == '~')
-		expand_tilde(mini_sh, &path);
 	exit_code = change_update_dir(mini_sh, path);
 	return (my_free((void **)&path), exit_code);
 }
