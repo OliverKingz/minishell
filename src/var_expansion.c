@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 15:45:10 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:30:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 	char	*temp;
 
 	str = ft_strdup(og);
+	mark_variables(str, 1);
 	while (1)
 	{
 		var = extract_first_var(str);
@@ -80,19 +81,4 @@ char	*expand_vars(char *og, t_shell *mini_sh)
 		my_free((void **)&value);
 	}
 	return (str);
-}
-
-void	expand_vars_in_tokens(t_shell *mini_sh)
-{
-	char	*str;
-	t_token	*current;
-
-	current = mini_sh->input->token_lst;
-	while (current)
-	{
-		str = current->content;
-		current->content = expand_vars(str, mini_sh);
-		my_free((void **)&str);
-		current = current->next;
-	}
 }

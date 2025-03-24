@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 14:59:50 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/22 23:47:05 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	mini_sh->input = (t_input *)ft_calloc(1, sizeof(t_input));
 	if (!mini_sh->input)
 		return (free_shell(mini_sh), ft_puterr("input calloc"), NULL);
-	mini_sh->input->read_line = ft_strdup(read_line);
+	mini_sh->input->read_line = expand_vars(read_line, mini_sh);
 	if (!mini_sh->input->read_line)
 		return (free_shell(mini_sh), ft_puterr("expanded line"), NULL);
 	mini_sh->input->token_lst = init_tokenlist(mini_sh);

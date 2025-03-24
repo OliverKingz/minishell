@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 15:42:27 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:48:41 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	tokenize(t_shell *mini_sh)
 	}
 	if (i[1] > i[0])
 		addback_token(mini_sh, ft_substr(current, i[0], i[1] - i[0]), WORD);
-	classify_word_in_tokens(mini_sh);
+	classify_word_token(mini_sh);
 }
 
-void	classify_word_in_tokens(t_shell *mini_sh)
+void	classify_word_token(t_shell *mini_sh)
 {
 	t_token	*current;
 	bool	single_cmd;
@@ -45,6 +45,7 @@ void	classify_word_in_tokens(t_shell *mini_sh)
 	current = mini_sh->input->token_lst;
 	while (current != NULL)
 	{
+		rm_external_quotes(current->content);
 		classify_condition(current, &last_type, &single_cmd);
 		current = current->next;
 	}
@@ -74,45 +75,4 @@ void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
 	else if (current->type == OP_PIPE)
 		*single_cmd = false;
 	*last_type = current->type;
-}
-
-void	rm_quotes_in_tokens(t_shell *mini_sh)
-{
-	t_token	*current;
-
-	current = mini_sh->input->token_lst;
-	while (current != NULL)
-	{
-		mark_variables(current->content, 1);
-		rm_external_quotes(current->content);
-		current = current->next;
-	}
-}
-
-void	retokenize(t_shell *mini_sh)
-{
-	int		i;
-	char	**str;
-	t_token	*current;
-
-	str = NULL;
-	current = mini_sh->input->token_lst;
-	while (current != NULL)
-	{
-		if (current->had_quotes)
-		{
-			str = ft_split(current->content, ' ');
-			my_free((void **)&(current->content));
-			current->content = ft_strdup(str[0]);
-			i = 1;
-			while(str[i])
-			{
-				insert_token(mini_sh, current, ft_strdup(str[i]), CMD_ARG);
-				current = current->next;
-				i++;
-			}
-			my_free2d((void ***) &str);
-		}
-		current = current->next;
-	}
 }
