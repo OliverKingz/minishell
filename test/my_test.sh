@@ -25,8 +25,8 @@ run_test() {
     local bash_exit_code=$?
 
     # Normalize the outputs by removing the prefix
-    # sed -i 's/^bash: line 1: //' "$TMP_MINISHELL_OUTPUT"
-    # sed -i 's/^bash: line 1: //' "$TMP_BASH_OUTPUT"
+    sed -i 's/^bash: line 1: //' "$TMP_MINISHELL_OUTPUT"
+    sed -i 's/^bash: line 1: //' "$TMP_BASH_OUTPUT"
 
     # Compare the outputs
     diff "$TMP_MINISHELL_OUTPUT" "$TMP_BASH_OUTPUT" > "$DIFF_OUTPUT"

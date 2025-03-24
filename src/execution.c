@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 12:08:43 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:09:19 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	execution(t_shell *mini_sh)
 	t_builtin	bi_cmd;
 
 	if (g_signal == SIGINT)
-		return ;
-	if (!mini_sh->input)
 		return ;
 	bi_cmd = is_bi(mini_sh->input->token_lst);
 	if (mini_sh->input->pipe_count == 0 && bi_cmd)

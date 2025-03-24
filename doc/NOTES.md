@@ -74,14 +74,6 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   ""ec"""ho" ✅
   "echo" 'que' ""tal"" ''yo'' ✅
 ```
-  "echo" 'que' ""tal"" ''yo'' ✅
-    [echo     ]→[que      ]→[tal      ]→[yo       ]
-    [COMMAND  ]→[ARG      ]→[ARG      ]→[ARG      ]
-
-## SEÑALES
-- Si pones algo, y usas CTRL+D no hace exit, solo si está esperando.✅
-- Hacer signal.c ✅
-  - signal(SIGINT, handle_ctrl_c); ✅
   - Investigar para que vale señal global ✅
   - signal(SIGQUIT, handle_ctrl_backslash) ✅
     -	signal(SIGQUIT, SIG_IGN);
@@ -176,26 +168,23 @@ bash: echo: write error: No space left on device
   - Ruta con ~, expansion
   - Ruta con -, cambia al directorio anterior
 
-- Revisar bi por casos flags multiples. Mirar solo si el char es una flag uno a uno. 
-- Fix export ''
-- Hacer SHLVL en create_shell
+- Revisar bi por casos flags multiples. Mirar solo si el char es una flag uno a uno. ✅
+- Hacer SHLVL en create_shell ✅
 
 # TO DO LEJANO OLIVER
-- Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura.
+- Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura. ✅
   - Incluso si lo mato en otra ventana.
-- Poner loop en un fork???
 
 - History file (no es obligatorio)
   - Create with open, append. 
   - Como pongo limite? 
 
-- Modo interactivo. Hacer infile con varios comandos. Quitar promp, hacer otro loop
+- Modo interactivo. Hacer infile con varios comandos. Quitar promp, hacer otro loop ✅
 
 # TO DO/PREGUNTAR/DECIR A RAUL
 - Mirar qué pasa cuando init_envlist devuelve NULL.
   -> No pasa nada (no se rompe). ✅
-- Getenv
-- Heredoc
+- Heredoc WIP
 - Chequear que tan probables es que falle dup/dup2
 
 - perror o personal err (buscar STDERR, puterr, my_perr, perror, calloc, malloc)
@@ -217,6 +206,7 @@ bash: echo: write error: No space left on device
   -> Tiene razon. Por el subject no lo menciona. 
 - Preguntar si poner declare -x. @tischmid en Slack pone que no, que lo tiraria✅
   -> Lo hemos quitado. No queremos programar declare. 
+- Fix export ''✅
 
 
 ---
