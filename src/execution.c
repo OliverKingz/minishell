@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:50:51 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 14:09:19 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:49:26 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd)
 	cmd_not_found(mini_sh, cmd);
 	cmd->is_bi = is_bi(cmd_node);
 	if (!cmd->is_bi)
-		execve(cmd->cmd_path, cmd->cmd_args, cmd->env);
+		safe_execve(mini_sh, cmd);
 	bi_exit_code = exec_bi(mini_sh, cmd, cmd->is_bi);
 	cmd_exit_and_clean(mini_sh, cmd, bi_exit_code);
 	return (bi_exit_code);
