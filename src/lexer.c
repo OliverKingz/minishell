@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:07:03 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:23:03 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ bool	validate_rline_syntax(char *read_line)
 	current = read_line;
 	s_quote_count = 0;
 	d_quote_count = 0;
+	i = 0;
+	while (ft_isspace(current[i]))
+		i++;
+	if (current[i] == '|')
+		return (ft_puterr(ERR_SYNTAX_PP), false);
 	i = -1;
 	while (current[++i] != '\0')
 	{

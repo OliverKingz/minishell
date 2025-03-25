@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 11:07:20 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:49:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 
 # define ERR_SYNTAX "syntax error\n"
 # define ERR_SYNTAX_NL "syntax error near unexpected token `newline'\n"
+# define ERR_SYNTAX_PP "syntax error near unexpected token `|'\n"
 # define ERR_COMMAND ": command not found\n"
 # define ERR_ARGS ": too many arguments\n"
 # define ERR_ARG_INT ": numeric argument required\n"

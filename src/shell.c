@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:23:16 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:23:37 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	loop_shell(t_shell *mini_sh)
 		else if (loop_status == CONTINUE_LOOP)
 			continue ;
 		handle_heredocs(mini_sh);
-		print_tokenslist_short(mini_sh->input->token_lst);
+		//print_tokenslist_short(mini_sh->input->token_lst);
 		execution(mini_sh);
 		rm_hdoc_files(mini_sh);
 		(my_free((void **)&read_line), free_input(&mini_sh));
