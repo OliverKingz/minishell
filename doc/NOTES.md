@@ -208,5 +208,16 @@ bash: echo: write error: No space left on device
   -> Lo hemos quitado. No queremos programar declare. 
 - Fix export ''✅
 
+# TESTERS
+- << $USER -> WILL FIX
+- << 'LIM' -> MIRAR SI ES FACIL DE ARREGLAR
+- ./ls, fixed, de momento bash error no es igual
+
+- echo -FIXED
+
+- $() Y $"" -> NO APLICAMOS
+- export += NOT HANDLED
+- $_ -> NO PIDE SUBJECT
+
 
 ---
