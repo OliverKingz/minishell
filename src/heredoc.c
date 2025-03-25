@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/25 10:48:24 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:02:51 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	create_hdoc_file(int id)
 	return (fd);
 }
 
-static void process_and_put(t_shell *mini_sh, char *s, int fd)
+static void	process_and_put(t_shell *mini_sh, char *s, int fd)
 {
 	char	*temp;
 

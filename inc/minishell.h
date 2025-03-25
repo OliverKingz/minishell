@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 11:07:20 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:49:55 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,10 @@ void	execution(t_shell *mini_sh);
 void	execute_cmds(t_shell *mini_sh);
 pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 int		wait_children(t_input *input);
+
+// execution2.c
+
+void	safe_execve(t_shell *mini_sh, t_cmd *cmd);
 
 // redirections.c
 
