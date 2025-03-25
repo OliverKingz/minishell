@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:01:51 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/20 12:27:07 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:21:56 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	is_nflag(char *arg)
 			return (false);
 		i++;
 	}
+	if (i == 1)
+		return (false);
 	return (true);
 }
 
