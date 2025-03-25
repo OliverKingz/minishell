@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 18:25:35 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/14 19:46:42 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:07:03 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ bool	validate_tokens_syntax(t_shell *mini_sh)
 			|| (current->type == REDIR_HD && is_next_token_symbol(current))
 			|| (current->type == REDIR_APP && is_next_token_symbol(current)))
 		{
+			mini_sh->exit_code = 2;
 			return (ft_puterr(ERR_SYNTAX), false);
 		}
 		current = current->next;

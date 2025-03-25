@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:41 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:50:00 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:23:16 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	handle_readline_input(t_shell *mini_sh, char **readline)
 	else
 		add_history(*readline);
 	if (!validate_rline_syntax(*readline))
+	{
+		mini_sh->exit_code = 2;
 		return (my_free((void **)readline), CONTINUE_LOOP);
+	}
 	mini_sh->input = init_input(mini_sh, *readline);
 	if (!mini_sh->input)
 		return (my_free((void **)readline), CONTINUE_LOOP);

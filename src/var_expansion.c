@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_expansion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:40:58 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:46:40 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mark_variables(char *s, int skip_quote)
 			s++;
 			my_skip(&s, '\'');
 		}
-		else if (*s == '$' && (ft_isalpha(s[1]) || ft_strchr("_?", s[1])))
+		else if (*s == '$' && (ft_isalpha(s[1]) || s[1] == '_' || s[1] == '?'))
 			*s = -1;
 		else if (*s == '\"')
 			is_double_quote = !is_double_quote;
@@ -44,7 +44,7 @@ char	*extract_first_var(char *s)
 	{
 		if (*s == -1 && s[1] == '?')
 			return (ft_strdup("\xFF?"));
-		else if (*s == -1 && (ft_isalpha(s[1]) || s[1] == '_'))
+		else if (*s == -1)
 		{
 			size = my_strlen_idname(&s[1]);
 			return (ft_substr(s, 0, size + 1));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:32:19 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 10:48:24 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void process_and_put(t_shell *mini_sh, char *s, int fd)
 	my_free((void **)&temp);
 }
 
-void	hdoc_gnl(char *limiter, int id)
+void	hdoc_gnl(t_shell *mini_sh, char *limiter, int id)
 {
 	int		fd;
 	char	*temp;
@@ -59,7 +59,7 @@ void	hdoc_gnl(char *limiter, int id)
 		if (ft_strncmp(limiter, line, -1) == 0)
 			break ;
 		else
-			ft_putendl_fd(line, fd);
+			process_and_put(mini_sh, line, fd);
 		my_free((void **)&line);
 	}
 	my_free((void **)&line);
@@ -115,7 +115,7 @@ void	handle_heredocs(t_shell *mini_sh)
 				wait(NULL);
 			}
 			else
-				hdoc_gnl(node->next->content, id++);
+				hdoc_gnl(mini_sh, node->next->content, id++);
 		}
 		node = node->next;
 	}

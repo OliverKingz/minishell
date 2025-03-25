@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:52:45 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:07:20 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ int		handle_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 int		create_hdoc_file(int id);
 void	hdoc_child(t_shell *mini_sh, char *limiter, int id);
 void	handle_heredocs(t_shell *mini_sh);
-void	hdoc_gnl(char *limiter, int id);
+void	hdoc_gnl(t_shell *mini_sh, char *limiter, int id);
 
 // heredoc2.c
 void	rm_hdoc_files(t_shell *mini_sh);
