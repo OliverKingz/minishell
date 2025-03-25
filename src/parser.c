@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:42:30 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:11:05 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,19 @@ void	classify_word_token(t_shell *mini_sh)
 	t_token	*current;
 	bool	single_cmd;
 	int		last_type;
+	size_t	og_len;
 
 	last_type = WORD;
 	single_cmd = false;
 	current = mini_sh->input->token_lst;
 	while (current != NULL)
 	{
+		og_len = ft_strlen(current->content);
 		rm_external_quotes(current->content);
+		if (og_len == ft_strlen(current->content))
+			current->had_quotes = false;
+		else
+			current->had_quotes = true;
 		revert_security_mark(current->content);
 		classify_condition(current, &last_type, &single_cmd);
 		current = current->next;

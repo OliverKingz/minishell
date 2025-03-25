@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:54:45 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:54:47 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:15:56 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,45 @@ char	*my_strjoin4(char const *s1, char const *s2, char const *s3,
 	joined = ft_strjoin(aux, s4);
 	my_free((void **)&aux);
 	return (joined);
+}
+
+void	skip_in_quotes(char **s)
+{
+	char	quote;
+
+	if (**s == '\'' || **s == '\"')
+	{
+		quote = **s;
+		(*s)++;
+		my_skip(s, quote);
+	}
+}
+
+void	correct_mark(char *s)
+{
+	char	quote;
+
+	while (*s)
+	{
+		skip_in_quotes(&s);
+		if (ft_strnstr(s, "<<", 2))
+		{
+			s += 2;
+			while (*s && ft_isspace(*s))
+				s++;
+			quote = 0;
+			while (*s && !(ft_isspace(*s) && !quote))
+			{
+				if (!quote && (*s == '\'' || *s == '\"'))
+					quote = *s;
+				else if (*s == quote)
+					quote = 0;
+				else if (*s == -1)
+					*s = '$';
+				s++;
+			}
+		}
+		if (*s)
+			s++;
+	}
 }
