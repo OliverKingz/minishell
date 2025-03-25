@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:35:39 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:53:02 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*locate_cmd(t_shell *mini_sh, t_token *node)
 	name = node->content;
 	if ((access(name, X_OK) == 0 && is_file(name)) || is_bi(node))
 		return (ft_strdup(name));
+	if (ft_strchr(name, '/'))
+		return (NULL);
 	path = ft_split(my_getenv(mini_sh->env, "PATH"), ':');
 	i = 0;
 	while (path && path[i])
