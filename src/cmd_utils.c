@@ -6,7 +6,7 @@
 /*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/25 18:02:39 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:02:58 by raperez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*locate_cmd(t_shell *mini_sh, t_token *node)
 	if (!node)
 		return (NULL);
 	name = node->content;
-	if (strchr(name, '/') || (access(name, X_OK) == 0 && is_file(name))
+	if (ft_strchr(name, '/') || (access(name, X_OK) == 0 && is_file(name))
 		|| is_bi(node))
 		return (ft_strdup(name));
 	path = ft_split(my_getenv(mini_sh->env, "PATH"), ':');
