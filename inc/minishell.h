@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/26 02:26:08 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:54:27 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ bool	validate_rline_syntax(char *read_line);
 bool	check_syntax_quotes(char *current, int i, int *sq_count, int *dq_count);
 bool	validate_tokens_syntax(t_shell *mini_sh);
 
-// parser.c
+// parser_tokenize.c
 
 void	tokenize(t_shell *mini_sh);
 void	classify_word_token(t_shell *mini_sh);
@@ -254,14 +254,14 @@ void	execution(t_shell *mini_sh);
 void	execute_cmds(t_shell *mini_sh);
 pid_t	exe_in_child(t_shell *mini_sh, t_token *node, t_cmd *cmd);
 int		wait_children(t_input *input);
-
-// execution2.c
-
 void	safe_execve(t_shell *mini_sh, t_cmd *cmd);
 
 // redirections.c
 
 int		handle_redirections(t_shell *mini_sh, t_token *node, t_cmd *cmd);
+void	open_hdoc_file(t_shell *mini_sh, t_cmd *cmd);
+void	open_outfile(t_token *node, t_cmd *cmd);
+void	open_infile(t_token *node, t_cmd *cmd);
 
 // heredoc.c
 
@@ -277,8 +277,9 @@ void	rm_hdoc_files(t_shell *mini_sh);
 
 char	*locate_cmd(t_shell *mini_sh, t_token *node);
 t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
+void	init_pipes(int *pipe1, int *pipe2);
 
-// cmd_utils2.c
+// cmd_exit.c
 
 void	clear_cmd(t_cmd *cmd);
 void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd);

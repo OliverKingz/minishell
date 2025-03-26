@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:56:59 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/21 22:42:05 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:45:47 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	open_hdoc_file(t_shell *mini_sh, t_cmd *cmd)
+void	open_hdoc_file(t_shell *mini_sh, t_cmd *cmd)
 {
 	char	*file;
 	char	*num;
@@ -29,7 +29,7 @@ static void	open_hdoc_file(t_shell *mini_sh, t_cmd *cmd)
 	}
 }
 
-static void	open_outfile(t_token *node, t_cmd *cmd)
+void	open_outfile(t_token *node, t_cmd *cmd)
 {
 	if (node->type == REDIR_OUT || node->type == REDIR_APP)
 	{
@@ -43,7 +43,7 @@ static void	open_outfile(t_token *node, t_cmd *cmd)
 	}
 }
 
-static void	open_infile(t_token *node, t_cmd *cmd)
+void	open_infile(t_token *node, t_cmd *cmd)
 {
 	if (node->type == REDIR_IN)
 	{

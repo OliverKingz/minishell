@@ -6,20 +6,12 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:23:31 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:51:19 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:44:26 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Returns the first token of the specified type.
- * Checks until it reaches a pipe or the end of the list.
- *
- * @param node The starting node of the token list.
- * @param type The type of token to search for.
- * @return t_token* The first token of the specified type, or NULL if not found.
- */
 t_token	*get_token_type(t_token *node, t_type type)
 {
 	while (node)
@@ -33,15 +25,6 @@ t_token	*get_token_type(t_token *node, t_type type)
 	return (NULL);
 }
 
-/**
- * @brief Returns the first token with the specified content.
- * Checks until it reaches a pipe or the end of the list.
- *
- * @param node The starting node of the token list.
- * @param content The content of the token to search for.
- * @return t_token* The first token with the specified content,
-	or NULL if not found.
- */
 t_token	*get_token_content(t_token *node, char *content)
 {
 	size_t	len_content;
@@ -57,14 +40,6 @@ t_token	*get_token_content(t_token *node, char *content)
 	return (NULL);
 }
 
-/**
- * @brief Returns an array of strings with each of the arguments
- * from the initial node to a pipe or the end. The command itself
- * is argument 0 (necessary for execve).
- *
- * @param node The starting node of the token list.
- * @return char** An array of strings representing the arguments.
- */
 char	**get_args(t_token *node)
 {
 	char	**args;
@@ -88,14 +63,6 @@ char	**get_args(t_token *node)
 	return (args);
 }
 
-/**
- * @brief Returns the number of nodes of the specified type
- * until it finds a pipe or reaches the end.
- *
- * @param node The starting node of the token list.
- * @param type The type of token to count.
- * @return int The number of tokens of the specified type.
- */
 int	count_token_type(t_token *node, t_type type)
 {
 	int	i;
