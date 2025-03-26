@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/26 02:54:27 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:00:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void	hdoc_gnl(t_shell *mini_sh, t_token *lim_node, int id);
 // heredoc2.c
 void	rm_hdoc_files(t_shell *mini_sh);
 
-// cmd_utils.c
+// cmd.c
 
 char	*locate_cmd(t_shell *mini_sh, t_token *node);
 t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);

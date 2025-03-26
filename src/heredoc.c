@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 20:03:26 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/25 22:10:32 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:02:24 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handle_heredocs(t_shell *mini_sh)
+{
+	int		id;
+	t_token	*node;
+	bool	interactive;
+
+	id = 0;
+	node = mini_sh->input->token_lst;
+	interactive = isatty(STDIN_FILENO);
+	signal(SIGINT, just_save_signal);
+	while (mini_sh->input->hdoc_count > 0 && node && g_signal != SIGINT)
+	{
+		if (node->type == REDIR_HD)
+		{
+			if (interactive)
+			{
+				hdoc_child(mini_sh, node->next, id++);
+				wait(NULL);
+			}
+			else
+				hdoc_gnl(mini_sh, node->next, id++);
+		}
+		node = node->next;
+	}
+	if (interactive)
+		signal(SIGINT, handle_ctrl_c);
+}
 
 int	create_hdoc_file(int id)
 {
@@ -98,32 +126,4 @@ void	hdoc_child(t_shell *mini_sh, t_token *lim_node, int id)
 		my_free((void **)&line);
 	}
 	(free_shell(mini_sh), my_close(&fd), exit(0));
-}
-
-void	handle_heredocs(t_shell *mini_sh)
-{
-	int		id;
-	t_token	*node;
-	bool	interactive;
-
-	id = 0;
-	node = mini_sh->input->token_lst;
-	interactive = isatty(STDIN_FILENO);
-	signal(SIGINT, just_save_signal);
-	while (mini_sh->input->hdoc_count > 0 && node && g_signal != SIGINT)
-	{
-		if (node->type == REDIR_HD)
-		{
-			if (interactive)
-			{
-				hdoc_child(mini_sh, node->next, id++);
-				wait(NULL);
-			}
-			else
-				hdoc_gnl(mini_sh, node->next, id++);
-		}
-		node = node->next;
-	}
-	if (interactive)
-		signal(SIGINT, handle_ctrl_c);
 }
