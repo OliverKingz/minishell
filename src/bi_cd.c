@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 23:20:43 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:13:17 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	change_update_dir(t_shell *mini_sh, char *path)
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		oldpwd = ft_strjoin("OLDPWD=", cwd);
 	else
-		return ((perror("cd: getcwd"), EXIT_FAILURE));
+		(exit_code = EXIT_FAILURE);
 	if (chdir(path) < 0)
-		return (my_free((void **)&oldpwd), handle_cd_error(path), EXIT_FAILURE);
+		return (handle_cd_error(path), my_free((void **)&oldpwd), EXIT_FAILURE);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		register_var(mini_sh, oldpwd);

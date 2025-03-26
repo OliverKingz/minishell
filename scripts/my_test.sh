@@ -267,14 +267,53 @@ run_test "$(cat <<EOF
 export VAR="'hello' | ls"
 echo \$VAR
 EOF
-)" "Check retokenization of exported variable"
+)" "Err"
 
 run_test "$(cat <<EOF
 export VAR="echo 'Hello' > output.txt"
 echo \$VAR
 EOF
-)" "Check retokenization with redirection"
+)" "Err"
 
+run_test "$(cat <<EOF
+mkdir -p t1/t2/t3
+cd t1/t2/t3
+rm -rf ../../../t1
+pwd
+cd ..
+cd ..
+cd ..
+pwd
+EOF
+)" "Err"
+
+run_test "$(cat <<EOF
+mkdir -p t1/t2/t3
+cd t1/t2/t3
+rm -rf ../../../t1
+pwd
+cd ..
+cd -
+cd -
+cd ..
+cd ..
+pwd
+EOF
+)" "Err"
+
+run_test "$(cat <<EOF
+mkdir -p t1/t2/t3
+cd t1/t2/t3
+rm -rf ../../../t1
+env | grep PWD
+cd ..
+env | grep PWD
+cd ..
+env | grep PWD
+cd ..
+env | grep PWD
+EOF
+)" "Err"
 
 
 # echo  -e "\n${BB}--------------------------------------------------------------------------------${NC}"
