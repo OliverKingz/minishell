@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/26 02:59:47 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 03:38:12 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2)
 
 void	init_pipes(int *pipe1, int *pipe2)
 {
-*pipe1 = -1;
-pipe2[READ_END] = -1;
-pipe2[WRITE_END] = -1;
+	*pipe1 = -1;
+	pipe2[READ_END] = -1;
+	pipe2[WRITE_END] = -1;
 }
