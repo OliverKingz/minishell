@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:15:01 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/24 18:19:18 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:18:20 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,43 @@ int	my_strnstr_pos(const char *big, const char *little, size_t len)
 	return (-1);
 }
 
-char	*my_replace_first(char *og, char *target, char *rep)
+char	*my_strjoin3(char const *s1, char const *s2, char const *s3)
 {
-	int		pos;
-	size_t	size;
-	char	*s;
+	char	*joined;
+	int		s1_len;
+	int		s2_len;
+	int		s3_len;
+	int		i;
 
-	if (!og || !target || !rep)
-		return (NULL);
-	pos = my_strnstr_pos(og, target, ft_strlen(og));
-	if (pos == -1)
-		return (ft_strdup(og));
-	size = ft_strlen(og) - ft_strlen(target) + ft_strlen(rep);
-	s = ft_calloc(size + 1, sizeof(char));
-	if (!s)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	s3_len = ft_strlen(s3);
+	joined = (char *)ft_calloc((s1_len + s2_len + s3_len + 1), sizeof(char));
+	if (!joined)
 		return (ft_puterr("str calloc"), NULL);
-	ft_memcpy(s, og, pos);
-	ft_memcpy(&s[pos], rep, ft_strlen(rep));
-	ft_memcpy(&s[pos + ft_strlen(rep)], &og[pos + ft_strlen(target)],
-		ft_strlen(&og[pos + ft_strlen(target)]));
-	return (s);
+	i = -1;
+	while (++i < s1_len)
+		joined[i] = s1[i];
+	i = -1;
+	while (++i < s2_len)
+		joined[s1_len + i] = s2[i];
+	i = -1;
+	while (++i < s3_len)
+		joined[s1_len + s2_len + i] = s3[i];
+	joined[s1_len + s2_len + s3_len] = '\0';
+	return (joined);
 }
 
-void	my_skip(char **s, char c)
+int	my_atoi_circular(const char *nptr, int min, int max)
 {
-	if (!s || !*s)
-		return ;
-	while (**s && **s != c)
-		(*s)++;
+	int	nbr;
+	int	range;
+
+	nbr = ft_atoi(nptr);
+	range = max - min + 1;
+	if (nbr < min)
+		nbr = nbr + range * ((min - nbr) / range + 1);
+	else if (nbr > max)
+		nbr = nbr - range * ((nbr - max) / range + 1);
+	return (nbr);
 }

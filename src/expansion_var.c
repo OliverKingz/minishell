@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_expansion.c                                    :+:      :+:    :+:   */
+/*   expansion_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/25 12:46:40 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:15:22 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,35 @@ void	mark_variables(char *s, int skip_quote)
 	}
 }
 
+void	revert_mark_variables(char *s)
+{
+	char	quote;
+
+	while (*s)
+	{
+		skip_in_quotes(&s);
+		if (ft_strnstr(s, "<<", 2))
+		{
+			s += 2;
+			while (*s && ft_isspace(*s))
+				s++;
+			quote = 0;
+			while (*s && !(ft_isspace(*s) && !quote))
+			{
+				if (!quote && (*s == '\'' || *s == '\"'))
+					quote = *s;
+				else if (*s == quote)
+					quote = 0;
+				else if (*s == -1)
+					*s = '$';
+				s++;
+			}
+		}
+		if (*s)
+			s++;
+	}
+}
+
 char	*extract_first_var(char *s)
 {
 	size_t	size;
@@ -52,52 +81,6 @@ char	*extract_first_var(char *s)
 		s++;
 	}
 	return (NULL);
-}
-
-void	revert_security_mark(char *s)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == -2)
-			s[i] = '\'';
-		else if (s[i] == -3)
-			s[i] = '\"';
-		else if (s[i] == -4)
-			s[i] = '|';
-		else if (s[i] == -5)
-			s[i] = '<';
-		else if (s[i] == -6)
-			s[i] = '>';
-		i++;
-	}
-}
-
-static void	security_mark(char *s)
-{
-	int	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'')
-			s[i] = -2;
-		else if (s[i] == '\"')
-			s[i] = -3;
-		else if (s[i] == '|')
-			s[i] = -4;
-		else if (s[i] == '<')
-			s[i] = -5;
-		else if (s[i] == '>')
-			s[i] = -6;
-		i++;
-	}
 }
 
 char	*expand_vars(char *og, t_shell *mini_sh, bool safe_exp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 22:07:41 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:26:08 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,11 @@ typedef struct s_shell
 
 /* ************************************************************************** */
 
+// type_check.c
+
+int		is_file(char *route);
+int		is_directory(char *route);
+
 // signal.c
 
 void	handle_ctrl_c(int signal_sigint);
@@ -179,7 +184,6 @@ bool	validate_tokens_syntax(t_shell *mini_sh);
 
 void	tokenize(t_shell *mini_sh);
 void	classify_word_token(t_shell *mini_sh);
-void	classify_condition(t_token *current, int *last_type, bool *single_cmd);
 
 // parser_utils.c
 
@@ -189,12 +193,24 @@ void	handle_pipe_space(t_shell *mini_sh, char *current, int i[2], int *type);
 void	rm_chr_pos(char *s, int pos);
 void	rm_external_quotes(char *s);
 
-// var_expansion.c
+// expansion_var.c
 
 void	mark_variables(char *s, int skip_quote);
+void	revert_mark_variables(char *s);
 char	*extract_first_var(char *s);
-void	revert_security_mark(char *s);
 char	*expand_vars(char *og, t_shell *mini_sh, bool safe_exp);
+
+// expansion_security.c
+
+void	security_mark(char *s);
+void	revert_security_mark(char *s);
+
+// expansionn_utils.c
+
+void	skip_in_quotes(char **s);
+void	my_skip(char **s, char c);
+size_t	my_strlen_idname(char *s);
+char	*my_replace_first(char *og, char *target, char *rep);
 
 // token_list.c
 
@@ -259,14 +275,13 @@ void	rm_hdoc_files(t_shell *mini_sh);
 
 // cmd_utils.c
 
-int		is_file(char *route);
 char	*locate_cmd(t_shell *mini_sh, t_token *node);
 t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2);
-void	clear_cmd(t_cmd *cmd);
-void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd);
 
 // cmd_utils2.c
 
+void	clear_cmd(t_cmd *cmd);
+void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd);
 void	cmd_exit_and_clean(t_shell *shell, t_cmd *cmd, int exit_code);
 void	cmd_close_all_fd(t_cmd *cmd);
 
@@ -279,9 +294,6 @@ void	exec_one_bi(t_shell *mini_sh, t_builtin bi_cmd);
 // bi_cd.c
 
 int		bi_cd(t_shell *mini_sh, t_cmd *cmd);
-char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd);
-int		is_directory(char *route);
-int		change_update_dir(t_shell *mini_sh, char *path);
 void	handle_cd_error(char *path);
 
 // bi_echo.c
@@ -297,7 +309,6 @@ void	print_envlist(t_env *start);
 // bi_exit.c
 
 int		bi_exit(t_shell *mini_sh, t_cmd *cmd);
-int		my_atoi_circular(const char *nptr, int min, int max);
 void	handle_exit_error(char **args, int x);
 
 // bi_export.c
@@ -318,23 +329,14 @@ int		bi_unset(t_shell *mini_sh, t_cmd *cmd);
 void	my_perr(const char *msg, bool should_exit, int exit_code);
 void	my_free(void **mem);
 void	my_free2d(void ***mem);
-size_t	my_strlen_idname(char *s);
+void	my_close(int *fd);
 
 // utils2.c
 
 int		my_strchr_pos(const char *s, char c);
 int		my_strnstr_pos(const char *big, const char *little, size_t len);
-char	*my_replace_first(char *og, char *target, char *rep);
-void	my_skip(char **s, char c);
-
-// utils3.c
-
-void	my_close(int *fd);
 char	*my_strjoin3(char const *s1, char const *s2, char const *s3);
-char	*my_strjoin4(char const *s1, char const *s2, char const *s3,
-			char const *s4);
-void	skip_in_quotes(char **s);
-void	correct_mark(char *s);
+int		my_atoi_circular(const char *nptr, int min, int max);
 
 // prints.c
 

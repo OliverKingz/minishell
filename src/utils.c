@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:27:44 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/19 00:40:33 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:11:55 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ void	my_free2d(void ***mem)
 	*mem = NULL;
 }
 
-size_t	my_strlen_idname(char *s)
+void	my_close(int *fd)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] && (ft_isalnum(s[i]) || ft_strchr("_", s[i])))
-		i++;
-	return (i);
+	if (*fd != -1 && *fd != STDOUT_FILENO && *fd != STDIN_FILENO)
+		close(*fd);
+	*fd = -1;
 }

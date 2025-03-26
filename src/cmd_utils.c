@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:58:06 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/25 23:02:58 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:26:30 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_file(char *route)
-{
-	struct stat	info;
-
-	stat(route, &info);
-	return (S_ISREG(info.st_mode));
-}
 
 char	*locate_cmd(t_shell *mini_sh, t_token *node)
 {
@@ -73,23 +65,4 @@ t_cmd	init_cmd(t_shell *mini_sh, t_token *node, int *pipe1, int *pipe2)
 	cmd.env = envlist_to_str(mini_sh->env);
 	cmd.is_bi = 0;
 	return (cmd);
-}
-
-void	clear_cmd(t_cmd *cmd)
-{
-	my_free((void **)&(cmd->cmd_path));
-	my_free2d((void ***) &(cmd->cmd_args));
-	my_free2d((void ***) &(cmd->env));
-}
-
-void	cmd_not_found(t_shell *mini_sh, t_cmd *cmd)
-{
-	char	*err;
-
-	if (cmd->cmd_path)
-		return ;
-	err = ft_strjoin(cmd->cmd_args[0], ERR_COMMAND);
-	ft_puterr(err);
-	my_free((void **)&err);
-	cmd_exit_and_clean(mini_sh, cmd, 127);
 }

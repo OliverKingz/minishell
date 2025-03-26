@@ -6,21 +6,13 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:10:58 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/26 01:13:17 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:08:19 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_directory(char *route)
-{
-	struct stat	info;
-
-	stat(route, &info);
-	return (S_ISDIR(info.st_mode));
-}
-
-char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd)
+static char	*cd_set_path(t_shell *mini_sh, t_cmd *cmd)
 {
 	char	*path;
 
@@ -64,7 +56,7 @@ void	handle_cd_error(char *path)
 	}
 }
 
-int	change_update_dir(t_shell *mini_sh, char *path)
+static int	change_update_dir(t_shell *mini_sh, char *path)
 {
 	int		exit_code;
 	char	cwd[PATH_MAX];

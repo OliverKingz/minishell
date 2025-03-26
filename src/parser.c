@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raperez- <raperez-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 17:53:53 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/25 22:11:05 by raperez-         ###   ########.fr       */
+/*   Updated: 2025/03/26 01:59:44 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,7 @@ void	tokenize(t_shell *mini_sh)
 	classify_word_token(mini_sh);
 }
 
-void	classify_word_token(t_shell *mini_sh)
-{
-	t_token	*current;
-	bool	single_cmd;
-	int		last_type;
-	size_t	og_len;
-
-	last_type = WORD;
-	single_cmd = false;
-	current = mini_sh->input->token_lst;
-	while (current != NULL)
-	{
-		og_len = ft_strlen(current->content);
-		rm_external_quotes(current->content);
-		if (og_len == ft_strlen(current->content))
-			current->had_quotes = false;
-		else
-			current->had_quotes = true;
-		revert_security_mark(current->content);
-		classify_condition(current, &last_type, &single_cmd);
-		current = current->next;
-	}
-}
-
-void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
+static void	classify_if(t_token *current, int *last_type, bool *single_cmd)
 {
 	if (current->type == WORD)
 	{
@@ -82,4 +58,28 @@ void	classify_condition(t_token *current, int *last_type, bool *single_cmd)
 	else if (current->type == OP_PIPE)
 		*single_cmd = false;
 	*last_type = current->type;
+}
+
+void	classify_word_token(t_shell *mini_sh)
+{
+	t_token	*current;
+	bool	single_cmd;
+	int		last_type;
+	size_t	og_len;
+
+	last_type = WORD;
+	single_cmd = false;
+	current = mini_sh->input->token_lst;
+	while (current != NULL)
+	{
+		og_len = ft_strlen(current->content);
+		rm_external_quotes(current->content);
+		if (og_len == ft_strlen(current->content))
+			current->had_quotes = false;
+		else
+			current->had_quotes = true;
+		revert_security_mark(current->content);
+		classify_if(current, &last_type, &single_cmd);
+		current = current->next;
+	}
 }

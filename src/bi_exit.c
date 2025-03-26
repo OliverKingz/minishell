@@ -6,25 +6,11 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:39 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/22 23:57:45 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:08:36 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	my_atoi_circular(const char *nptr, int min, int max)
-{
-	int	nbr;
-	int	range;
-
-	nbr = ft_atoi(nptr);
-	range = max - min + 1;
-	if (nbr < min)
-		nbr = nbr + range * ((min - nbr) / range + 1);
-	else if (nbr > max)
-		nbr = nbr - range * ((nbr - max) / range + 1);
-	return (nbr);
-}
 
 void	handle_exit_error(char **args, int x)
 {
