@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:26:28 by raperez-          #+#    #+#             */
-/*   Updated: 2025/03/26 02:15:22 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/27 23:27:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mark_variables(char *s, int skip_quote)
 	}
 }
 
-void	revert_mark_variables(char *s)
+void	adjust_mark_variables(char *s)
 {
 	char	quote;
 

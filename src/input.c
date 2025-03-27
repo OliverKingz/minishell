@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 23:07:38 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/26 01:47:32 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/27 23:27:46 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_input	*init_input(t_shell *mini_sh, char *read_line)
 	if (!mini_sh->input)
 		return (free_shell(mini_sh), ft_puterr("input calloc"), NULL);
 	mark_variables(read_line, 1);
-	revert_mark_variables(read_line);
+	adjust_mark_variables(read_line);
 	mini_sh->input->read_line = expand_vars(read_line, mini_sh, 1);
 	if (!mini_sh->input->read_line)
 		return (free_shell(mini_sh), ft_puterr("expanded line"), NULL);

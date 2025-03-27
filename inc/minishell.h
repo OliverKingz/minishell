@@ -6,7 +6,7 @@
 /*   By: ozamora- <ozamora-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:03:32 by ozamora-          #+#    #+#             */
-/*   Updated: 2025/03/26 03:35:34 by ozamora-         ###   ########.fr       */
+/*   Updated: 2025/03/27 23:29:10 by ozamora-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,7 +338,7 @@ void	rm_hdoc_files(t_shell *mini_sh);
 // Variable expansion functions (expansion_var.c)
 
 void	mark_variables(char *s, int skip_quote);
-void	revert_mark_variables(char *s);
+void	adjust_mark_variables(char *s);
 char	*extract_first_var(char *s);
 char	*expand_vars(char *og, t_shell *mini_sh, bool safe_exp);
 
@@ -380,5 +380,7 @@ int		is_directory(char *route);
 void	print_tokenslist(t_token *token_lst);
 void	print_tokenslist_short(t_token *token_lst);
 void	print_strings(char **args);
+
+/* ************************************************************************** */
 
 #endif

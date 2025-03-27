@@ -113,42 +113,6 @@ fclean:
 re: fclean all
 
 # **************************************************************************** #
-# BONUS SECTION (GROUPED FOR EASY REMOVAL)
-# Comment or delete this section if you don't need bonus functionality.
-
-# BONUS DIRECTORIES
-SRC_BONUS_DIR	:= src/bonus/
-INC_BONUS_DIR	:= inc/bonus/
-OBJ_BONUS_DIR	:= obj/bonus/
-
-# BONUS FILES
-BONUS_NAME	:= .minishell_bonus
-SRC_BONUS_FILES	:= main_bonus
-INC_BONUS_FILES	:= minishell_bonus
-
-# BONUS GENERAL FILES
-SRCS_BONUS	:= $(addprefix $(SRC_BONUS_DIR), $(addsuffix .c, $(SRC_BONUS_FILES)))
-OBJS_BONUS	:= $(SRCS_BONUS:$(SRC_BONUS_DIR)%.c=$(OBJ_BONUS_DIR)%.o)
-DEPS_BONUS	:= $(OBJS_BONUS:.o=.d)
-
-# BONUS COMPILER FLAGS
-IFLAGS_BONUS:= -I$(INC_BONUS_DIR) -I$(LIBFT_INC_DIR)
-
-# BONUS RULES
-bonus: libft $(BONUS_NAME)
-$(BONUS_NAME): $(OBJS_BONUS)
-	@$(CC) $(CFLAGS) $(IFLAGS_BONUS) $(OBJS_BONUS) $(LDFLAGS) -o $(NAME) 
-	@touch $(BONUS_NAME)
-	@printf "%b" "$(CL) -> $(BW)[$(NAME)]:\t$(BG)Bonus compiled\t\t✅$(NC)\n"
-
-$(OBJ_BONUS_DIR):
-	@mkdir -p $(OBJ_BONUS_DIR)
-$(OBJ_BONUS_DIR)%.o: $(SRC_BONUS_DIR)%.c | $(OBJ_BONUS_DIR)
-	@mkdir -p $(dir $@)
-	@printf "%b" "$(CL) -> $(BW)[$(NAME)]:\t\t$(NC)$<\r"
-	@$(CC) $(CFLAGS) $(IFLAGS_BONUS) -c $< -o $@
-
-# **************************************************************************** #
 # NORM AND DEBUG RULES
 
 # Rule to check if the files pass norminette
@@ -176,56 +140,6 @@ valgrind:
 	-@valgrind $(VALGRIND_FLAGS) ./$(NAME) $(ARGS)
 
 # **************************************************************************** #
-# ADDITIONAL RULES
 
-# Rule to show help
-help:
-	@echo "$(BY)Available targets:$(NC)"
-	@echo "  $(BB)all$(NC)       - Build the project"
-	@echo "  $(BB)clean$(NC)     - Remove object files"
-	@echo "  $(BB)fclean$(NC)    - Remove object files and executable"
-	@echo "  $(BB)re$(NC)        - Rebuild the project from scratch"
-	@echo "  $(BB)bonus$(NC)     - Build the bonus part of the project"
-	@echo "  $(BB)norm$(NC)      - Check code with norminette"
-	@echo "  $(BB)debug$(NC)     - Build the project with debug flags"
-	@echo "  $(BB)valgrind$(NC)  - Build the project with valgrind flags"
-	@echo "  $(BB)help$(NC)      - Show this help message"
-	@echo "  $(BB)show$(NC)      - Show compilation and linking commands"
-	@echo "  $(BB)info$(NC)      - Show all variables being used"
-
-# Rule to show all variables being used
-info:
-	@echo "$(BY)\Minishell Project:$(NC)"
-	@echo "$(BB)NAME: $(NC)$(NAME)"
-	@echo "$(BB)LIBFT: $(NC)$(LIBFT)"
-	@echo "$(BB)BONUS_NAME: $(NC)$(BONUS_NAME)"
-	@echo "$(BY)\nCompiler:$(NC)"
-	@echo "$(BB)CC: $(NC)$(CC)"
-	@echo "$(BB)CFLAGS: $(NC)$(CFLAGS)"
-	@echo "$(BB)IFLAGS: $(NC)$(IFLAGS)"
-	@echo "$(BB)LDFLAGS: $(NC)$(LDFLAGS)"
-	@echo "$(BY)\nDirectories:$(NC)"
-	@echo "$(BB)SRC_DIR: $(NC)$(SRC_DIR)"
-	@echo "$(BB)INC_DIR: $(NC)$(INC_DIR)"
-	@echo "$(BB)OBJ_DIR: $(NC)$(OBJ_DIR)"
-	@echo "$(BB)LIB_DIR: $(NC)$(LIB_DIR)"
-	@echo "$(BB)LIBFT_DIR: $(NC)$(LIBFT_DIR)"
-	@echo "$(BB)LIBFT_INC_DIR: $(NC)$(LIBFT_INC_DIR)"
-	@echo "$(BY)\nFiles:$(NC)"
-	@echo "$(BB)NAME: $(NC)$(NAME)"
-	@echo "$(BB)SRC_FILES: $(NC)$(SRC_FILES)"
-	@echo "$(BB)INC_FILES: $(NC)$(INC_FILES)"
-	@echo "$(BB)SRCS: $(NC)$(SRCS)"
-	@echo "$(BB)OBJS: $(NC)$(OBJS)"
-	@echo "$(BB)DEPS: $(NC)$(DEPS)"
-	@echo "$(BY)\nBonus:$(NC)"
-	@echo "$(BB)BONUS_NAME: $(NC)$(BONUS_NAME)"
-	@echo "$(BB)SRC_BONUS_FILES: $(NC)$(SRC_BONUS_FILES)"
-	@echo "$(BB)INC_BONUS_FILES: $(NC)$(INC_BONUS_FILES)"
-	@echo "$(BB)SRCS_BONUS: $(NC)$(SRCS_BONUS)"
-	@echo "$(BB)OBJS_BONUS: $(NC)$(OBJS_BONUS)"
-	@echo "$(BB)DEPS_BONUS: $(NC)$(DEPS_BONUS)"
-	@echo "$(BB)IFLAGS_BONUS: $(NC)$(IFLAGS_BONUS)"
-
-.PHONY: all clean fclean re bonus norm debug valgrind help info
+.PHONY: all clean fclean re bonus norm debug valgrind
 .DEFAULT_GOAL := all
