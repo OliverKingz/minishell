@@ -47,7 +47,7 @@ The project is written in C and adheres to strict coding standards, ensuring no 
 
 ---
 
-## Bonus Features  
+## Bonus Features  (Not implemented)
 - **Logical Operators**: Supports `&&` and `||` with parentheses for priority.
 - **Wildcards**: Implements `*` wildcard for the current directory.
 
@@ -80,14 +80,14 @@ The project is written in C and adheres to strict coding standards, ensuring no 
 ### Recommendations for Testing
 - Use `valgrind` to check for memory leaks:  
   ```bash  
-  valgrind --leak-check=full --show-leak-kinds=all ./minishell  
+  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --track-fds=yes./minishell 
   ```  
 - Test with various commands, redirections, and pipes to ensure proper functionality.
 
 ### Parser Example
 Input:
 ```
-cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e
+cat < in | grep "Hi bye" | grep 'H' > out | cat >> final_out -e
 ```
 
 Tokenizer result and classification:
@@ -99,7 +99,7 @@ Tokenizer result and classification:
 - `"Hi bye"`: argument
 - `"|"`: op_pipe
 - `"grep"`: command
-- `"M"`: argument
+- `"H"`: argument
 - `">"`: redir_out
 - `"out"`: file_path
 - `"|"`: op_pipe
@@ -151,13 +151,15 @@ For bonus features, use the bonus rule in the Makefile:
 ---
 
 ## Authors  
-- **Name**: Oliver King Zamora
-- **GitHub**: [oliverkingz](https://github.com/oliverkingz)
-- **42 Login**: ozamora-
 
-- **Name**: Raúl José Pérez Medina
-- **GitHub**: [RaulPerezDEV](https://github.com/RaulPerezDEV)
-- **42 Login**: raperez-
+- **Name**: Oliver King Zamora  
+   - **GitHub**: [oliverkingz](https://github.com/oliverkingz)  
+   - **42 Login**: ozamora-  
+
+- **Name**: Raúl José Pérez Medina  
+   - **GitHub**: [RaulPerezDEV](https://github.com/RaulPerezDEV)  
+   - **42 Login**: raperez-  
+
 
 ---
 

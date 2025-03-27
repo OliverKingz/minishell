@@ -79,9 +79,9 @@
 - [ ] Test `ctrl-C` in an empty prompt (should print a new prompt).
 - [ ] Test `ctrl-\` in an empty prompt (should do nothing).
 - [ ] Test `ctrl-C` after typing some text (should clear the input and print a new prompt).
-- [ ] Test `ctrl-\` after typing some text (should quit the shell).
+- [ ] Test `ctrl-\` after typing some text (should do nothing)
 - [ ] Test `ctrl-C` during a blocking command like `cat` (should interrupt the command and print a new prompt).
-- [ ] Test `ctrl-\` during a blocking command like `cat` (should quit the shell).
+- [ ] Test `ctrl-\` during a blocking command like `cat` (should do nothing)
 
 ---
 

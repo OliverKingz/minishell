@@ -1,4 +1,4 @@
-### /home/oliverkingz/42-Cursus/minishell/DOCS.md
+# MINISHELL ALLOWED FUNCTIONS
 
 - **Readline functions**
   - `readline`: Reads a line of input from the user.
