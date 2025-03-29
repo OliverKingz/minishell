@@ -71,7 +71,87 @@ The project is written in C and adheres to strict coding standards, ensuring no 
 Below is the flowchart representing the architecture and flow of the Minishell project.  
 > **Note**: This flowchart is an approximation and may not represent the exact implementation details.
 
-[![Chart](https://mermaid.ink/img/pako:eNqdV-tv2zYQ_1cEFhiyQQn8ii1rwD60ydACLVYs65fFgyFLZ4uITGok5dhN87_v-JBEyQ-s1QfzdHe_e5B3R_mFpDwDEpONSMo8-OvtggX4ZFRAqihnhmN5slpZpQX5IkEEH5gCsU5SWBCroJ8PrKzU44KYNXifsKwA0YqvtgllYUC1NAxkDkXx84L8E8fxqkjSJ6sILDvh87PgKUhJ2cY68b1-hD0I9GpWz1uh352DjQBASSu935cJk5gjAhvaA0PNW0pIK0HVIQxaXqVoIX3GLul4ag19ToQ00VnC81AaxlLxJ2D0K4SBYzjbhr8sqFQ1bQTHXk5v2P0ew9Zn6O-UJ_8T2lM2B4Vb66vqx9NpDvWn4I9K6QPoaF6JVrUOUVXi34pTCV3V94C6PJVosSZ7tnLLDgNHjM4bNLmfyO4d324xqbOZva1ooajOylGBQ_RjWVlxGKzoMs3MAmnOLcF2dt1T5YiSC0uWz1a5YhJUU-RVby_u99hELClMDVqyDeQEppOuU3xss31QokpxlzzEVbrFQPDHROkCyRLxtOxatuXCxWNdOVx0msEV0_9t1995xbJEIzCjL1i3VFGQ_ilY5gH9teLWoesBs4yw_g8lLNMc0icXABcJ23jhf6SrtR48ZvXsrNXylzOQO1hVG4SYNSgFZcqPwDJOYE8n_HCQCrZ2Kia2Dfxs79lO7yzbUcHZFpgfoykj_HG9rql2mmADtKoPdGOLxRInBqw0gj7WC9k2sX2ur3_7tiDUjtNvgTc-DdnR2iUFxQOFLGj0e1OzeW0wZjpmCMF0pEbYEYgjpNv4ju15q2ei582bRd-B-gFHbiB8B6JuXQvxB6uFlAJwtCPCH5Ia6PrW4upQW1cNLq-z6GPq4dVizLy6Rha0878HaiaNd1COcx5Ujxgf5HSDlGPV791W1LPD-WI7re7u7A6rXz6O3fHq6rxnweMeVYUn68eSFomUd7AOnnOqIFjToojfrM0TSiXwXOM3A_O41-tnmqk8Hpb7MOUFF7X41549Mw2dvY6Bnvlje1bct2e_Vay9aLBeRwMvvuhyfJPsVHwVNOZW3XQng-iSudF0kvXNNbfHuS38AZvN1e6l3bEZXbY5yY5t2qHdBJmmkX8uF_dxOh2Pj_dRt2JtzYtHR3uxavSZoDUS4mc2zUiMtzSEZAsCP4fxlbxoPzhZctji13SMpN5ifX28Iga75G_OtzVM8GqTk3idFBLfqlIP5Tua4D3UquC8B_EOr2BF4uFtNJkZKyR-IXvNmN1MB8PZ7Xw4mk2H89tRSA4kHkU30QiV57PxYBLNxuPRa0i-GseDm_kAGbPpfD6ZoGB8GxLsO2ytT_bfg_kT8fofAujlzw?type=png)](https://mermaid.live/edit#pako:eNqdV-tv2zYQ_1cEFhiyQQn8ii1rwD60ydACLVYs65fFgyFLZ4uITGok5dhN87_v-JBEyQ-s1QfzdHe_e5B3R_mFpDwDEpONSMo8-OvtggX4ZFRAqihnhmN5slpZpQX5IkEEH5gCsU5SWBCroJ8PrKzU44KYNXifsKwA0YqvtgllYUC1NAxkDkXx84L8E8fxqkjSJ6sILDvh87PgKUhJ2cY68b1-hD0I9GpWz1uh352DjQBASSu935cJk5gjAhvaA0PNW0pIK0HVIQxaXqVoIX3GLul4ag19ToQ00VnC81AaxlLxJ2D0K4SBYzjbhr8sqFQ1bQTHXk5v2P0ew9Zn6O-UJ_8T2lM2B4Vb66vqx9NpDvWn4I9K6QPoaF6JVrUOUVXi34pTCV3V94C6PJVosSZ7tnLLDgNHjM4bNLmfyO4d324xqbOZva1ooajOylGBQ_RjWVlxGKzoMs3MAmnOLcF2dt1T5YiSC0uWz1a5YhJUU-RVby_u99hELClMDVqyDeQEppOuU3xss31QokpxlzzEVbrFQPDHROkCyRLxtOxatuXCxWNdOVx0msEV0_9t1995xbJEIzCjL1i3VFGQ_ilY5gH9teLWoesBs4yw_g8lLNMc0icXABcJ23jhf6SrtR48ZvXsrNXylzOQO1hVG4SYNSgFZcqPwDJOYE8n_HCQCrZ2Kia2Dfxs79lO7yzbUcHZFpgfoykj_HG9rql2mmADtKoPdGOLxRInBqw0gj7WC9k2sX2ur3_7tiDUjtNvgTc-DdnR2iUFxQOFLGj0e1OzeW0wZjpmCMF0pEbYEYgjpNv4ju15q2ei582bRd-B-gFHbiB8B6JuXQvxB6uFlAJwtCPCH5Ia6PrW4upQW1cNLq-z6GPq4dVizLy6Rha0878HaiaNd1COcx5Ujxgf5HSDlGPV791W1LPD-WI7re7u7A6rXz6O3fHq6rxnweMeVYUn68eSFomUd7AOnnOqIFjToojfrM0TSiXwXOM3A_O41-tnmqk8Hpb7MOUFF7X41549Mw2dvY6Bnvlje1bct2e_Vay9aLBeRwMvvuhyfJPsVHwVNOZW3XQng-iSudF0kvXNNbfHuS38AZvN1e6l3bEZXbY5yY5t2qHdBJmmkX8uF_dxOh2Pj_dRt2JtzYtHR3uxavSZoDUS4mc2zUiMtzSEZAsCP4fxlbxoPzhZctji13SMpN5ifX28Iga75G_OtzVM8GqTk3idFBLfqlIP5Tua4D3UquC8B_EOr2BF4uFtNJkZKyR-IXvNmN1MB8PZ7Xw4mk2H89tRSA4kHkU30QiV57PxYBLNxuPRa0i-GseDm_kAGbPpfD6ZoGB8GxLsO2ytT_bfg_kT8fofAujlzw)
+```mermaid
+graph TB
+    direction TB
+
+    subgraph "User Interface"
+        Input["Input Handler
+        (main, input, shell)"]:::black
+    end
+
+    subgraph "Processing Input"
+        Lexer["Lexer
+        (lexer)"]:::green  
+        Expansion["Expansion
+        (expansion_security, expansion_utils, expansion_var)"]:::green
+        Parser["Parser
+        (parser_tokenize, parser_utils, token_list, token_utils)"]:::green
+    end
+
+    subgraph "Execution"
+        subgraph "Redirection Handling"
+            Redirection["Input & Output
+            (redirections)"]:::turquoise
+            Heredocs["Heredocs
+            (heredoc, heredoc2)"]:::turquoise
+        end
+        subgraph "Command Handling"
+            Builtin["Builtin Commands
+            (builtin, bi_cd, bi_echo, bi_env, bi_exit, bi_export, bi_pwd, bi_unset)"]:::blue
+            External["External Commands"]:::blue
+        end
+        Command["Command Structure
+        (cmd, cmd_exit)"]:::dark_blue
+        Executor["Executor
+        (execution)"]:::black
+    end
+
+    subgraph "Foundational Utilities"
+        Utility["Utilities
+        (utils, utils2, type_check)"]:::orange
+        Libft["Libft
+        (ft_*)"]:::orange
+        Debug["Debug prints
+        (prints)"]:::orange
+    end
+
+    subgraph "System Interactions"
+        Env["Environment
+        (env, env_list, env_var)"]:::red
+        Signal["Signal Handler
+        (signal)"]:::red
+    end
+
+    Input       -->|"input"| Lexer
+    Lexer       -->|"validated input"| Expansion
+    Expansion   -->|"expanded vars"| Parser & Heredocs
+    Parser      -->|"tokenized input"| Redirection
+    Parser      -->|"tokenized input"| Heredocs
+    Parser      -->|"tokenized input"| Builtin
+    Parser      -->|"tokenized input"| External
+    Redirection -->|"prepared redirections"| Command
+    Heredocs    -->|"prepared heredocs"| Command
+    Builtin     -->|"built-in execution"| Command
+    External    -->|"external execution"| Command
+    Command     -->|"execution context"| Executor
+
+    Env --> Input
+    Env --> Expansion
+    Env --> Command
+    Signal --> Input
+    Signal --> Redirection
+    Signal --> Executor
+
+    classDef white fill:#ffffff,stroke:#000000,stroke-width:1px,color:#000000;
+    classDef black fill:#000000,stroke:#ffffff,stroke-width:1px,color:#ffffff;
+    classDef green fill:#80ff80,stroke:#008000,stroke-width:1px,color:#004d00;
+    classDef blue fill:#80bfff,stroke:#004080,stroke-width:1px,color:#00264d;
+    classDef dark_blue fill:#ffffff,stroke:#004080,stroke-width:1px,color:#00264d;
+    classDef turquoise fill:#80ffff,stroke:#008080,stroke-width:1px,color:#004d4d;
+    classDef orange fill:#ffcc80,stroke:#ff8000,stroke-width:1px,color:#663300;
+    classDef red fill:#ff8080,stroke:#800000,stroke-width:1px,color:#4d0000;
+```
 
 ---
 
