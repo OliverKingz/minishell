@@ -124,9 +124,9 @@
   ```
 
 - **Termcap functions**
-Terminal capability is a library and database used in Unix-like operating systems 
-to define the capabilities and control sequences of various types of terminals. 
-It allows programs to interact with different terminal types in a consistent way 
+Terminal capability is a library and database used in Unix-like operating systems
+to define the capabilities and control sequences of various types of terminals.
+It allows programs to interact with different terminal types in a consistent way
 without needing to know the specifics of each terminal.
   - `tgetent`: Loads a terminal entry from the termcap database.
   - `tgetflag`: Gets a boolean entry from the termcap database.
@@ -209,7 +209,7 @@ int tputs(const char *str, int affcnt, int (*putc)(int));
 
 ---
 
-### Readline Functions
+## Readline Functions
 
 ```c
 #include <stdio.h>

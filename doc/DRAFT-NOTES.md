@@ -1,6 +1,7 @@
 # NOTES
 
-## LEYENDA:
+## LEYENDA
+
 - ✅ It works, maybe with frees and leaks
 - ❌ Wrong
 - ⌛ Work in Progress
@@ -8,39 +9,45 @@
 - ❓ No se si tiene que contemplarse
 
 ## EXAMPLE EXPANSION
-```
+
+```bash
 export VAR1="echo hola mundo |          cat -e"
 ```
+
 `$VAR1` se expande a:
-```
+
+```bash
 char *s="echo" "hola" "mundo" "|"          "cat" "-e"
 ```
 
 ---
 
 ## HISTORIAL
+
 - Revisar que no hay fugas acumulados, cuando está lleno. Da leaks. Usar fsanitize.
-- Guardar el historial no es obligatorio. 
+- Guardar el historial no es obligatorio.
 
 ---
 
 ## LEAKS
+
 - Mirar cuando el comando da error, y cortas con señales, hay que liberar también.
 
 ---
 
-# DUDAS RESUELTAS
+## DUDAS RESUELTAS
+
 - En los init con muchos calloc, siempre checkeo. ¿Qué opinas de juntarlos todos en 1?
   -> Solo si hace falta espacio
 - Revisar validate_tokens_syntax, muchos casos.
   -> Todos bien
 
-
 ---
 
-# TERMINADO ✅
+## TERMINADO ✅
 
 ## TESTS
+
 ```C
 cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e✅
 echo hola | <<EOF cat -e ✅
@@ -48,6 +55,7 @@ find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
 ```
 
 ## TOKENIZACION
+
 - Sin mandatory: `cat||cat` lo interpretaría como `cat '||' cat` o `cat | | cat`. ✅
 - Para `;`, `\`, mejor ni siquiera mirarlo al principio (incluido `#`, `=`, `)`). ✅
 - Taggear: orden de prioridad✅
@@ -57,10 +65,12 @@ find . -type f -name "*.c" | xargs grep "main" > results.txt ✅
 Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
 
 ### HANDLE QUOTES
+
 - Pipes entre `""` y `''` los toma como texto. ✅
 - `""` y `''` tratarlo como syntax error si no está cerrado. ✅
 - Dentro de los tokens, quitar las comillas exteriores. Investigar más. ✅
 - Casos donde tiene que funcionar:
+
 ```C
   ""echo ✅
   echo"" ✅
@@ -74,11 +84,13 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   ""ec"""ho" ✅
   "echo" 'que' ""tal"" ''yo'' ✅
 ```
-  - Investigar para que vale señal global ✅
-  - signal(SIGQUIT, handle_ctrl_backslash) ✅
-    -	signal(SIGQUIT, SIG_IGN);
+
+- Investigar para que vale señal global ✅
+- signal(SIGQUIT, handle_ctrl_backslash) ✅
+  - signal(SIGQUIT, SIG_IGN);
 
 ## COMANDOS VÁLIDOS E INVÁLIDOS
+
 - cat < in | grep "Hi bye" | grep 'M' > out | cat >> final_out -e ✅
 - Cambia count_cmds_heredocs a single puntero, solo lees. Recuerda explicación. ✅
 - Solo importa las comillas exteriores, expansión ✅
@@ -91,6 +103,7 @@ Todos son errores de sintaxis, mirar explicación Slack/DM. ✅
   - cat | | cat (make validate_tokens_syntax) ✅
 
 ### Comandos Inválidos ✅
+
 ```C
 echo hola | | cat -e
 echo hola > | cat -e
@@ -117,6 +130,7 @@ echo hola << > cat -e
 ```
 
 ### Comandos Válidos ✅
+
 ```C
 echo hola | > cat -e
 echo hola | < cat -e
@@ -127,14 +141,17 @@ echo hola | << cat -e
 ---
 
 ## CASOS A CONSULTAR
+
 - `echo 'Hello/nWorld' | \\\n` Deberiamos usar \n y \t -> Manejarlo
 - echo 12e > /dev/full
 bash: echo: write error: No space left on device
 
 ## CASOS DONDE FALLA
+
 - Hacer Ctrl+C con un comando como cat: Se duplica el prompt (Bug visual que no se ve :D)
 
 # TO DO INMEDIATO OLIVER
+
 - Hacer builtins echo y exit ✅
 - Investigar el return de echo. Siempre 0? Como se falla. ✅
     -> Opciones incorrectas las representa igual ✅
@@ -172,16 +189,18 @@ bash: echo: write error: No space left on device
 - Hacer SHLVL en create_shell ✅
 
 # TO DO LEJANO OLIVER
+
 - Minishell tiene que detectar en qué minishell está para poder matar a la buena. Tenerlo dentro de la estructura. ✅
   - Incluso si lo mato en otra ventana.
 
 - History file (no es obligatorio)
-  - Create with open, append. 
-  - Como pongo limite? 
+  - Create with open, append.
+  - Como pongo limite?
 
 - Modo interactivo. Hacer infile con varios comandos. Quitar promp, hacer otro loop ✅
 
 # TO DO/PREGUNTAR/DECIR A RAUL
+
 - Mirar qué pasa cuando init_envlist devuelve NULL.
   -> No pasa nada (no se rompe). ✅
 - Heredoc WIP
@@ -189,26 +208,26 @@ bash: echo: write error: No space left on device
 
 - perror o personal err (buscar STDERR, puterr, my_perr, perror, calloc, malloc)
 - Modificar:
-		handle_heredocs(mini_sh); -> if hdoc_count == 0, salir✅
-		execution(mini_sh); -> if mini_sh->input == NULL, salir (???), que pasa cuando falla malloc aqui✅
-		rm_hdoc_files(mini_sh); -> if hdoc_count == 0, salir ✅
+  handle_heredocs(mini_sh); -> if hdoc_count == 0, salir✅
+  execution(mini_sh); -> if mini_sh->input == NULL, salir (???), que pasa cuando falla malloc aqui✅
+  rm_hdoc_files(mini_sh); -> if hdoc_count == 0, salir ✅
 
-
-# SLACK
 
 # DONE RAUL
+
 - Hacer $? ✅
 - Integrar ejecución, haciendo los archivos ya con 5 funciones, y bien nombrados.✅
 - Quitar replace all?✅
 - Mirar env de emergencia y PATH de emergencia.✅
   -> No hacerlo. No lo hacen todas las shells, y tiene haters xq hardcodea el PATH
 - Segun vbengea, no hay hacer en hdoc <<'eof'✅
-  -> Tiene razon. Por el subject no lo menciona. 
+  -> Tiene razon. Por el subject no lo menciona.
 - Preguntar si poner declare -x. @tischmid en Slack pone que no, que lo tiraria✅
-  -> Lo hemos quitado. No queremos programar declare. 
+  -> Lo hemos quitado. No queremos programar declare.
 - Fix export ''✅
 
 # TESTERS
+
 - << $USER -> WILL FIX
 - << 'LIM' -> MIRAR SI ES FACIL DE ARREGLAR
 - ./ls, fixed, de momento bash error no es igual
@@ -218,6 +237,5 @@ bash: echo: write error: No space left on device
 - $() Y $"" -> NO APLICAMOS
 - export += NOT HANDLED
 - $_ -> NO PIDE SUBJECT
-
 
 ---

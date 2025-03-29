@@ -28,6 +28,7 @@ This document outlines the rules, habits, and best practices for working collabo
 
 1. **Update Your Branch**:
    - Before starting work, ensure your personal branch is up-to-date with `main`.
+
    ```bash
    git checkout main
    git pull origin main
@@ -44,6 +45,7 @@ This document outlines the rules, habits, and best practices for working collabo
 
 1. **Commit Your Changes**:
    - Make sure to commit your changes before ending your workday.
+
    ```bash
    git add .
    git commit -m "Clear and concise description of changes"
@@ -51,6 +53,7 @@ This document outlines the rules, habits, and best practices for working collabo
 
 2. **Push Changes to the Remote Repository**:
    - Push your changes to the remote repository to avoid losing work.
+
    ```bash
    git push origin oliver (or raul)
    ```
@@ -74,6 +77,7 @@ This document outlines the rules, habits, and best practices for working collabo
 
 3. **Complete the Merge or Rebase**:
    - After resolving conflicts, complete the merge or rebase.
+
    ```bash
    git merge --continue
    # or
@@ -98,6 +102,7 @@ This document outlines the rules, habits, and best practices for working collabo
 ## Git Commands Cheat Sheet
 
 ### 1. **Update Your Personal Branch with `main`**
+
 ```bash
 git checkout main
 git pull origin main
@@ -111,6 +116,7 @@ git merge main
 - **`git merge main`**: Merge changes from `main` into your personal branch.
 
 ### 2. **Commit Changes**
+
 ```bash
 git add .
 git commit -m "Clear and concise description of changes"
@@ -120,6 +126,7 @@ git commit -m "Clear and concise description of changes"
 - **`git commit -m "Message"`**: Save changes to the local repository with a descriptive message.
 
 ### 3. **Push Changes to the Remote Repository**
+
 ```bash
 git push origin oliver (or raul)
 ```
@@ -127,6 +134,7 @@ git push origin oliver (or raul)
 - **`git push origin oliver`**: Push changes from your local branch (`oliver` or `raul`) to the remote repository.
 
 ### 4. **Resolve Conflicts**
+
 ```bash
 git merge --continue
 # or
@@ -137,6 +145,7 @@ git rebase --continue
 - **`git rebase --continue`**: Continue a rebase after resolving conflicts manually.
 
 ### 5. **Merge a PR into `main`**
+
 ```bash
 git checkout main
 git merge oliver (or raul)
@@ -150,14 +159,14 @@ git push origin main
 
 ## Summary of Key Git Commands and Flags
 
-| Command                  | Description                                                                 | Important Flags          |
-|--------------------------|-----------------------------------------------------------------------------|--------------------------|
-| `git checkout`           | Switch between branches or restore files.                                   | `-b` (create new branch).|
-| `git pull`               | Download and merge changes from the remote repository.                      | `origin <branch>`.       |
-| `git merge`              | Merge changes from one branch into another.                                 | `--continue`.            |
-| `git add`                | Stage changes for commit.                                                   | `.` (all files).         |
-| `git commit`             | Save changes to the local repository.                                       | `-m` (commit message).   |
-| `git push`               | Push changes to the remote repository.                                      | `origin <branch>`.       |
-| `git rebase`             | Reapply commits on top of another branch.                                   | `--continue`.            |
+| Command        | Description                                      | Important Flags         |
+|----------------|--------------------------------------------------|-------------------------|
+| `git checkout` | Switch between branches or restore files.        | `-b` (create new branch)|
+| `git pull`     | Download and merge changes from the remote repo. | `origin <branch>`       |
+| `git merge`    | Merge changes from one branch into another.      | `--continue`            |
+| `git add`      | Stage changes for commit.                        | `.` (all files)         |
+| `git commit`   | Save changes to the local repository.            | `-m` (commit message)   |
+| `git push`     | Push changes to the remote repository.           | `origin <branch>`       |
+| `git rebase`   | Reapply commits on top of another branch.        | `--continue`            |
 
 ---
