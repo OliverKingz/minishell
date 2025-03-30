@@ -303,6 +303,7 @@ Tokenizer result and classification:
 | `cd /tmp`<br>`pwd`                                 | Changes to `/tmp` and prints the current directory. | `/tmp`                                      |
 | `cd ..`<br>`pwd`                                   | Changes to the parent directory and prints it.    | Parent directory path.                       |
 | `cd -`                                            | Switches back to the previous directory.         | Path of the previous directory. |
+| `mkdir -p t/t/t`<br>`cd t/t/t`<br>`rm -rf ../../../t`<br>`pwd`<br>`cd ..`<br>`cd ..`<br>`cd ..`<br>`pwd`| Checks cd behaviour in ether | You should be back to the original directory |
 
 
 ### **Error Handling**
