@@ -133,25 +133,21 @@ graph TB
         (signal)"]:::red
     end
 
-    Input       -->|"input"| Lexer
+    Env --> Input & Expansion & Command & Heredocs
+    Signal --> Input & Heredocs & Executor
+
+    Input       -->|"input line"| Lexer
     Lexer       -->|"validated input"| Expansion
     Expansion   -->|"expanded vars"| Parser & Heredocs
-    Parser      -->|"tokenized input"| Redirection
-    Parser      -->|"tokenized input"| Heredocs
-    Parser      -->|"tokenized input"| Builtin
-    Parser      -->|"tokenized input"| External
-    Redirection -->|"prepared redirections"| Command
-    Heredocs    -->|"prepared heredocs"| Command
+    Parser      -->|"tokenized input"| Heredocs & Redirection
+    Heredocs    --> Redirection
+    Heredocs    -->|"prepared heredocs"| Builtin & External & Command
+    Redirection -->|"prepared redirections"| Builtin & External & Command
     Builtin     -->|"built-in execution"| Command
     External    -->|"external execution"| Command
     Command     -->|"execution context"| Executor
+    Executor    -->|"wait for input after execution"| Input
 
-    Env --> Input
-    Env --> Expansion
-    Env --> Command
-    Signal --> Input
-    Signal --> Redirection
-    Signal --> Executor
 
     classDef white fill:#ffffff,stroke:#000000,stroke-width:1px,color:#000000;
     classDef black fill:#000000,stroke:#ffffff,stroke-width:1px,color:#ffffff;
