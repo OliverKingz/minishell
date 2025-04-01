@@ -348,10 +348,14 @@ Tokenizer result and classification:
 
 ## Authors
 
+<div align="center">
+
 | **Name**                   | **GitHub Profile**                              | **42 Login** |
 | -------------------------- | ----------------------------------------------- | ------------ |
 | **Oliver King Zamora**     | [oliverkingz](https://github.com/oliverkingz)   | **ozamora-** |
 | **Raúl José Pérez Medina** | [RaulPerezDEV](https://github.com/RaulPerezDEV) | **raperez-** |
+
+</div>
 
 ---
 
