@@ -1,6 +1,15 @@
 # minishell
 
-[42-Cursus] Minishell is a minimalist shell implementation written in C, designed to mimic basic functionalities of a Unix shell like Bash. This project focuses on understanding processes, file descriptors, and shell operations such as command execution, redirections, pipes, and signal handling.
+<div align="right">
+
+[![GitHub stars](https://img.shields.io/github/stars/oliverkingz/minishell?color=brightgreen)]()
+[![Visits Badge](https://badges.pufler.dev/visits/oliverkingz/minishell)]()
+[![Created Badge](https://badges.pufler.dev/created/oliverkingz/minishell)]()
+[![Updated Badge](https://badges.pufler.dev/updated/oliverkingz/minishell)]()
+
+</div>
+
+[**42-Cursus**] Minishell is a minimalist shell implementation written in C, designed to mimic basic functionalities of a Unix shell like Bash. This project focuses on understanding processes, file descriptors, and shell operations such as command execution, redirections, pipes, and signal handling.
 
 Keywords
 
@@ -12,6 +21,12 @@ Keywords
 - **Signal Handling**
 - **Built-in Commands**
 - **Environment Variables**
+
+<div align="right">
+  
+Made by: [![Contributors Display](https://badges.pufler.dev/contributors/oliverkingz/minishell?size=30&padding=5&perRow=10&bots=true)](https://github.com/RaulPerezDEV)
+
+</div>
 
 ---
 
@@ -38,6 +53,7 @@ Keywords
 - [What I Learned](#what-i-learned)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
+
 ---
 
 ## Overview
@@ -215,35 +231,35 @@ Tokenizer result and classification:
 
 ### **Commands in Interactive Mode**
 
-| **Input Command**                     | **Description**                                   | **Expected Output**                          |
-|---------------------------------------|---------------------------------------------------|----------------------------------------------|
-| `echo "Hello"`                        | Prints "Hello" in interactive mode.               | `Hello`                                      |
-| `ls`                                  | Lists files in the current directory.             | List of files.                               |
-| `echo "Hello" \| grep "H" \| wc -l`   | Pipes "Hello" through `grep` and counts lines.    | `1`                                          |
-| `ls -la \| grep "txt" \| wc -l`       | Lists files, filters `.txt` files, and counts them. | Number of `.txt` files.                     |
-| `cat < input.txt \| grep "pattern" \| wc -l` | Reads from `input.txt`, filters lines with "pattern", and counts them. | Number of matching lines.            |
+| **Input Command**                            | **Description**                                                        | **Expected Output**       |
+| -------------------------------------------- | ---------------------------------------------------------------------- | ------------------------- |
+| `echo "Hello"`                               | Prints "Hello" in interactive mode.                                    | `Hello`                   |
+| `ls`                                         | Lists files in the current directory.                                  | List of files.            |
+| `echo "Hello" \| grep "H" \| wc -l`          | Pipes "Hello" through `grep` and counts lines.                         | `1`                       |
+| `ls -la \| grep "txt" \| wc -l`              | Lists files, filters `.txt` files, and counts them.                    | Number of `.txt` files.   |
+| `cat < input.txt \| grep "pattern" \| wc -l` | Reads from `input.txt`, filters lines with "pattern", and counts them. | Number of matching lines. |
 
 ### **Non-Interactive Mode**
 
-| **Input Command**                     | **Description**                                   | **Expected Output**                          |
-|---------------------------------------|---------------------------------------------------|----------------------------------------------|
-| `echo "Hello" \| ./minishell`          | Pipes "Hello" into Minishell in non-interactive mode. | `Hello`                                  |
-| `ls \| ./minishell`                    | Pipes `ls` output into Minishell.                 | List of files.                               |
-| `echo "exit 42" \| ./minishell`        | Exits Minishell with status `42`.                 | Shell exits with code `42`.                  |
-| `echo "invalid_command" \| ./minishell` | Runs an invalid command in non-interactive mode. | `Error: command not found`, exit code `127`. |
-| `echo "echo $SHLVL" \| ./minishell`    | Prints the shell level in non-interactive mode.   | `1` (or incremented value if nested).        |
+| **Input Command**                       | **Description**                                       | **Expected Output**                          |
+| --------------------------------------- | ----------------------------------------------------- | -------------------------------------------- |
+| `echo "Hello" \| ./minishell`           | Pipes "Hello" into Minishell in non-interactive mode. | `Hello`                                      |
+| `ls \| ./minishell`                     | Pipes `ls` output into Minishell.                     | List of files.                               |
+| `echo "exit 42" \| ./minishell`         | Exits Minishell with status `42`.                     | Shell exits with code `42`.                  |
+| `echo "invalid_command" \| ./minishell` | Runs an invalid command in non-interactive mode.      | `Error: command not found`, exit code `127`. |
+| `echo "echo $SHLVL" \| ./minishell`     | Prints the shell level in non-interactive mode.       | `1` (or incremented value if nested).        |
 
 ### **Redirections**
 
-| **Input Command**                             | **Description**                                          | **Expected Output**                                              |
-| --------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------- |
-| `cat < input.txt > output.txt`                | Reads from `input.txt` and writes to `output.txt`.       | No output, but `output.txt` contains the content of `input.txt`. |
-| `echo "Hello" > file.txt \| cat < file.txt`   | Writes "Hello" to `file.txt` and reads it back.          | `Hello`                                                          |
-| `echo "Hello" >> file.txt \| cat < file.txt`  | Appends "Hello" to `file.txt` and reads it back.         | `Hello` appended to the existing content.                        |
-| `grep "pattern" < input.txt > output.txt`     | Filters lines with "pattern" and writes to `output.txt`. | No output, but `output.txt` contains matching lines.             |
-| `cat << EOF > output.txt`<br>`Hello`<br>`EOF` | Writes "Hello" to `output.txt` using a heredoc.          | No output, but `output.txt` contains `Hello`.                    |
-| `cat << EOF \| cat << EOL`<br>`Hello`<br>`EOF`<br>`World`<br>`EOL` | Uses nested heredocs to try write "Hello" and "World". Only the last word  is saved.       | `World`, the result is piped, and both heredoc contents are processed. |
-| `cat <<1 <<2 <<3 \| tee out`<br>`First`<br>`1`<br>`Second`<br>`2`<br>`Third`<br>`3` | Uses multiple nested heredocs. Only the last one is saved, but all are processed. | `Third`, `out` contains `Third` only. |
+| **Input Command**                                                                   | **Description**                                                                     | **Expected Output**                                                    |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `cat < input.txt > output.txt`                                                      | Reads from `input.txt` and writes to `output.txt`.                                  | No output, but `output.txt` contains the content of `input.txt`.       |
+| `echo "Hello" > file.txt \| cat < file.txt`                                         | Writes "Hello" to `file.txt` and reads it back.                                     | `Hello`                                                                |
+| `echo "Hello" >> file.txt \| cat < file.txt`                                        | Appends "Hello" to `file.txt` and reads it back.                                    | `Hello` appended to the existing content.                              |
+| `grep "pattern" < input.txt > output.txt`                                           | Filters lines with "pattern" and writes to `output.txt`.                            | No output, but `output.txt` contains matching lines.                   |
+| `cat << EOF > output.txt`<br>`Hello`<br>`EOF`                                       | Writes "Hello" to `output.txt` using a heredoc.                                     | No output, but `output.txt` contains `Hello`.                          |
+| `cat << EOF \| cat << EOL`<br>`Hello`<br>`EOF`<br>`World`<br>`EOL`                  | Uses nested heredocs to try write "Hello" and "World". Only the last word is saved. | `World`, the result is piped, and both heredoc contents are processed. |
+| `cat <<1 <<2 <<3 \| tee out`<br>`First`<br>`1`<br>`Second`<br>`2`<br>`Third`<br>`3` | Uses multiple nested heredocs. Only the last one is saved, but all are processed.   | `Third`, `out` contains `Third` only.                                  |
 
 ### **Environment Variables**
 
@@ -252,90 +268,90 @@ Tokenizer result and classification:
 | `export VAR="Hello"`<br>`echo $VAR`                | Sets `VAR` to "Hello" and prints it.       | `Hello`                       |
 | `export VAR="Hello World"`<br>`echo $VAR`          | Sets `VAR` to "Hello World" and prints it. | `Hello World`                 |
 | `export VAR="Hello"`<br>`unset VAR`<br>`echo $VAR` | Unsets `VAR` and attempts to print it.     | No output.                    |
-| `echo "$PATH"`                               | Prints the current `PATH` variable.        | The system's `PATH` variable. |
+| `echo "$PATH"`                                     | Prints the current `PATH` variable.        | The system's `PATH` variable. |
 | `export VAR="Hello"`<br>`echo "$VAR World"`        | Expands `VAR` and appends "World".         | `Hello World`                 |
 
 ### **Single and Double Quotes**
 
-| **Input Command**      | **Description**                                    | **Expected Output** |
-| ---------------------- | -------------------------------------------------- | ------------------- |
-| `"echo Hello World"` | Prints "Hello 'World'" with mixed quotes.          | `Error: command not found`     |
-| `echo "Hello ""World"` | Prints 'Hello "World"' with mixed quotes.          | `Hello World`     |
-| `""ec''ho"" "Hello World"` | Prints 'Hello "World"' with mixed quotes.          | `Hello World`     |
-| `echo "Hello 'World'"` | Prints "Hello 'World'" with mixed quotes.          | `Hello 'World'`     |
-| `echo 'Hello "World"'` | Prints 'Hello "World"' with mixed quotes.          | `Hello "World"`     |
+| **Input Command**          | **Description**                           | **Expected Output**        |
+| -------------------------- | ----------------------------------------- | -------------------------- |
+| `"echo Hello World"`       | Prints "Hello 'World'" with mixed quotes. | `Error: command not found` |
+| `echo "Hello ""World"`     | Prints 'Hello "World"' with mixed quotes. | `Hello World`              |
+| `""ec''ho"" "Hello World"` | Prints 'Hello "World"' with mixed quotes. | `Hello World`              |
+| `echo "Hello 'World'"`     | Prints "Hello 'World'" with mixed quotes. | `Hello 'World'`            |
+| `echo 'Hello "World"'`     | Prints 'Hello "World"' with mixed quotes. | `Hello "World"`            |
 
 ### **Variable Expansion and Quotes combination**
 
-| **Input Command**                                  | **Description**                                   | **Expected Output**                          |
-|----------------------------------------------------|---------------------------------------------------|----------------------------------------------|
-| `echo "Hello \$USER"`  | Expands `$USER` in double quotes.                  | `Hello <username>`  |
-| `echo 'Hello \$USER'`  | Does not expand `$USER` in single quotes.          | `Hello $USER`       |
-| `export CMD="echo Hello"`<br>`$CMD`                | Expands `$CMD` to execute `echo Hello`.           | `Hello`                                      |
-| `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".              | `Hello pattern`                              |
-| `export CMD="cat << EOF"`<br>`$CMD`<br>`Hello`<br>`EOF` | Expands `$CMD`, but it doesn't use a heredoc.                 | `Error: <</EOF: No such file or directory`                                      |
-| `echo "ls \| wc -l"`                               | Treats `ls \| wc -l` as a literal string.         | `ls \| wc -l`                                |
-| `export CMD="ls \| wc -l"`<br>`echo "$CMD"`        | Prints the value of `$CMD` without executing it.  | `ls \| wc -l`                                |
-| `export CMD="ls \| wc -l"`<br>`"$CMD"`        | Executes `$CMD` commands.  | `<Number of files>` |
-| `echo "Hello \| grep H"`                           | Treats `\|` as part of the string.                | `Hello \| grep H`                            |
+| **Input Command**                                             | **Description**                                  | **Expected Output**                        |
+| ------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
+| `echo "Hello \$USER"`                                         | Expands `$USER` in double quotes.                | `Hello <username>`                         |
+| `echo 'Hello \$USER'`                                         | Does not expand `$USER` in single quotes.        | `Hello $USER`                              |
+| `export CMD="echo Hello"`<br>`$CMD`                           | Expands `$CMD` to execute `echo Hello`.          | `Hello`                                    |
+| `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".              | `Hello pattern`                            |
+| `export CMD="cat << EOF"`<br>`$CMD`<br>`Hello`<br>`EOF`       | Expands `$CMD`, but it doesn't use a heredoc.    | `Error: <</EOF: No such file or directory` |
+| `echo "ls \| wc -l"`                                          | Treats `ls \| wc -l` as a literal string.        | `ls \| wc -l`                              |
+| `export CMD="ls \| wc -l"`<br>`echo "$CMD"`                   | Prints the value of `$CMD` without executing it. | `ls \| wc -l`                              |
+| `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `$CMD` commands.                        | `<Number of files>`                        |
+| `echo "Hello \| grep H"`                                      | Treats `\|` as part of the string.               | `Hello \| grep H`                          |
 
 ### **Heredocs with Quoted Limiters**
 
-| **Input Command**                                  | **Description**                                   | **Expected Output**                          |
-|----------------------------------------------------|---------------------------------------------------|----------------------------------------------|
-| `cat << EOF`<br>`$USER`<br>`EOF`                   | Uses an unquoted limiter to expand `$USER`.       | Current username.                            |
-| `cat << "EOF"`<br>`Hello $USER`<br>`EOF`           | Uses a quoted limiter to prevent `$USER` expansion. | `Hello $USER`                                |
-| `cat << 'EOF'`<br>`Hello $USER`<br>`EOF`           | Uses a single-quoted limiter to treat `$USER` literally. | `Hello $USER`                                |
+| **Input Command**                        | **Description**                                          | **Expected Output** |
+| ---------------------------------------- | -------------------------------------------------------- | ------------------- |
+| `cat << EOF`<br>`$USER`<br>`EOF`         | Uses an unquoted limiter to expand `$USER`.              | Current username.   |
+| `cat << "EOF"`<br>`Hello $USER`<br>`EOF` | Uses a quoted limiter to prevent `$USER` expansion.      | `Hello $USER`       |
+| `cat << 'EOF'`<br>`Hello $USER`<br>`EOF` | Uses a single-quoted limiter to treat `$USER` literally. | `Hello $USER`       |
 
 ### **Built-in Commands**
 
-| **Input Command**                                  | **Description**                                  | **Expected Output**    |
-| -------------------------------------------------- | ------------------------------------------------ | ---------------------- |
-| `export VAR="Hello"`<br>`unset VAR`<br>`echo $VAR` | Unsets `VAR` and attempts to print it.           | No output.             |
-| `echo -n -nnnnnnn "Hello"`                                  | Prints "Hello" without a newline.                 | `Hello`                                      |
-| `env \| grep PWD`                                  | Prints environment variables and filters `PWD`.  | The `PWD` and `OLDPWD` variable.                         |
-| `env` | Displays environment variables that are currently active in the shell. | List environment. Excludes variables declared with `export` but not assigned a value. |
-| `export` | Displays all exported variables, including those without assigned values. | Includes variables declared with `export` even without value. |
-| `cd /tmp`<br>`pwd`                                 | Changes to `/tmp` and prints the current directory. | `/tmp`                                      |
-| `cd ..`<br>`pwd`                                   | Changes to the parent directory and prints it.    | Parent directory path.                       |
-| `cd -`                                            | Switches back to the previous directory.         | Path of the previous directory. |
-| `mkdir -p t/t/t`<br>`cd t/t/t`<br>`rm -rf ../../../t`<br>`pwd`<br>`cd ..`<br>`cd ..`<br>`cd ..`<br>`pwd`| Checks cd behaviour in ether | You should be back to the original directory |
-
+| **Input Command**                                                                                        | **Description**                                                           | **Expected Output**                                                                   |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `export VAR="Hello"`<br>`unset VAR`<br>`echo $VAR`                                                       | Unsets `VAR` and attempts to print it.                                    | No output.                                                                            |
+| `echo -n -nnnnnnn "Hello"`                                                                               | Prints "Hello" without a newline.                                         | `Hello`                                                                               |
+| `env \| grep PWD`                                                                                        | Prints environment variables and filters `PWD`.                           | The `PWD` and `OLDPWD` variable.                                                      |
+| `env`                                                                                                    | Displays environment variables that are currently active in the shell.    | List environment. Excludes variables declared with `export` but not assigned a value. |
+| `export`                                                                                                 | Displays all exported variables, including those without assigned values. | Includes variables declared with `export` even without value.                         |
+| `cd /tmp`<br>`pwd`                                                                                       | Changes to `/tmp` and prints the current directory.                       | `/tmp`                                                                                |
+| `cd ..`<br>`pwd`                                                                                         | Changes to the parent directory and prints it.                            | Parent directory path.                                                                |
+| `cd -`                                                                                                   | Switches back to the previous directory.                                  | Path of the previous directory.                                                       |
+| `mkdir -p t/t/t`<br>`cd t/t/t`<br>`rm -rf ../../../t`<br>`pwd`<br>`cd ..`<br>`cd ..`<br>`cd ..`<br>`pwd` | Checks cd behaviour in ether                                              | You should be back to the original directory                                          |
 
 ### **Error Handling**
 
-| **Input Command**           | **Description**                                   | **Expected Output**                          |
-|-----------------------------|---------------------------------------------------|----------------------------------------------|
-| `ls /nonexistent`           | Attempts to list a non-existent directory.        | `Error: no such file or directory`, exit code `1`. |
-| `cat /nonexistent/file.txt` | Attempts to read a non-existent file.             | `Error: no such file or directory`, exit code `1`. |
-| `echo "Hello" >`            | Ends with a redirection without a file.           | `Error: syntax error near unexpected token \`newline'`, exit code `2`. |
-| `ls \|`                     | Ends with a pipe without a command.               | `Error: syntax error near unexpected token \`newline'`, exit code `2`. |
-| `chmod 000 non_x_file`<br>`./non_x_file`     | Attempts to execute a file without execute permissions. | `Error: permission denied`, exit code `126`. |
-| `nonexistent_command`       | Attempts to run a command that does not exist.          | `Error: command not found`, exit code `127`. |
-| `exit 42`                   | Exits the shell with status `42`.                       | Shell exits with code `42`.                  |
-| `exit -1`                   | Exits the shell with status `255` (overflow behavior).  | Shell exits with code `255`.                 |
+| **Input Command**                        | **Description**                                         | **Expected Output**                                                    |
+| ---------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `ls /nonexistent`                        | Attempts to list a non-existent directory.              | `Error: no such file or directory`, exit code `1`.                     |
+| `cat /nonexistent/file.txt`              | Attempts to read a non-existent file.                   | `Error: no such file or directory`, exit code `1`.                     |
+| `echo "Hello" >`                         | Ends with a redirection without a file.                 | `Error: syntax error near unexpected token \`newline'`, exit code `2`. |
+| `ls \|`                                  | Ends with a pipe without a command.                     | `Error: syntax error near unexpected token \`newline'`, exit code `2`. |
+| `chmod 000 non_x_file`<br>`./non_x_file` | Attempts to execute a file without execute permissions. | `Error: permission denied`, exit code `126`.                           |
+| `nonexistent_command`                    | Attempts to run a command that does not exist.          | `Error: command not found`, exit code `127`.                           |
+| `exit 42`                                | Exits the shell with status `42`.                       | Shell exits with code `42`.                                            |
+| `exit -1`                                | Exits the shell with status `255` (overflow behavior).  | Shell exits with code `255`.                                           |
 
 ### **Signals**
 
-| **Input Command**           | **Description**                                   | **Expected Output**                          |
-|-----------------------------|---------------------------------------------------|----------------------------------------------|
-| `ctrl-C`                    | Sends `SIGINT` during an empty prompt.            | Prints a new prompt on a new line.           |
-| `ctrl-C` during `cat`       | Sends `SIGINT` during a blocking command.         | Interrupts `cat` and prints a new prompt.    |
-| `ctrl-\`                    | Sends `SIGQUIT` during an empty prompt.           | Does nothing.                                |
-| `ctrl-\` during `cat`       | Sends `SIGQUIT` during a blocking command.        | Does nothing.                                |
-| `ctrl-D`                    | Sends `EOF` during an empty prompt.               | Exits the shell.                             |
-| `ctrl-D` during `cat`       | Sends `EOF` during a blocking command.            | Exits `cat` and returns to the shell.        |
+| **Input Command**     | **Description**                            | **Expected Output**                       |
+| --------------------- | ------------------------------------------ | ----------------------------------------- |
+| `ctrl-C`              | Sends `SIGINT` during an empty prompt.     | Prints a new prompt on a new line.        |
+| `ctrl-C` during `cat` | Sends `SIGINT` during a blocking command.  | Interrupts `cat` and prints a new prompt. |
+| `ctrl-\`              | Sends `SIGQUIT` during an empty prompt.    | Does nothing.                             |
+| `ctrl-\` during `cat` | Sends `SIGQUIT` during a blocking command. | Does nothing.                             |
+| `ctrl-D`              | Sends `EOF` during an empty prompt.        | Exits the shell.                          |
+| `ctrl-D` during `cat` | Sends `EOF` during a blocking command.     | Exits `cat` and returns to the shell.     |
 
 ### **SHLVL (Shell Level)**
 
-| **Input Command**           | **Description**                                   | **Expected Output**                          |
-|-----------------------------|---------------------------------------------------|----------------------------------------------|
-| `echo $SHLVL`               | Prints the current shell level.                   | `1` (or incremented value if nested).        |
-| `./minishell`               | Starts a nested Minishell.                        | `$SHLVL` is incremented by `1`.              |
-| `./minishell` inside itself | Starts another nested Minishell.                  | `$SHLVL` is incremented by `1`.              |
-| `env \| grep SHLVL`          | Prints the `SHLVL` variable from the environment. | `SHLVL=<value>`                              |
+| **Input Command**           | **Description**                                   | **Expected Output**                   |
+| --------------------------- | ------------------------------------------------- | ------------------------------------- |
+| `echo $SHLVL`               | Prints the current shell level.                   | `1` (or incremented value if nested). |
+| `./minishell`               | Starts a nested Minishell.                        | `$SHLVL` is incremented by `1`.       |
+| `./minishell` inside itself | Starts another nested Minishell.                  | `$SHLVL` is incremented by `1`.       |
+| `env \| grep SHLVL`         | Prints the `SHLVL` variable from the environment. | `SHLVL=<value>`                       |
 
 ---
+
 ## What I Learned
 
 - **Process Management**: Gained a deeper understanding of how processes are created and managed using `fork`, `execve`, and `waitpid`.
@@ -352,7 +368,7 @@ Tokenizer result and classification:
 
 | **Name**                   | **GitHub Profile**                              | **42 Login** |
 | -------------------------- | ----------------------------------------------- | ------------ |
-| **Oliver King Zamora**     | [oliverkingz](https://github.com/oliverkingz)   | **ozamora-** |
+| **Oliver King Zamora**     | [OliverKingz](https://github.com/oliverkingz)   | **ozamora-** |
 | **Raúl José Pérez Medina** | [RaulPerezDEV](https://github.com/RaulPerezDEV) | **raperez-** |
 
 </div>
