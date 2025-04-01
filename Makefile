@@ -15,16 +15,45 @@ LIBFT		:= $(LIBFT_DIR)libft.a
 
 # **************************************************************************** #
 # FILES
-# SRC_FILES	:= main shell parser utils
-SRC_FILES	:= $(wildcard $(SRC_DIR)*.c)
+SRC_FILES	:=	bi_cd \
+				bi_echo \
+				bi_env \
+				bi_exit \
+				bi_export \
+				bi_pwd \
+				bi_unset \
+				builtin \
+				cmd_exit \
+				cmd \
+				env_list \
+				env_var \
+				env \
+				execution \
+				expansion_security \
+				expansion_utils \
+				expansion_var \
+				heredoc \
+				heredoc2 \
+				input \
+				lexer \
+				main \
+				parser_tokenize \
+				parser_utils \
+				prints \
+				redirections \
+				shell \
+				signal \
+				token_list \
+				token_utils \
+				type_check \
+				utils \
+				utils2
+
 INC_FILES	:= minishell.h
 
 # GENERAL FILES
-#SRCS	:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
-# OBJS	:= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
-# DEPS	:= $(OBJS:.o=.d)
-SRCS	:= $(wildcard $(SRC_DIR)*.c)
-OBJS	:= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+SRCS	:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJS	:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 DEPS	:= $(OBJS:.o=.d)
 
 # **************************************************************************** #
@@ -39,7 +68,7 @@ LDFLAGS	:= -L$(LIBFT_DIR) -lft -lreadline
 BUILD_MODE_FILE := .build_mode
 DEBUG			?= 0
 VALGRIND		?= 0
-VALGRIND_FLAGS	:= -s --tool=memcheck --leak-check=full --show-leak-kinds=all \
+VALGRIND_FLAGS	:= --leak-check=full --show-leak-kinds=all \
 		--track-origins=yes --trace-children=yes --track-fds=yes \
 		--suppressions=doc/valgrind.supp --log-file=doc/memcheck.log #--gen-suppressions=all
 
