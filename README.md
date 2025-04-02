@@ -9,7 +9,19 @@
 
 </div>
 
+<div align="center">
+  
+![minishell_title](doc/minishell_title_clean.gif)
+
+</div>
+
 [**42-Cursus**] Minishell is a minimalist shell implementation written in C, designed to mimic basic functionalities of a Unix shell like Bash. This project focuses on understanding processes, file descriptors, and shell operations such as command execution, redirections, pipes, and signal handling.
+
+<div align="center">
+  
+![minishell_sync](doc/minishell_sync.gif)
+
+</div>
 
 Keywords
 
