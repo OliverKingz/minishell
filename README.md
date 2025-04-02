@@ -247,7 +247,7 @@ Tokenizer result and classification:
 | `mkdir -p t/t/`<br>`cd t/t/`<br>`pwd`<br>`cd -`<br>`env \| grep PWD`                                    | Checks `cd` behavior in different scenarios.                                      |
 | `echo "exit -1" > our_file`<br>`./minishell < our_file`<br>`echo $?`                                    | Exits a non-interactive Minishell with status `255`.                              |
 | `cat <<lim<<$VAR \| tee out`<br>`We are finishing`<br>`lim`<br>`Thanks for watching`<br>`$VAR`          | Uses multiple nested heredocs. Only the last one is saved, but all are processed. |
-| `exit bye`                                                                                              | Exits the shell with an error.                            |
+| `exit bye`                                                                                              | Exits the shell with an error.                                                    |
 
 ---
 
@@ -275,15 +275,15 @@ Tokenizer result and classification:
 
 ### **Redirections**
 
-| **Input Command**                                                                   | **Description**                                                                     | **Expected Output**                                                    |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `cat < input.txt > output.txt`                                                      | Reads from `input.txt` and writes to `output.txt`.                                  | No output, but `output.txt` contains the content of `input.txt`.       |
-| `echo "Hello" > file.txt \| cat < file.txt`                                         | Writes "Hello" to `file.txt` and reads it back.                                     | `Hello`                                                                |
-| `echo "Hello" >> file.txt \| cat < file.txt`                                        | Appends "Hello" to `file.txt` and reads it back.                                    | `Hello` appended to the existing content.                              |
-| `grep "pattern" < input.txt > output.txt`                                           | Filters lines with "pattern" and writes to `output.txt`.                            | No output, but `output.txt` contains matching lines.                   |
-| `cat << EOF > output.txt`<br>`Hello`<br>`EOF`                                       | Writes "Hello" to `output.txt` using a heredoc.                                     | No output, but `output.txt` contains `Hello`.                          |
-| `cat << EOF \| cat << EOL`<br>`Hello`<br>`EOF`<br>`World`<br>`EOL`                  | Uses nested heredocs to try write "Hello" and "World". Only the last word is saved. | `World`, the result is piped, and both heredoc contents are processed. |
-| `cat <<1 <<2 <<3 \| tee out`<br>`First`<br>`1`<br>`Second`<br>`2`<br>`Third`<br>`3` | Uses multiple nested heredocs. Only the last one is saved, but all are processed.   | `Third`, `out` contains `Third` only.                                  |
+| **Input Command**                                                                         | **Description**                                                                     | **Expected Output**                                                    |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `cat < input.txt > output.txt`                                                            | Reads from `input.txt` and writes to `output.txt`.                                  | No output, but `output.txt` contains the content of `input.txt`.       |
+| `echo "Hello" > file.txt \| cat < file.txt`                                               | Writes "Hello" to `file.txt` and reads it back.                                     | `Hello`                                                                |
+| `echo "Hello" >> file.txt \| cat < file.txt`                                              | Appends "Hello" to `file.txt` and reads it back.                                    | `Hello` appended to the existing content.                              |
+| `grep "pattern" < input.txt > output.txt`                                                 | Filters lines with "pattern" and writes to `output.txt`.                            | No output, but `output.txt` contains matching lines.                   |
+| `cat << EOF > output.txt`<br>`Hello`<br>`EOF`                                             | Writes "Hello" to `output.txt` using a heredoc.                                     | No output, but `output.txt` contains `Hello`.                          |
+| `cat << EOF \| cat << EOL`<br>`Hello`<br>`EOF`<br>`World`<br>`EOL`                        | Uses nested heredocs to try write "Hello" and "World". Only the last word is saved. | `World`, the result is piped, and both heredoc contents are processed. |
+| `cat <<L1 <<L2 <<L3 \| tee out`<br>`First`<br>`L1`<br>`Second`<br>`L2`<br>`Third`<br>`L3` | Uses multiple nested heredocs. Only the last one is saved, but all are processed.   | `Third`, `out` contains `Third` only.                                  |
 
 ### **Environment Variables**
 
@@ -297,13 +297,13 @@ Tokenizer result and classification:
 
 ### **Single and Double Quotes**
 
-| **Input Command**          | **Description**                           | **Expected Output**        |
-| -------------------------- | ----------------------------------------- | -------------------------- |
-| `"echo Hello World"`       | Prints "Hello 'World'" with mixed quotes. | `Error: command not found` |
-| `echo "Hello ""World"`     | Prints 'Hello "World"' with mixed quotes. | `Hello World`              |
-| `""ec''ho"" "Hello World"` | Prints 'Hello "World"' with mixed quotes. | `Hello World`              |
-| `echo "Hello 'World'"`     | Prints "Hello 'World'" with mixed quotes. | `Hello 'World'`            |
-| `echo 'Hello "World"'`     | Prints 'Hello "World"' with mixed quotes. | `Hello "World"`            |
+| **Input Command**          | **Description**                             | **Expected Output**        |
+| -------------------------- | ------------------------------------------- | -------------------------- |
+| `"echo Hello World"`       | Fails to print, as bash thinks it is a cmd. | `Error: command not found` |
+| `echo "Hello ""World"`     | Prints 'Hello "World"' with mixed quotes.   | `Hello World`              |
+| `""ec''ho"" "Hello World"` | Prints 'Hello "World"' with mixed quotes.   | `Hello World`              |
+| `echo "Hello 'World'"`     | Prints "Hello 'World'" with mixed quotes.   | `Hello 'World'`            |
+| `echo 'Hello "World"'`     | Prints 'Hello "World"' with mixed quotes.   | `Hello "World"`            |
 
 ### **Variable Expansion and Quotes combination**
 
@@ -313,7 +313,7 @@ Tokenizer result and classification:
 | `echo 'Hello \$USER'`                                         | Does not expand `$USER` in single quotes.        | `Hello $USER`                              |
 | `export CMD="echo Hello"`<br>`$CMD`                           | Expands `$CMD` to execute `echo Hello`.          | `Hello`                                    |
 | `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".              | `Hello pattern`                            |
-| `export CMD="cat << EOF"`<br>`$CMD`<br>`Hello`<br>`EOF`       | Expands `$CMD`, but it doesn't use a heredoc.    | `Error: <</EOF: No such file or directory` |
+| `export CMD="cat << EOF"`<br>`$CMD`                           | Expands `$CMD`, but it fails to use a heredoc.   | `Error: <</EOF: No such file or directory` |
 | `echo "ls \| wc -l"`                                          | Treats `ls \| wc -l` as a literal string.        | `ls \| wc -l`                              |
 | `export CMD="ls \| wc -l"`<br>`echo "$CMD"`                   | Prints the value of `$CMD` without executing it. | `ls \| wc -l`                              |
 | `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `$CMD` commands.                        | `<Number of files>`                        |
