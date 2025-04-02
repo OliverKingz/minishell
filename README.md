@@ -50,7 +50,8 @@ Made by: [![Contributors Display](https://badges.pufler.dev/contributors/oliverk
 - [Flowchart](#flowchart)
 - [How to Run](#how-to-run)
 - [Parser Example](#parser-example)
-- [Tests](#tests)
+- [Summarized Tests](#summarized-tests)
+- [Detailed Tests](#detailed-tests)
   - [Commands in Interactive Mode](#commands-in-interactive-mode)
   - [Non-Interactive Mode](#non-interactive-mode)
   - [Redirections](#redirections)
@@ -239,7 +240,20 @@ Tokenizer result and classification:
 
 ---
 
-## Tests
+## Summarized Tests
+
+| **Input Command**                                                                                       | **Description**                                                                   |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `""ec''ho"" "Welcome to our 'minishell', I am $USER"`                                                   | Prints 'Welcome to our 'minishell', I am \<USER\>' with mixed quotes.             |
+| `export VAR="cat << EOF" VAR1 VAR2= VAR3=""`<br>`$VAR` <br> `env \| grep VAR` <br> `export \| grep VAR` | Creates new VARS, expands `$VAR`, and shows the difference between env and export |
+| `mkdir -p t/t/`<br>`cd t/t/`<br>`pwd`<br>`cd -`<br>`env \| grep PWD`                                    | Checks `cd` behavior in different scenarios.                                      |
+| `echo "exit -1" > our_file`<br>`./minishell < our_file`<br>`echo $?`                                    | Exits a non-interactive Minishell with status `255`.                              |
+| `cat <<lim<<$VAR \| tee out`<br>`We are finishing`<br>`lim`<br>`Thanks for watching`<br>`$VAR`          | Uses multiple nested heredocs. Only the last one is saved, but all are processed. |
+| `exit bye`                                                                                              | Exits the shell with an error.                            |
+
+---
+
+## Detailed Tests
 
 ### **Commands in Interactive Mode**
 
