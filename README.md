@@ -1,5 +1,3 @@
-# minishell
-
 <div align="right">
 
 [![GitHub stars](https://img.shields.io/github/stars/oliverkingz/minishell?color=brightgreen)]()
