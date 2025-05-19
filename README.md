@@ -309,8 +309,8 @@ Tokenizer result and classification:
 
 | **Input Command**                                             | **Description**                                  | **Expected Output**                        |
 | ------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
-| `echo "Hello \$USER"`                                         | Expands `$USER` in double quotes.                | `Hello <username>`                         |
-| `echo 'Hello \$USER'`                                         | Does not expand `$USER` in single quotes.        | `Hello $USER`                              |
+| `echo "Hello $USER"`                                         | Expands `$USER` in double quotes.                | `Hello <username>`                         |
+| `echo 'Hello $USER'`                                         | Does not expand `$USER` in single quotes.        | `Hello $USER`                              |
 | `export CMD="echo Hello"`<br>`$CMD`                           | Expands `$CMD` to execute `echo Hello`.          | `Hello`                                    |
 | `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".              | `Hello pattern`                            |
 | `export CMD="cat << EOF"`<br>`$CMD`                           | Expands `$CMD`, but it fails to use a heredoc.   | `Error: <</EOF: No such file or directory` |
