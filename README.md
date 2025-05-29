@@ -267,8 +267,8 @@ Tokenizer result and classification:
 
 | **Input Command**                       | **Description**                                       | **Expected Output**                          |
 | --------------------------------------- | ----------------------------------------------------- | -------------------------------------------- |
-| `echo "Hello" \| ./minishell`           | Pipes "Hello" into Minishell in non-interactive mode. | `Hello`                                      |
-| `ls \| ./minishell`                     | Pipes `ls` output into Minishell.                     | List of files.                               |
+| `echo "Hello" \| ./minishell`           | Pipes "Hello" into Minishell in non-interactive mode. | `Hello: command not found`                                      |
+| `echo ls \| ./minishell`                     | Pipes `ls` output into Minishell.                     | List of files.                               |
 | `echo "exit 42" \| ./minishell`         | Exits Minishell with status `42`.                     | Shell exits with code `42`.                  |
 | `echo "invalid_command" \| ./minishell` | Runs an invalid command in non-interactive mode.      | `Error: command not found`, exit code `127`. |
 | `echo "echo $SHLVL" \| ./minishell`     | Prints the shell level in non-interactive mode.       | `1` (or incremented value if nested).        |
