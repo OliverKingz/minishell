@@ -317,7 +317,7 @@ Tokenizer result and classification:
 | `echo "Hello \| grep H"`                                      | Treats `\|` as part of the string.                 | `Hello \| grep H`                                         |
 | `echo "ls \| wc -l"`                                          | Treats `ls \| wc -l` as a literal string.          | `ls \| wc -l`                                             |
 | `export CMD="ls \| wc -l"`<br>`echo "$CMD"`                   | Prints the value of `$CMD` without executing it.   | `ls \| wc -l`                                             |
-| `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `ls` as cmd, the rest as args (pipes too) | `ls: cannot access '\| or wc': No such file or directory` |
+| `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `ls` as cmd, the rest as args (pipes too) | `ls: cannot access '\|/wc': No such file or directory` |
 | `export CMD="ls \| wc -l"`<br>`$CMD`                          | Expands `$CMD` to execute it as a single command   | `ls \| wc -l: command not found`                          |
 
 ### **Heredocs with Quoted Limiters**
