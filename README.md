@@ -267,8 +267,8 @@ Tokenizer result and classification:
 
 | **Input Command**                       | **Description**                                       | **Expected Output**                          |
 | --------------------------------------- | ----------------------------------------------------- | -------------------------------------------- |
-| `echo "Hello" \| ./minishell`           | Pipes "Hello" into Minishell in non-interactive mode. | `Hello: command not found`                                      |
-| `echo ls \| ./minishell`                     | Pipes `ls` output into Minishell.                     | List of files.                               |
+| `echo "Hello" \| ./minishell`           | Pipes "Hello" into Minishell in non-interactive mode. | `Hello: command not found`                   |
+| `echo ls \| ./minishell`                | Pipes `ls` output into Minishell.                     | List of files.                               |
 | `echo "exit 42" \| ./minishell`         | Exits Minishell with status `42`.                     | Shell exits with code `42`.                  |
 | `echo "invalid_command" \| ./minishell` | Runs an invalid command in non-interactive mode.      | `Error: command not found`, exit code `127`. |
 | `echo "echo $SHLVL" \| ./minishell`     | Prints the shell level in non-interactive mode.       | `1` (or incremented value if nested).        |
@@ -307,17 +307,17 @@ Tokenizer result and classification:
 
 ### **Variable Expansion and Quotes combination**
 
-| **Input Command**                                             | **Description**                                  | **Expected Output**                        |
-| ------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------ |
-| `echo "Hello $USER"`                                         | Expands `$USER` in double quotes.                | `Hello <username>`                         |
-| `echo 'Hello $USER'`                                         | Does not expand `$USER` in single quotes.        | `Hello $USER`                              |
-| `export CMD="echo Hello"`<br>`$CMD`                           | Expands `$CMD` to execute `echo Hello`.          | `Hello`                                    |
-| `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".              | `Hello pattern`                            |
-| `export CMD="cat << EOF"`<br>`$CMD`                           | Expands `$CMD`, but it fails to use a heredoc.   | `Error: <</EOF: No such file or directory` |
-| `echo "ls \| wc -l"`                                          | Treats `ls \| wc -l` as a literal string.        | `ls \| wc -l`                              |
-| `export CMD="ls \| wc -l"`<br>`echo "$CMD"`                   | Prints the value of `$CMD` without executing it. | `ls \| wc -l`                              |
-| `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `$CMD` commands.                        | `<Number of files>`                        |
-| `echo "Hello \| grep H"`                                      | Treats `\|` as part of the string.               | `Hello \| grep H`                          |
+| **Input Command**                                             | **Description**                                   | **Expected Output**                                    |
+| ------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ |
+| `echo "Hello $USER"`                                          | Expands `$USER` in double quotes.                 | `Hello <username>`                                     |
+| `echo 'Hello $USER'`                                          | Does not expand `$USER` in single quotes.         | `Hello $USER`                                          |
+| `export CMD="echo Hello"`<br>`$CMD`                           | Expands `$CMD` to execute `echo Hello`.           | `Hello`                                                |
+| `export CMD="grep pattern"`<br>`echo "Hello pattern" \| $CMD` | Expands `$CMD` to filter "pattern".               | `Hello pattern`                                        |
+| `export CMD="cat << EOF"`<br>`$CMD`                           | Expands `$CMD`, but it fails to use a heredoc.    | `Error: <</EOF: No such file or directory`             |
+| `echo "Hello \| grep H"`                                      | Treats `\|` as part of the string.                | `Hello \| grep H`                                      |
+| `echo "ls \| wc -l"`                                          | Treats `ls \| wc -l` as a literal string.         | `ls \| wc -l`                                          |
+| `export CMD="ls \| wc -l"`<br>`echo "$CMD"`                   | Prints the value of `$CMD` without executing it.  | `ls \| wc -l`                                          |
+| `export CMD="ls \| wc -l"`<br>`"$CMD"`                        | Executes `ls` as a command, and the rest as args. | `ls: cannot access '\|/wc': No such file or directory` |
 
 ### **Heredocs with Quoted Limiters**
 
